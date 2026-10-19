@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { ADMIN_EMAIL, auth, isFirebaseConfigured } from '../../firebase'
+import { ADMIN_EMAIL, ADMIN_PASSWORD_PREFIX, auth, isFirebaseConfigured } from '../../firebase'
 
 export default function AdminLogin() {
   const [pass, setPass] = useState('')
@@ -13,7 +13,7 @@ export default function AdminLogin() {
     setErr('')
     setBusy(true)
     try {
-      await signInWithEmailAndPassword(auth, ADMIN_EMAIL, pass)
+      await signInWithEmailAndPassword(auth, ADMIN_EMAIL, ADMIN_PASSWORD_PREFIX + pass)
     } catch {
       setErr('Galat password. Dobara koshish karein.')
       setPass('')

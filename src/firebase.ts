@@ -26,6 +26,19 @@ const firebaseConfig = {
 /** The admin login email. Create exactly this user in Firebase Authentication. */
 export const ADMIN_EMAIL = 'admin@clcbarmer.com'
 
+/**
+ * Firebase requires a password of 6+ characters, but the institute only types a
+ * short PIN. This prefix is added automatically before the password is sent to
+ * Firebase, so nothing short has to be stored anywhere.
+ *
+ *   Firebase password  =  ADMIN_PASSWORD_PREFIX + what you type at /admin
+ *   Example            =  'clc' + '2026'  ->  'clc2026'
+ *
+ * So create the Firebase user with password `clc2026`, and at the login box just
+ * type `2026`.
+ */
+export const ADMIN_PASSWORD_PREFIX = 'clc'
+
 const env: Record<string, string | undefined> = (import.meta as { env?: Record<string, string> }).env || {}
 const config = {
   apiKey: env.VITE_FIREBASE_API_KEY || firebaseConfig.apiKey,
