@@ -34,6 +34,25 @@ export default function PosterManager({ which, pass, block }: Props) {
     }
   }
 
+  const remove = async () => {
+    if (!confirm('Isse website se hata dein?')) return
+    setBusy(true)
+    setMsg('')
+    try {
+      await saveContent(pass, {
+        [which]: { poster: '', title: ['', ''], description: ['', ''] },
+      } as never)
+      setTitle('')
+      setDesc('')
+      setFile(null)
+      setMsg('Website se hata diya ✓')
+    } catch (err) {
+      setMsg('Nahi hata: ' + (err as Error).message)
+    } finally {
+      setBusy(false)
+    }
+  }
+
   return (
     <div className="adm-panel">
       <h3>{which === 'megatest' ? L(['Mega Test', 'मेगा टेस्ट']) : L(['Test Series', 'टेस्ट सीरीज़'])}</h3>
@@ -57,9 +76,14 @@ export default function PosterManager({ which, pass, block }: Props) {
           <span>Description</span>
           <textarea rows={3} value={desc} onChange={(e) => setDesc(e.target.value)} />
         </label>
-        <button className="btn" type="submit" disabled={busy}>
-          {busy ? 'Saving…' : 'Save karein'}
-        </button>
+        <div className="adm-btns">
+          <button className="btn" type="submit" disabled={busy}>
+            {busy ? 'Saving…' : 'Save karein'}
+          </button>
+          <button className="btn ghost" type="button" onClick={remove} disabled={busy}>
+            Website se hataein
+          </button>
+        </div>
       </form>
 
       {msg && <p className="admin-msg">{msg}</p>}

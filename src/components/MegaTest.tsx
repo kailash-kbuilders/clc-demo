@@ -7,16 +7,9 @@ import type { PosterBlock } from '../data/content'
 
 function PosterCard({ block, kind }: { block: PosterBlock; kind: 'mega' | 'series' }) {
   const { L } = useLang()
-  const hasPoster = Boolean(block.poster)
   return (
     <div className="sch rv">
-      {hasPoster ? (
-        <img src={block.poster} alt={L(block.title)} data-zoom loading="lazy" />
-      ) : (
-        <div className="sch-ph" aria-hidden="true">
-          {L(['Poster coming soon', 'पोस्टर जल्द आएगा'])}
-        </div>
-      )}
+      <img src={block.poster} alt={L(block.title)} data-zoom loading="lazy" />
       <div>
         <h3>{L(block.title)}</h3>
         <p>{L(block.description)}</p>
@@ -31,22 +24,15 @@ function PosterCard({ block, kind }: { block: PosterBlock; kind: 'mega' | 'serie
               ? L(['Ask about the Mega Test', 'मेगा टेस्ट के बारे में पूछें'])
               : L(['Ask about the Test Series', 'टेस्ट सीरीज़ के बारे में पूछें'])}
           </a>
-          {hasPoster && (
-            <button
-              className="btn icdl ghost"
-              type="button"
-              onClick={() =>
-                startDownload(
-                  block.poster,
-                  safeName(L(block.title), 'CLC-poster') + '.jpg',
-                  L,
-                  toast,
-                )
-              }
-            >
-              {L(['Download poster', 'पोस्टर डाउनलोड करें'])}
-            </button>
-          )}
+          <button
+            className="btn icdl ghost"
+            type="button"
+            onClick={() =>
+              startDownload(block.poster, safeName(L(block.title), 'CLC-poster') + '.jpg', L, toast)
+            }
+          >
+            {L(['Download poster', 'पोस्टर डाउनलोड करें'])}
+          </button>
         </div>
       </div>
     </div>
@@ -57,12 +43,24 @@ export default function MegaTest() {
   const { L } = useLang()
   const content = useSiteContent()
 
+  // A block only exists once the admin has added a poster for it.
+  const blocks: { block: PosterBlock; kind: 'mega' | 'series' }[] = []
+  if (content.megatest.poster) blocks.push({ block: content.megatest, kind: 'mega' })
+  if (content.testseries.poster) blocks.push({ block: content.testseries, kind: 'series' })
+
+  if (blocks.length === 0) return null
+
   return (
     <section id="tests">
       <div className="w">
-        <h2 className="rv">{L(['Mega Test & Test Series', 'मेगा टेस्ट व टेस्ट सीरीज़'])}</h2>
-        <PosterCard block={content.megatest} kind="mega" />
-        <PosterCard block={content.testseries} kind="series" />
+        <h2 className="rv">
+          {blocks.length === 1
+            ? L(['Test', 'टेस्ट'])
+            : L(['Mega Test & Test Series', 'मेगा टेस्ट व टेस्ट सीरीज़'])}
+        </h2>
+        {blocks.map((b) => (
+          <PosterCard key={b.kind} block={b.block} kind={b.kind} />
+        ))}
       </div>
     </section>
   )
