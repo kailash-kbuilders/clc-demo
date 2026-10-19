@@ -1,0 +1,26 @@
+{
+  "name": "clc-barmer",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "CLC Barmer (Career Launcher Classes) - Navodaya, Sainik School & Rashtriya Military School coaching, Barmer Rajasthan.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}

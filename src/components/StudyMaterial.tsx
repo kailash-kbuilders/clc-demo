@@ -1,0 +1,27 @@
+import { useLang } from '../i18n/LangContext'
+import { MATERIAL } from '../data/site'
+
+export default function StudyMaterial() {
+  const { L } = useLang()
+  return (
+    <section id="material">
+      <div className="w">
+        <h2 className="rv">{L(['Study material', 'अध्ययन सामग्री'])}</h2>
+        <p className="sub">
+          {L(['Notes and model papers — download the PDFs below.', 'नोट्स और मॉडल पेपर — नीचे से PDF डाउनलोड करें।'])}
+        </p>
+        <div className="grid" id="matGrid">
+          {MATERIAL.map((m, i) => (
+            <div className="card rv" key={i}>
+              <h3>{L(m.t)}</h3>
+              <p className="note">{L(m.k)}</p>
+              <a className="btn icdl sm" href={m.file} download>
+                {L(['Download PDF', 'PDF डाउनलोड करें'])}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
