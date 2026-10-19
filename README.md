@@ -1,9 +1,10 @@
-# CLC Barmer — Website (React + Vite + TypeScript + Firebase)
+# CLC Barmer — Website (React + Vite + TypeScript + Supabase)
 
 Website for **CLC Barmer (Career Launcher Classes)** — Navodaya Vidyalaya, Sainik School and
 Rashtriya Military School entrance coaching, Shastri Nagar, Barmer, Rajasthan.
 
-Public site: `/`  •  Admin panel: `/admin` (no link to it anywhere on the public site)
+- Public site: `/`
+- Admin panel: `/admin` (password `2026`) — **no link to it anywhere on the public site**
 
 ---
 
@@ -21,17 +22,17 @@ npm run preview
 ```
 clc-barmer/
 ├── index.html                 # SEO meta, Open Graph, JSON-LD (schema.org)
-├── vercel.json                # SPA rewrite -> /admin works on Vercel
-├── firestore.rules            # paste in Firebase console -> Firestore -> Rules
-├── storage.rules              # paste in Firebase console -> Storage -> Rules
+├── vercel.json                # SPA rewrite (/admin) + daily keep-alive cron
+├── api/ping.ts                # daily Supabase keep-alive (free plan does not pause)
+├── supabase/schema.sql        # database + storage setup (already applied)
 ├── public/
 │   ├── img/                   # logo, posters, campus photo
 │   ├── pdf/                   # study-material PDFs
-│   ├── robots.txt, sitemap.xml
+│   └── robots.txt, sitemap.xml
 └── src/
-    ├── firebase.ts            # <-- PASTE YOUR FIREBASE CONFIG HERE
-    ├── data/site.ts           # default content (used until Firebase has data)
-    ├── data/content.ts        # Firestore + Storage read/write helpers
+    ├── supabase.ts            # Supabase client (URL + publishable key)
+    ├── data/site.ts           # default content (shown until the database has data)
+    ├── data/content.ts        # read / save content, password check, file upload
     ├── hooks/useSiteContent.ts
     ├── components/            # public site (16 files)
     ├── components/admin/      # AdminLogin, ResultsManager, PosterManager, MaterialManager
@@ -39,51 +40,38 @@ clc-barmer/
     └── styles/index.css
 ```
 
----
+## 3. Backend (Supabase)
 
-## 3. Firebase setup (one time, ~10 minutes)
+Project: **clc-barmer** (region `ap-south-1`, Mumbai) — free plan, **$0/month**.
 
-The admin panel needs Firebase so that whatever you add shows up **live for everyone**
-(not just on your phone).
+Everything is already created; `supabase/schema.sql` is kept only for reference.
 
-### 3.1 Create the project
-1. Go to <https://console.firebase.google.com> → **Add project** → name it `clc-barmer`.
-2. Google Analytics: not needed, you can skip it.
+| Piece | What it does |
+|---|---|
+| `site_content` table | One row holding all website content (results, posters, materials) as JSON. **World readable.** |
+| `app_config` table | Holds the admin password. RLS is on with **no policies**, so it is unreachable through the API. |
+| `admin_check(pass)` | Returns true/false for the password. Used by the admin gate. |
+| `admin_save(pass, patch)` | Merges new content — **refuses to write unless the password matches**. Direct writes to `site_content` are blocked by RLS. |
+| `media` bucket | Public-read storage for posters, result photos and PDFs. Uploads are limited to jpg/jpeg/png/webp/pdf under 3 MB. |
 
-### 3.2 Turn on Authentication
-1. Left menu → **Build → Authentication → Get started**.
-2. **Sign-in method** tab → **Email/Password** → **Enable** → Save.
-3. **No user needed.** There is no login system — the admin password is checked
-   right in the code (`ADMIN_PASSWORD_HASH` in `src/components/admin/AdminLogin.tsx`).
+**How live updates work:** the site subscribes to the `site_content` row over Supabase
+Realtime. The moment the admin saves, every visitor's phone updates — no refresh needed.
+If the database is ever unreachable, the site falls back to the defaults in
+`src/data/site.ts`, so it never looks broken.
 
-### 3.3 Turn on Firestore
-1. **Build → Firestore Database → Create database** → **Production mode**.
-2. Location: `asia-south1` (Mumbai) is closest for Barmer.
-3. Open the **Rules** tab, delete everything and paste the contents of **`firestore.rules`** → **Publish**.
+### Why the password lives in the database
 
-### 3.4 Turn on Storage
-1. **Build → Storage → Get started** → **Production mode**.
-2. Open the **Rules** tab, paste the contents of **`storage.rules`** → **Publish**.
+The admin gate is a single password box — no accounts, no login system. The password is
+**not** written in the code; it is checked by the database function `admin_check`.
+`vercel.json` runs a tiny daily job (`/api/ping`) that touches the database, so the free
+plan never gets paused for inactivity.
 
-### 3.5 Get the config and paste it
-1. ⚙️ **Project settings → General → Your apps → Web (`</>`)** → register an app
-   (nickname `clc-web`), then copy the `firebaseConfig` object.
-2. Paste the values into **`src/firebase.ts`** (the marked block near the top).
-   You can edit the file directly on GitHub (pencil icon → commit) — no local setup needed.
+> If the password ever needs changing:
+> `update public.app_config set value = 'new-password' where key = 'admin_pass';`
 
-   *Alternative:* instead of editing the file, add these as Vercel environment variables
-   (Project → Settings → Environment Variables) and redeploy:
-   `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`,
-   `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIREBASE_MESSAGING_SENDER_ID`, `VITE_FIREBASE_APP_ID`.
+## 4. Admin panel
 
-3. Commit / redeploy. Now open **`/admin`**, enter the password → you are in.
-
-> The Firebase web config is **not a secret** — it is meant to be public. Security is handled
-> by the rules above (only the logged-in admin can write).
-
----
-
-## 4. What the admin panel can do
+Open **`/admin`** and type the password. Four tabs:
 
 | Tab | You can |
 |---|---|
@@ -92,22 +80,18 @@ The admin panel needs Firebase so that whatever you add shows up **live for ever
 | **Test Series** | Upload a new poster + heading + description. |
 | **Study material** | Add a name + optional subtitle + PDF file. Delete old ones. |
 
-**Login:** open `/admin` and type the password — that is all. No email, no account.
-
-Everything is saved to Firebase, so it appears **instantly on every visitor's phone**.
-The password is never written in the code — it lives only in Firebase Authentication.
-
----
+Nothing links to `/admin` from the public site, `robots.txt` disallows it, and the page is
+`noindex`.
 
 ## 5. Deploy on Vercel
 
 1. Push this repo to GitHub.
 2. vercel.com → **Add New → Project → Import** the repo.
 3. Framework preset **Vite** (auto). Build `npm run build`, output `dist`.
-4. Deploy → you get `https://<project>.vercel.app`.
+4. Deploy → `https://<project>.vercel.app`.
 
 `vercel.json` rewrites every path to `index.html`, so **`/admin` works on a direct visit
-and on refresh**.
+and on refresh**. The `crons` entry keeps Supabase awake.
 
 ## 6. Custom domain (clcbarmer.com)
 
