@@ -3,9 +3,9 @@ import { saveContent, uploadFile } from '../../data/content'
 import type { PosterBlock } from '../../data/content'
 import { useLang } from '../../i18n/LangContext'
 
-type Props = { which: 'megatest' | 'testseries'; block: PosterBlock }
+type Props = { which: 'megatest' | 'testseries'; pass: string; block: PosterBlock }
 
-export default function PosterManager({ which, block }: Props) {
+export default function PosterManager({ which, pass, block }: Props) {
   const { L } = useLang()
   const [title, setTitle] = useState(L(block.title))
   const [desc, setDesc] = useState(L(block.description))
@@ -24,7 +24,7 @@ export default function PosterManager({ which, block }: Props) {
         title: [title.trim() || L(block.title), title.trim() || L(block.title)],
         description: [desc.trim(), desc.trim()],
       }
-      await saveContent({ [which]: next } as never)
+      await saveContent(pass, { [which]: next } as never)
       setFile(null)
       setMsg('Save ho gaya ✓')
     } catch (err) {

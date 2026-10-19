@@ -3,7 +3,7 @@ import { saveContent, uploadFile } from '../../data/content'
 import type { ResultItem } from '../../data/content'
 import { useLang } from '../../i18n/LangContext'
 
-export default function ResultsManager({ results }: { results: ResultItem[] }) {
+export default function ResultsManager({ pass, results }: { pass: string; results: ResultItem[] }) {
   const { L } = useLang()
   const [name, setName] = useState('')
   const [detail, setDetail] = useState('')
@@ -20,7 +20,7 @@ export default function ResultsManager({ results }: { results: ResultItem[] }) {
     try {
       const url = await uploadFile('results', file)
       const item: ResultItem = { img: url, name: [name.trim(), name.trim()], detail: [detail.trim(), detail.trim()] }
-      await saveContent({ results: [...results, item] })
+      await saveContent(pass, { results: [...results, item] })
       setName('')
       setDetail('')
       setFile(null)
@@ -36,7 +36,7 @@ export default function ResultsManager({ results }: { results: ResultItem[] }) {
     if (!confirm('Ye result hata dein?')) return
     setBusy(true)
     try {
-      await saveContent({ results: results.filter((_, k) => k !== i) })
+      await saveContent(pass, { results: results.filter((_, k) => k !== i) })
       setMsg('Hata diya ✓')
     } catch (err) {
       setMsg('Nahi hata: ' + (err as Error).message)

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { checkPassword } from '../../data/content'
 
 /**
  * Simple password gate - no accounts, no login system.
@@ -16,7 +17,7 @@ async function sha256(text: string): Promise<string> {
     .join('')
 }
 
-export default function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
+export default function AdminLogin({ onSuccess }: { onSuccess: (pass: string) => void }) {
   const [pass, setPass] = useState('')
   const [err, setErr] = useState('')
   const [busy, setBusy] = useState(false)
@@ -26,9 +27,15 @@ export default function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
     setErr('')
     setBusy(true)
     try {
-      const ok = (await sha256(pass)) === ADMIN_PASSWORD_HASH
+      let ok = false
+      try {
+        ok = await checkPassword(pass)
+      } catch {
+        // offline fallback - same password
+        ok = (await sha256(pass)) === ADMIN_PASSWORD_HASH
+      }
       if (ok) {
-        onSuccess()
+        onSuccess(pass)
       } else {
         setErr('Galat password. Dobara koshish karein.')
         setPass('')

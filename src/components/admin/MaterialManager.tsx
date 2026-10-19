@@ -3,7 +3,7 @@ import { saveContent, uploadFile } from '../../data/content'
 import type { MaterialItem } from '../../data/content'
 import { useLang } from '../../i18n/LangContext'
 
-export default function MaterialManager({ materials }: { materials: MaterialItem[] }) {
+export default function MaterialManager({ pass, materials }: { pass: string; materials: MaterialItem[] }) {
   const { L } = useLang()
   const [title, setTitle] = useState('')
   const [sub, setSub] = useState('')
@@ -24,7 +24,7 @@ export default function MaterialManager({ materials }: { materials: MaterialItem
         sub: [sub.trim(), sub.trim()],
         file: url,
       }
-      await saveContent({ materials: [...materials, item] })
+      await saveContent(pass, { materials: [...materials, item] })
       setTitle('')
       setSub('')
       setFile(null)
@@ -40,7 +40,7 @@ export default function MaterialManager({ materials }: { materials: MaterialItem
     if (!confirm('Ye samgri hata dein?')) return
     setBusy(true)
     try {
-      await saveContent({ materials: materials.filter((_, k) => k !== i) })
+      await saveContent(pass, { materials: materials.filter((_, k) => k !== i) })
       setMsg('Hata diya ✓')
     } catch (err) {
       setMsg('Nahi hata: ' + (err as Error).message)

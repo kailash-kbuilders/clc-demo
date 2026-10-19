@@ -16,11 +16,11 @@ type Tab = 'results' | 'megatest' | 'testseries' | 'material'
  */
 export default function AdminPage() {
   const { L } = useLang()
-  const [unlocked, setUnlocked] = useState(() => {
+  const [pass, setPass] = useState<string | null>(() => {
     try {
-      return sessionStorage.getItem('clcAdmin') === '1'
+      return sessionStorage.getItem('clcAdminPass')
     } catch {
-      return false
+      return null
     }
   })
   const [tab, setTab] = useState<Tab>('results')
@@ -28,25 +28,25 @@ export default function AdminPage() {
 
   const seo = <Seo title="Admin — CLC Barmer" description="CLC Barmer admin panel." noindex />
 
-  const unlock = () => {
+  const unlock = (p: string) => {
     try {
-      sessionStorage.setItem('clcAdmin', '1')
+      sessionStorage.setItem('clcAdminPass', p)
     } catch {
       /* ignore */
     }
-    setUnlocked(true)
+    setPass(p)
   }
 
   const lock = () => {
     try {
-      sessionStorage.removeItem('clcAdmin')
+      sessionStorage.removeItem('clcAdminPass')
     } catch {
       /* ignore */
     }
-    setUnlocked(false)
+    setPass(null)
   }
 
-  if (!unlocked) {
+  if (!pass) {
     return (
       <>
         {seo}
@@ -92,11 +92,12 @@ export default function AdminPage() {
             ))}
           </nav>
 
-          {tab === 'results' && <ResultsManager results={content.results} />}
+          {tab === 'results' && <ResultsManager pass={pass} results={content.results} />}
           {tab === 'megatest' && (
             <PosterManager
               key={'mega' + content.megatest.poster + content.megatest.title[0]}
               which="megatest"
+              pass={pass}
               block={content.megatest}
             />
           )}
@@ -104,10 +105,11 @@ export default function AdminPage() {
             <PosterManager
               key={'series' + content.testseries.poster + content.testseries.title[0]}
               which="testseries"
+              pass={pass}
               block={content.testseries}
             />
           )}
-          {tab === 'material' && <MaterialManager materials={content.materials} />}
+          {tab === 'material' && <MaterialManager pass={pass} materials={content.materials} />}
 
           <a className="admin-back" href="/">
             ← Website
