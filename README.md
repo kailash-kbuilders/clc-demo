@@ -1,100 +1,127 @@
-# CLC Barmer — Website (React + Vite + TypeScript)
+# CLC Barmer — Website (React + Vite + TypeScript + Firebase)
 
 Website for **CLC Barmer (Career Launcher Classes)** — Navodaya Vidyalaya, Sainik School and
 Rashtriya Military School entrance coaching, Shastri Nagar, Barmer, Rajasthan.
 
-## Tech
+Public site: `/`  •  Admin panel: `/admin` (no link to it anywhere on the public site)
 
-- React 18 + TypeScript
-- Vite 5 (fast dev server, tiny production build)
-- React Router 6 (routes: `/` and `/admin`)
-- react-helmet-async (per-page SEO meta)
-- Plain CSS (`src/styles/index.css`) — no UI framework
+---
 
-## Getting started
+## 1. Run locally
 
 ```bash
 npm install
 npm run dev        # http://localhost:5173
 npm run build      # production build -> dist/
-npm run preview    # preview the production build
+npm run preview
 ```
 
-## Project structure
+## 2. Project structure
 
 ```
 clc-barmer/
 ├── index.html                 # SEO meta, Open Graph, JSON-LD (schema.org)
-├── vercel.json                # SPA rewrites -> /admin works on Vercel
+├── vercel.json                # SPA rewrite -> /admin works on Vercel
+├── firestore.rules            # paste in Firebase console -> Firestore -> Rules
+├── storage.rules              # paste in Firebase console -> Storage -> Rules
 ├── public/
 │   ├── img/                   # logo, posters, campus photo
 │   ├── pdf/                   # study-material PDFs
-│   ├── robots.txt             # disallows /admin
-│   └── sitemap.xml
+│   ├── robots.txt, sitemap.xml
 └── src/
-    ├── main.tsx               # React root (Router + Helmet providers)
-    ├── App.tsx                # routes
-    ├── data/site.ts           # ALL content + institute details (edit here)
-    ├── i18n/LangContext.tsx   # Hindi / English toggle
-    ├── lib/links.ts           # WhatsApp / tel / maps helpers
-    ├── hooks/                 # reveal, typewriter, scroll progress, active section
-    ├── components/            # Header, Hero, Results, StudyMaterial, ... (16 files)
-    ├── pages/
-    │   ├── HomePage.tsx       # public website
-    │   └── AdminPage.tsx      # /admin  (Welcome Admin)
+    ├── firebase.ts            # <-- PASTE YOUR FIREBASE CONFIG HERE
+    ├── data/site.ts           # default content (used until Firebase has data)
+    ├── data/content.ts        # Firestore + Storage read/write helpers
+    ├── hooks/useSiteContent.ts
+    ├── components/            # public site (16 files)
+    ├── components/admin/      # AdminLogin, ResultsManager, PosterManager, MaterialManager
+    ├── pages/HomePage.tsx, pages/AdminPage.tsx
     └── styles/index.css
 ```
 
-## Editing content
+---
 
-Almost everything lives in **`src/data/site.ts`**:
+## 3. Firebase setup (one time, ~10 minutes)
 
-- `CONFIG` — phone, WhatsApp number, map coordinates, social links, site URL
-- `COURSES`, `EXAMS`, `RESULTS`, `MATERIAL`, `FAQ`, `HERO`, `MARQUEE`, `NAV`
+The admin panel needs Firebase so that whatever you add shows up **live for everyone**
+(not just on your phone).
 
-Replace photos in `public/img/` and PDFs in `public/pdf/` (keep the same file names).
+### 3.1 Create the project
+1. Go to <https://console.firebase.google.com> → **Add project** → name it `clc-barmer`.
+2. Google Analytics: not needed, you can skip it.
 
-## Admin panel
+### 3.2 Turn on Authentication
+1. Left menu → **Build → Authentication → Get started**.
+2. **Sign-in method** tab → **Email/Password** → **Enable** → Save.
+3. **Users** tab → **Add user**:
+   - Email: `admin@clcbarmer.com`  (must match `ADMIN_EMAIL` in `src/firebase.ts`)
+   - Password: **minimum 6 characters** — use `clc2026` (Firebase does not allow a
+     4-character password like `2026`).
 
-- URL: **`/admin`**
-- There is **no link to it anywhere on the public site**.
-- `robots.txt` disallows it and the page is `noindex`.
-- Currently shows a simple **Welcome Admin** screen; Firebase auth + dashboard can be
-  added later.
+### 3.3 Turn on Firestore
+1. **Build → Firestore Database → Create database** → **Production mode**.
+2. Location: `asia-south1` (Mumbai) is closest for Barmer.
+3. Open the **Rules** tab, delete everything and paste the contents of **`firestore.rules`** → **Publish**.
 
-## Deploy on Vercel
+### 3.4 Turn on Storage
+1. **Build → Storage → Get started** → **Production mode**.
+2. Open the **Rules** tab, paste the contents of **`storage.rules`** → **Publish**.
+
+### 3.5 Get the config and paste it
+1. ⚙️ **Project settings → General → Your apps → Web (`</>`)** → register an app
+   (nickname `clc-web`), then copy the `firebaseConfig` object.
+2. Paste the values into **`src/firebase.ts`** (the marked block near the top).
+   You can edit the file directly on GitHub (pencil icon → commit) — no local setup needed.
+
+   *Alternative:* instead of editing the file, add these as Vercel environment variables
+   (Project → Settings → Environment Variables) and redeploy:
+   `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`,
+   `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIREBASE_MESSAGING_SENDER_ID`, `VITE_FIREBASE_APP_ID`.
+
+3. Commit / redeploy. Now open **`/admin`**, enter the password → you are in.
+
+> The Firebase web config is **not a secret** — it is meant to be public. Security is handled
+> by the rules above (only the logged-in admin can write).
+
+---
+
+## 4. What the admin panel can do
+
+| Tab | You can |
+|---|---|
+| **Results** | Upload a photo + student name + number/detail. Delete old ones. |
+| **Mega Test** | Upload a new poster + heading + description. |
+| **Test Series** | Upload a new poster + heading + description. |
+| **Study material** | Add a name + optional subtitle + PDF file. Delete old ones. |
+
+Everything is saved to Firebase, so it appears **instantly on every visitor's phone**.
+The password is never written in the code — it lives only in Firebase Authentication.
+
+---
+
+## 5. Deploy on Vercel
 
 1. Push this repo to GitHub.
 2. vercel.com → **Add New → Project → Import** the repo.
-3. Framework preset: **Vite** (auto-detected). Build: `npm run build`, output: `dist`.
-4. Deploy — you get `https://<project>.vercel.app`.
-5. `vercel.json` already rewrites every path to `index.html`, so `/admin` works
-   on a direct visit or refresh.
+3. Framework preset **Vite** (auto). Build `npm run build`, output `dist`.
+4. Deploy → you get `https://<project>.vercel.app`.
 
-## Custom domain (clcbarmer.com)
+`vercel.json` rewrites every path to `index.html`, so **`/admin` works on a direct visit
+and on refresh**.
 
-Buy the domain (Hostinger, GoDaddy, etc.), then in Vercel:
-**Project → Settings → Domains → Add** `clcbarmer.com` and `www.clcbarmer.com`.
+## 6. Custom domain (clcbarmer.com)
 
-Then at your domain registrar (Hostinger):
+Vercel → **Settings → Domains → Add** `clcbarmer.com` (+ `www`). Then at your registrar:
 
-- **Option A (easiest):** change the domain nameservers to
-  `ns1.vercel-dns.com` and `ns2.vercel-dns.com`.
-- **Option B (keep Hostinger DNS):** add
-  - `A` record, host `@`, value `76.76.21.21`
-  - `CNAME` record, host `www`, value `cname.vercel-dns.com`
+- **Easiest:** set nameservers to `ns1.vercel-dns.com` and `ns2.vercel-dns.com`.
+- **Or keep your DNS:** `A @ → 76.76.21.21` and `CNAME www → cname.vercel-dns.com`.
 
-Wait for DNS to propagate (a few minutes to a few hours). Vercel issues a free SSL
-certificate automatically. After that:
+Vercel issues the free SSL certificate automatically.
 
-- `https://clcbarmer.com` → website
-- `https://clcbarmer.com/admin` → admin panel (works, thanks to `vercel.json`)
+## 7. SEO checklist (after going live)
 
-## SEO checklist (after going live)
-
-1. Update `CONFIG.siteUrl` in `src/data/site.ts` and the URLs in `index.html`,
-   `robots.txt` and `sitemap.xml` if the domain changes.
-2. Google Search Console → add the domain → submit `https://clcbarmer.com/sitemap.xml`.
-3. Create a **Google Business Profile** for "CLC Barmer" (Shastri Nagar, Barmer) — this is
+1. Google Search Console → add the domain → submit `https://clcbarmer.com/sitemap.xml`.
+2. Create a **Google Business Profile** for "CLC Barmer" (Shastri Nagar, Barmer) — this is
    what makes the institute show up for local searches like *clc coaching barmer*.
-4. Add the Instagram / YouTube / Telegram links to the Google Business Profile too.
+3. If the domain changes, update `CONFIG.siteUrl` in `src/data/site.ts` plus the URLs in
+   `index.html`, `robots.txt` and `sitemap.xml`.
