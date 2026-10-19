@@ -79,7 +79,7 @@ export default function AdminPage() {
             </button>
           </header>
 
-          <nav className="adm-tabs">
+          <div className="adm-tabs">
             {tabs.map((t) => (
               <button
                 key={t.id}
@@ -90,7 +90,7 @@ export default function AdminPage() {
                 {L(t.label)}
               </button>
             ))}
-          </nav>
+          </div>
 
           {tab === 'results' && <ResultsManager pass={pass} results={content.results} />}
           {tab === 'megatest' && (
