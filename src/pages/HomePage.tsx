@@ -17,6 +17,7 @@ import Faq from '../components/Faq'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 import Lightbox from '../components/Lightbox'
+import ToastHost from '../components/Toast'
 
 export default function HomePage() {
   const { lang } = useLang()
@@ -47,6 +48,7 @@ export default function HomePage() {
       </main>
       <Footer />
       <Lightbox />
+      <ToastHost />
     </>
   )
 }

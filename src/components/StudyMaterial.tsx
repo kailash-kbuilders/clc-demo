@@ -1,5 +1,7 @@
 import { useLang } from '../i18n/LangContext'
 import { useSiteContent } from '../hooks/useSiteContent'
+import { toast } from './Toast'
+import { safeName, startDownload } from '../lib/download'
 
 export default function StudyMaterial() {
   const { L } = useLang()
@@ -20,9 +22,15 @@ export default function StudyMaterial() {
             <div className="card rv" key={i}>
               <h3>{L(m.title)}</h3>
               <p className="note">{L(m.sub)}</p>
-              <a className="btn icdl sm" href={m.file} target="_blank" rel="noopener noreferrer" download>
+              <button
+                className="btn icdl sm"
+                type="button"
+                onClick={() =>
+                  startDownload(m.file, safeName(L(m.title), 'CLC-material') + '.pdf', L, toast)
+                }
+              >
                 {L(['Download PDF', 'PDF डाउनलोड करें'])}
-              </a>
+              </button>
             </div>
           ))}
         </div>

@@ -1,6 +1,8 @@
 import { useLang } from '../i18n/LangContext'
 import { useSiteContent } from '../hooks/useSiteContent'
 import { waFor } from '../lib/links'
+import { toast } from './Toast'
+import { safeName, startDownload } from '../lib/download'
 import type { PosterBlock } from '../data/content'
 
 function PosterCard({ block, kind }: { block: PosterBlock; kind: 'mega' | 'series' }) {
@@ -30,9 +32,20 @@ function PosterCard({ block, kind }: { block: PosterBlock; kind: 'mega' | 'serie
               : L(['Ask about the Test Series', 'टेस्ट सीरीज़ के बारे में पूछें'])}
           </a>
           {hasPoster && (
-            <a className="btn icdl ghost" href={block.poster} target="_blank" rel="noopener noreferrer" download>
+            <button
+              className="btn icdl ghost"
+              type="button"
+              onClick={() =>
+                startDownload(
+                  block.poster,
+                  safeName(L(block.title), 'CLC-poster') + '.jpg',
+                  L,
+                  toast,
+                )
+              }
+            >
               {L(['Download poster', 'पोस्टर डाउनलोड करें'])}
-            </a>
+            </button>
           )}
         </div>
       </div>

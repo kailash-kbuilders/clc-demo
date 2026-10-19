@@ -369,3 +369,6 @@ main section{overflow-x:clip}
 .sch + .sch{margin-top:24px}
 .sch-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
 .sch-ph{display:grid;place-items:center;min-height:190px;width:100%;max-width:300px;margin:auto;border-radius:12px;background:var(--bg);border:2px dashed var(--line);color:var(--mut);font-weight:600}
+
+/* ================= download toast ================= */
+.toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:120;background:#150e33;color:#fff;padding:12px 22px;border-radius:999px;font:600 .92rem Mukta,Hind,sans-serif;box-shadow:0 14px 36px #0007;border:1px solid var(--gold);max-width:88vw;text-align:center;animation:pop .25s}
