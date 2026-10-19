@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { useLang } from '../i18n/LangContext'
-import { RESULTS } from '../data/site'
+import { useSiteContent } from '../hooks/useSiteContent'
 
 const CONFETTI_COLORS = ['#f0c25a', '#fff', '#e8891a', '#d3302f', '#8d97ff']
 
 export default function Results() {
   const { L } = useLang()
+  const content = useSiteContent()
   const ref = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
@@ -54,9 +55,9 @@ export default function Results() {
           ])}
         </p>
         <div className="res">
-          {RESULTS.map((r, i) => (
+          {content.results.map((r, i) => (
             <div className="card glow rv" key={i}>
-              <img src={r.img} alt={r.alt} data-zoom loading="lazy" />
+              <img src={r.img} alt={L(r.name)} data-zoom loading="lazy" />
               <p>
                 <b>{L(r.name)}</b> – {L(r.detail)}
               </p>

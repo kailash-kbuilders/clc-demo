@@ -233,3 +233,25 @@ export const MSG = {
     'नमस्ते, मुझे CLC Barmer के बारे में जानकारी चाहिए।',
   ] as Pair,
 }
+
+/** Defaults for the two poster blocks on the site (admin can change these). */
+export const MEGATEST_DEFAULT = {
+  poster: '/img/megatest-poster.jpg',
+  title: [
+    'Mega Test for Navodaya Vidyalaya entrance',
+    'नवोदय विद्यालय प्रवेश के लिए मेगा टेस्ट',
+  ] as Pair,
+  description: [
+    'Date, syllabus and other details are on the poster.',
+    'तारीख, पाठ्यक्रम आदि की जानकारी पोस्टर में है।',
+  ] as Pair,
+}
+
+export const TESTSERIES_DEFAULT = {
+  poster: '',
+  title: ['Test Series', 'टेस्ट सीरीज़'] as Pair,
+  description: [
+    'Mock tests, subject-wise tests and performance reports — schedule on the poster.',
+    'मॉक टेस्ट, विषयवार टेस्ट और परफॉर्मेंस रिपोर्ट — शेड्यूल पोस्टर में।',
+  ] as Pair,
+}
