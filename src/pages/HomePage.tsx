@@ -1,6 +1,7 @@
 import { useLang } from '../i18n/LangContext'
 import { useReveal } from '../hooks/useReveal'
 import { useActiveSection } from '../hooks/useActiveSection'
+import { useSiteContent } from '../hooks/useSiteContent'
 import { CONFIG, NAV } from '../data/site'
 import Seo from '../components/Seo'
 import ScrollProgress from '../components/ScrollProgress'
@@ -22,7 +23,9 @@ import ToastHost from '../components/Toast'
 export default function HomePage() {
   const { lang } = useLang()
   const active = useActiveSection(NAV.map((n) => n.id))
-  useReveal(lang)
+  const content = useSiteContent()
+  // re-scan the DOM whenever the database content changes
+  useReveal(content)
 
   return (
     <>
@@ -38,11 +41,11 @@ export default function HomePage() {
       <main>
         <Hero />
         <Exams />
-        <Results />
-        <MegaTest />
+        <Results content={content} />
+        <MegaTest content={content} />
         <About />
         <AdmissionForm />
-        <StudyMaterial />
+        <StudyMaterial content={content} />
         <Faq />
         <Contact />
       </main>

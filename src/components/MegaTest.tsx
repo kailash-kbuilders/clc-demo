@@ -1,9 +1,8 @@
 import { useLang } from '../i18n/LangContext'
-import { useSiteContent } from '../hooks/useSiteContent'
 import { waFor } from '../lib/links'
 import { toast } from './Toast'
 import { safeName, startDownload } from '../lib/download'
-import type { PosterBlock } from '../data/content'
+import type { PosterBlock, SiteContent } from '../data/content'
 
 function PosterCard({ block, kind }: { block: PosterBlock; kind: 'mega' | 'series' }) {
   const { L } = useLang()
@@ -39,9 +38,8 @@ function PosterCard({ block, kind }: { block: PosterBlock; kind: 'mega' | 'serie
   )
 }
 
-export default function MegaTest() {
+export default function MegaTest({ content }: { content: SiteContent }) {
   const { L } = useLang()
-  const content = useSiteContent()
 
   // A block only exists once the admin has added a poster for it.
   const blocks: { block: PosterBlock; kind: 'mega' | 'series' }[] = []

@@ -1,11 +1,10 @@
 import { useLang } from '../i18n/LangContext'
-import { useSiteContent } from '../hooks/useSiteContent'
+import type { SiteContent } from '../data/content'
 import { toast } from './Toast'
 import { safeName, startDownload } from '../lib/download'
 
-export default function StudyMaterial() {
+export default function StudyMaterial({ content }: { content: SiteContent }) {
   const { L } = useLang()
-  const content = useSiteContent()
 
   return (
     <section id="material">

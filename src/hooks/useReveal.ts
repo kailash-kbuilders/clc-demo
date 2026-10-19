@@ -1,17 +1,23 @@
 import { useEffect } from 'react'
 
 /**
- * Scroll reveal. Elements with `.rv` fade/slide in from the right when they
- * enter the viewport, and re-animate every time they come back into view from
- * below (scrolling down). Entering from the top shows instantly (no animation).
+ * Scroll reveal. Elements with `.rv` fade/slide in when they enter the viewport,
+ * and re-animate every time they come back into view from below.
+ *
+ * Content loaded from the database arrives *after* the first paint, so this also
+ * watches the DOM and picks up any `.rv` element that appears later - otherwise
+ * freshly added results / posters / material would stay invisible.
  */
 export function useReveal(dep?: unknown) {
   useEffect(() => {
-    const els = Array.from(document.querySelectorAll<HTMLElement>('.rv'))
+    const showAll = () =>
+      document.querySelectorAll<HTMLElement>('.rv').forEach((e) => e.classList.add('in'))
+
     if (!('IntersectionObserver' in window)) {
-      els.forEach((e) => e.classList.add('in'))
+      showAll()
       return
     }
+
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((x) => {
@@ -30,7 +36,32 @@ export function useReveal(dep?: unknown) {
       },
       { threshold: 0.12 },
     )
-    els.forEach((e) => io.observe(e))
-    return () => io.disconnect()
+
+    const watched = new WeakSet<Element>()
+    const observeNew = () => {
+      document.querySelectorAll<HTMLElement>('.rv').forEach((el) => {
+        if (watched.has(el)) return
+        watched.add(el)
+        io.observe(el)
+      })
+    }
+    observeNew()
+
+    // pick up elements that React adds later (database content)
+    let raf = 0
+    const mo = new MutationObserver(() => {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        raf = 0
+        observeNew()
+      })
+    })
+    mo.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      mo.disconnect()
+      io.disconnect()
+      if (raf) cancelAnimationFrame(raf)
+    }
   }, [dep])
 }

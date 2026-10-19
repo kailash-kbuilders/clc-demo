@@ -1,12 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { useLang } from '../i18n/LangContext'
-import { useSiteContent } from '../hooks/useSiteContent'
+import type { SiteContent } from '../data/content'
 
 const CONFETTI_COLORS = ['#f0c25a', '#fff', '#e8891a', '#d3302f', '#8d97ff']
 
-export default function Results() {
+export default function Results({ content }: { content: SiteContent }) {
   const { L } = useLang()
-  const content = useSiteContent()
   const ref = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
