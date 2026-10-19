@@ -1,7 +1,4 @@
-import { useEffect, useState } from 'react'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
-import type { User } from 'firebase/auth'
-import { auth, isFirebaseConfigured } from '../firebase'
+import { useState } from 'react'
 import { useSiteContent } from '../hooks/useSiteContent'
 import { useLang } from '../i18n/LangContext'
 import Seo from '../components/Seo'
@@ -14,44 +11,46 @@ type Tab = 'results' | 'megatest' | 'testseries' | 'material'
 
 /**
  * Admin panel - only reachable at /admin.
- * Nothing on the public site links here. Firebase Authentication guards it.
+ * Nothing on the public site links here, robots.txt disallows it, and the page
+ * is noindex. No login system - just the password gate.
  */
 export default function AdminPage() {
   const { L } = useLang()
-  const [user, setUser] = useState<User | null>(null)
-  const [ready, setReady] = useState(false)
+  const [unlocked, setUnlocked] = useState(() => {
+    try {
+      return sessionStorage.getItem('clcAdmin') === '1'
+    } catch {
+      return false
+    }
+  })
   const [tab, setTab] = useState<Tab>('results')
   const content = useSiteContent()
 
-  useEffect(() => {
-    if (!isFirebaseConfigured || !auth) {
-      setReady(true)
-      return
-    }
-    return onAuthStateChanged(auth, (u) => {
-      setUser(u)
-      setReady(true)
-    })
-  }, [])
-
   const seo = <Seo title="Admin — CLC Barmer" description="CLC Barmer admin panel." noindex />
 
-  if (!ready) {
-    return (
-      <>
-        {seo}
-        <div className="admin">
-          <div className="admin-card">Loading…</div>
-        </div>
-      </>
-    )
+  const unlock = () => {
+    try {
+      sessionStorage.setItem('clcAdmin', '1')
+    } catch {
+      /* ignore */
+    }
+    setUnlocked(true)
   }
 
-  if (!user) {
+  const lock = () => {
+    try {
+      sessionStorage.removeItem('clcAdmin')
+    } catch {
+      /* ignore */
+    }
+    setUnlocked(false)
+  }
+
+  if (!unlocked) {
     return (
       <>
         {seo}
-        <AdminLogin />
+        <AdminLogin onSuccess={unlock} />
       </>
     )
   }
@@ -73,9 +72,9 @@ export default function AdminPage() {
             <div>
               <b>Admin — CLC Barmer</b>
               <br />
-              <small className="admin-note">{user.email}</small>
+              <small className="admin-note">Career Launcher Classes</small>
             </div>
-            <button className="btn sm ghost" type="button" onClick={() => auth && signOut(auth)}>
+            <button className="btn sm ghost" type="button" onClick={lock}>
               Logout
             </button>
           </header>

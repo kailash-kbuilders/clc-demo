@@ -53,14 +53,8 @@ The admin panel needs Firebase so that whatever you add shows up **live for ever
 ### 3.2 Turn on Authentication
 1. Left menu → **Build → Authentication → Get started**.
 2. **Sign-in method** tab → **Email/Password** → **Enable** → Save.
-3. **Users** tab → **Add user**:
-   - Email: `admin@clcbarmer.com`  (must match `ADMIN_EMAIL` in `src/firebase.ts`)
-   - Password: **`clc2026`**  (exactly this)
-
-   > Why `clc2026`? Firebase refuses passwords shorter than 6 characters, so a plain
-   > `2026` cannot be stored. The code adds the prefix `clc` (see
-   > `ADMIN_PASSWORD_PREFIX` in `src/firebase.ts`) before sending the password.
-   > **At `/admin` you only ever type `2026`.**
+3. **No user needed.** There is no login system — the admin password is checked
+   right in the code (`ADMIN_PASSWORD_HASH` in `src/components/admin/AdminLogin.tsx`).
 
 ### 3.3 Turn on Firestore
 1. **Build → Firestore Database → Create database** → **Production mode**.
@@ -98,8 +92,7 @@ The admin panel needs Firebase so that whatever you add shows up **live for ever
 | **Test Series** | Upload a new poster + heading + description. |
 | **Study material** | Add a name + optional subtitle + PDF file. Delete old ones. |
 
-**Login:** open `/admin` and type the password. Only the password is asked —
-the email is fixed (`admin@clcbarmer.com`).
+**Login:** open `/admin` and type the password — that is all. No email, no account.
 
 Everything is saved to Firebase, so it appears **instantly on every visitor's phone**.
 The password is never written in the code — it lives only in Firebase Authentication.
