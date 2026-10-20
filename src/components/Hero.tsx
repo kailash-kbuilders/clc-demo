@@ -17,13 +17,8 @@ export default function Hero() {
           </h1>
           <p className="up d1 tagsub">
             {L([
-              'Dedicated institute for Navodaya Vidyalaya · Sainik School · Rashtriya Military School',
-              'नवोदय विद्यालय · सैनिक स्कूल · राष्ट्रीय मिलिट्री स्कूल को समर्पित संस्थान',
-            ])}
-            <br />
-            {L([
-              'The only dedicated institute in the Marwar region',
-              'मारवाड़ क्षेत्र का एकमात्र समर्पित संस्थान',
+              'Navodaya Vidyalaya, Sainik School, Rashtriya Military School — the only dedicated institute in the Marwar region.',
+              'नवोदय विद्यालय, सैनिक स्कूल, राष्ट्रीय मिलिट्री स्कूल के लिए समर्पित मारवाड़ क्षेत्र का एकमात्र संस्थान।',
             ])}
           </p>
         </div>
