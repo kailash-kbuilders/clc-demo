@@ -38,6 +38,7 @@ export const MARQUEE: Pair[] = [
   ['Navodaya Vidyalaya', 'नवोदय विद्यालय'],
   ['Sainik School', 'सैनिक स्कूल'],
   ['Rashtriya Military School', 'राष्ट्रीय मिलिट्री स्कूल'],
+  ['Academic classes (Class 3-10)', 'अकादमिक कक्षाएँ (कक्षा 3-10 तक)'],
 ]
 
 export const COURSES: { t: Pair; g: Pair; d: Pair; q: string }[] = [
@@ -124,6 +125,13 @@ export const EXAMS: { t: Pair; d: Pair }[] = [
     d: [
       'Entrance guidance and preparation for girls.',
       'बालिकाओं के लिए प्रवेश मार्गदर्शन व तैयारी।',
+    ],
+  },
+  {
+    t: ['Academic classes - Class 3 to 10', 'अकादमिक कक्षाएँ - कक्षा 3 से 10 तक'],
+    d: [
+      'Regular academic classes for Class 3 to 10 - all subjects, school syllabus support and exam practice.',
+      'कक्षा 3 से 10 तक की नियमित अकादमिक कक्षाएँ - सभी विषय, स्कूल पाठ्यक्रम का सहयोग व परीक्षा अभ्यास।',
     ],
   },
 ]
