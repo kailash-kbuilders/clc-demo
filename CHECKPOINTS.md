@@ -109,7 +109,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 5 — 22 October 2026
-**Commit:** `__CHECKPOINT_5__`
+**Commit:** `3f730ccd`
 
 - Admit card ki **PDF ka naam** ab student ke roll number se banta hai — jaise
   `CLC-MT-admit1001.pdf` (student ke page par aur admin ke "Admit card" button par dono jagah)
