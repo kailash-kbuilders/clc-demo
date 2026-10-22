@@ -35,3 +35,22 @@ export async function startDownload(
     notify(L(['Download started ✓', 'डाउनलोड शुरू हो गया ✓']))
   }
 }
+
+/**
+ * Print / save the admit card as a PDF.
+ * The browser uses the page title as the default file name, so we set it to
+ * something like "CLC-MT-admit1001" while the print dialog is open.
+ */
+export function printAdmitCard(rollNo: string) {
+  const digits = rollNo.replace(/\D/g, '') || '1001'
+  const name = `CLC-MT-admit${digits}`
+  const previous = document.title
+  document.title = name
+  try {
+    window.print()
+  } finally {
+    window.setTimeout(() => {
+      document.title = previous
+    }, 1500)
+  }
+}

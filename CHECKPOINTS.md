@@ -105,3 +105,12 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - **Admin — Registrations tab:** har registration **1 line** me (roll, naam, class, mobile),
   har line par **"Admit card"** button (uska admit card khulta hai + Print/PDF) aur **Delete**
 - Admin se **CSV download hata diya**
+
+---
+
+## Checkpoint 5 — 22 October 2026
+**Commit:** `__CHECKPOINT_5__`
+
+- Admit card ki **PDF ka naam** ab student ke roll number se banta hai — jaise
+  `CLC-MT-admit1001.pdf` (student ke page par aur admin ke "Admit card" button par dono jagah)
+- Roll number khaali table par **1001 se** shuru hota hai (pehle se hi aisa tha, confirm kar liya)

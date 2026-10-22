@@ -6,6 +6,7 @@ import { getAdmitCard, registrationState, registerForMegaTest } from '../data/co
 import type { Registration } from '../data/content'
 import { CATEGORY_OPTIONS, CLASS_OPTIONS, GENDER_OPTIONS } from '../data/site'
 import AdmitCard from '../components/AdmitCard'
+import { printAdmitCard } from '../lib/download'
 import Seo from '../components/Seo'
 
 const EMPTY = {
@@ -150,7 +151,7 @@ export default function MegaTestPage() {
               ])}
             </p>
             <div className="mt-btns no-print">
-              <button className="btn" type="button" onClick={() => window.print()}>
+              <button className="btn" type="button" onClick={() => printAdmitCard(reg.roll_no)}>
                 {L(['Print / Save as PDF', 'प्रिंट / PDF सेव करें'])}
               </button>
               <Link className="btn ghost" to="/">

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { deleteRegistration, fetchRegistrations } from '../../data/content'
 import type { PosterBlock, Registration } from '../../data/content'
 import AdmitCard from '../AdmitCard'
+import { printAdmitCard } from '../../lib/download'
 
 export default function RegistrationsManager({
   pass,
@@ -105,7 +106,7 @@ export default function RegistrationsManager({
       {card && (
         <div className="reg-cardwrap">
           <div className="no-print reg-cardbtns">
-            <button className="btn" type="button" onClick={() => window.print()}>
+            <button className="btn" type="button" onClick={() => printAdmitCard(card.roll_no)}>
               Print / Save as PDF
             </button>
             <button className="btn ghost" type="button" onClick={() => setCardId(null)}>
