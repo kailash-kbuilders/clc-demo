@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { deleteRegistration, fetchRegistrations } from '../../data/content'
+import { deleteRegistration, fetchPhoto, fetchRegistrations } from '../../data/content'
 import type { PosterBlock, Registration } from '../../data/content'
 import AdmitCard from '../AdmitCard'
 import { printAdmitCard } from '../../lib/download'
@@ -15,6 +15,7 @@ export default function RegistrationsManager({
   const [err, setErr] = useState('')
   const [q, setQ] = useState('')
   const [cardId, setCardId] = useState<number | null>(null)
+  const [cardPhoto, setCardPhoto] = useState('')
 
   const load = async () => {
     setErr('')
@@ -92,7 +93,12 @@ export default function RegistrationsManager({
             <button
               className="btn sm"
               type="button"
-              onClick={() => setCardId(cardId === r.id ? null : r.id)}
+              onClick={() => {
+                const next = cardId === r.id ? null : r.id
+                setCardId(next)
+                setCardPhoto('')
+                if (next != null) void fetchPhoto(pass, next).then(setCardPhoto)
+              }}
             >
               Admit card
             </button>
@@ -113,7 +119,7 @@ export default function RegistrationsManager({
               Band karein
             </button>
           </div>
-          <AdmitCard reg={card} block={block} />
+          <AdmitCard reg={{ ...card, photo: cardPhoto }} block={block} />
         </div>
       )}
     </div>

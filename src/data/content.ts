@@ -166,6 +166,7 @@ export type Registration = {
   gender: string | null
   mobile: string
   address: string | null
+  photo?: string | null
   created_at: string
 }
 
@@ -177,6 +178,30 @@ export type RegisterPayload = {
   dob: string
   gender: string
   mobile: string
+  photo: string
+}
+
+/**
+ * Shrink a student photo to a small JPEG data-URL (~20-30 KB).
+ * It is stored in the database (not in file storage), and it is private -
+ * only the student's own admit card and the admin can see it.
+ */
+export async function makeSmallPhoto(file: File): Promise<string> {
+  const bitmap = await createImageBitmap(file)
+  const maxW = 320
+  const scale = Math.min(1, maxW / bitmap.width)
+  const w = Math.max(1, Math.round(bitmap.width * scale))
+  const h = Math.max(1, Math.round(bitmap.height * scale))
+  const canvas = document.createElement('canvas')
+  canvas.width = w
+  canvas.height = h
+  const ctx = canvas.getContext('2d')
+  if (!ctx) throw new Error('photo')
+  ctx.drawImage(bitmap, 0, 0, w, h)
+  let out = canvas.toDataURL('image/jpeg', 0.72)
+  if (out.length > 85000) out = canvas.toDataURL('image/jpeg', 0.5)
+  if (out.length > 85000) out = canvas.toDataURL('image/jpeg', 0.35)
+  return out
 }
 
 /** Is registration open right now? */
@@ -208,6 +233,13 @@ export async function getAdmitCard(mobile: string, name: string): Promise<Regist
   const { data, error } = await supabase.rpc('mega_get_card', { p_mobile: mobile, p_name: name })
   if (error) throw new Error(error.message)
   return data as Registration
+}
+
+/** One student's photo (the admin list does not carry photos). */
+export async function fetchPhoto(pass: string, id: number): Promise<string> {
+  const { data, error } = await supabase.rpc('admin_photo', { pass, id_in: id })
+  if (error) return ''
+  return (data as string) || ''
 }
 
 export async function fetchRegistrations(pass: string): Promise<Registration[]> {

@@ -114,3 +114,16 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - Admit card ki **PDF ka naam** ab student ke roll number se banta hai — jaise
   `CLC-MT-admit1001.pdf` (student ke page par aur admin ke "Admit card" button par dono jagah)
 - Roll number khaali table par **1001 se** shuru hota hai (pehle se hi aisa tha, confirm kar liya)
+
+---
+
+## Checkpoint 6 — 22 October 2026
+**Commit:** `__CHECKPOINT_6__`
+
+- **Student photo** registration me (zaroori). Photo browser me hi chhoti ho jati hai (~20-30 KB)
+  aur **database me** rakhi jati hai — **file storage me 0 byte**.
+- Photo **private** hai: sirf student ka apna admit card aur admin (password se) dekh sakta hai.
+- Admit card par photo **upar-daayen** lagti hai, uske neeche RESULT box.
+- Admit card abhi bhi **1 page** me chhapta hai (PDF banakar check kiya).
+- Admin ki list halki rehti hai (photo list me nahi aati; "Admit card" dabane par alag se aati hai).
+- **Document upload nahi** kiya (aapne kaha nahi chahiye).

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../i18n/LangContext'
 import { useSiteContent } from '../hooks/useSiteContent'
-import { getAdmitCard, registrationState, registerForMegaTest } from '../data/content'
+import { getAdmitCard, makeSmallPhoto, registrationState, registerForMegaTest } from '../data/content'
 import type { Registration } from '../data/content'
 import { CATEGORY_OPTIONS, CLASS_OPTIONS, GENDER_OPTIONS } from '../data/site'
 import AdmitCard from '../components/AdmitCard'
@@ -10,6 +10,7 @@ import { printAdmitCard } from '../lib/download'
 import Seo from '../components/Seo'
 
 const EMPTY = {
+  photo: '',
   name: '',
   father: '',
   class: '',
@@ -69,6 +70,8 @@ export default function MegaTestPage() {
     setErr('')
     setAlready(false)
     const mobile = form.mobile.replace(/\D/g, '')
+    if (!form.photo)
+      return setErr(L(['Please add the student photo.', 'कृपया विद्यार्थी की फोटो लगाएँ।']))
     if (form.name.trim().length < 2)
       return setErr(L(['Please enter the student name.', 'कृपया विद्यार्थी का नाम लिखें।']))
     if (mobile.length !== 10)
@@ -81,7 +84,9 @@ export default function MegaTestPage() {
       window.scrollTo(0, 0)
     } catch (e2) {
       const m = (e2 as Error).message
-      if (m.includes('already_registered')) {
+      if (m.includes('photo_required') || m.includes('photo_invalid') || m.includes('photo_too_big')) {
+        setErr(L(['Please add the student photo.', 'कृपया विद्यार्थी की फोटो लगाएँ।']))
+      } else if (m.includes('already_registered')) {
         setAlready(true)
         setErr(
           L([
@@ -223,6 +228,45 @@ export default function MegaTestPage() {
             <p className="mt-sub">{L(block.title)}</p>
 
             <form className="mt-form" onSubmit={submit}>
+              <div className="mt-full mt-photo">
+                <span className="adm-lbl">{L(['Student photo', 'विद्यार्थी की फोटो'])} *</span>
+                <div className="mt-photorow">
+                  {form.photo ? (
+                    <img className="mt-photoprev" src={form.photo} alt="" />
+                  ) : (
+                    <div className="mt-photoprev mt-photoprev-empty">
+                      {L(['Photo', 'फोटो'])}
+                    </div>
+                  )}
+                  <div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const f = e.target.files?.[0]
+                        if (!f) return
+                        void makeSmallPhoto(f)
+                          .then((d) => setForm((p) => ({ ...p, photo: d })))
+                          .catch(() =>
+                            setErr(
+                              L([
+                                'That photo could not be read. Please try another one.',
+                                'यह फोटो पढ़ी नहीं जा सकी। दूसरी फोटो चुनें।',
+                              ]),
+                            ),
+                          )
+                      }}
+                    />
+                    <p className="mt-note">
+                      {L([
+                        'A clear face photo. It will be printed on the admit card.',
+                        'साफ चेहरे वाली फोटो। यह एडमिट कार्ड पर छपेगी।',
+                      ])}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <label>
                 <span>{L(['Student name', 'विद्यार्थी का नाम'])} *</span>
                 <input value={form.name} onChange={set('name')} required />
