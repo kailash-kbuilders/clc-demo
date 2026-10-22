@@ -160,7 +160,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 9 — 22 October 2026
-**Commit:** `__CHECKPOINT_9__`
+**Commit:** `84a38dae`
 
 - **Gol photo wali dikkat theek:** admin me ek CSS rule (`admin-card img`) **har photo ko
   gol** bana raha tha (wo sirf login screen ke logo ke liye tha). Isliye admin me poster,
