@@ -28,7 +28,7 @@ Website ka poora puraana version:
 ---
 
 ## Checkpoint 2 — 22 October 2026
-**Commit:** `__CHECKPOINT_2__`
+**Commit:** `76101ac7`
 
 - **Naya:** Mega Test ka online registration + admit card + admin me registrations
   ka tab (neeche detail).
