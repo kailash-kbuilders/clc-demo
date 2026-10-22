@@ -14,7 +14,7 @@ export default function RegistrationsManager({
   const [rows, setRows] = useState<Registration[] | null>(null)
   const [err, setErr] = useState('')
   const [q, setQ] = useState('')
-  const [cardId, setCardId] = useState<number | null>(null)
+  const [openId, setOpenId] = useState<number | null>(null)
   const [cardPhoto, setCardPhoto] = useState('')
 
   const load = async () => {
@@ -44,18 +44,25 @@ export default function RegistrationsManager({
     )
   }, [rows, q])
 
+  const toggle = (r: Registration) => {
+    const next = openId === r.id ? null : r.id
+    setOpenId(next)
+    setCardPhoto('')
+    if (next != null) void fetchPhoto(pass, next).then(setCardPhoto)
+  }
+
   const del = async (id: number) => {
     if (!confirm('Ye registration delete kar dein?')) return
     try {
       await deleteRegistration(pass, id)
       setRows((r) => (r ?? []).filter((x) => x.id !== id))
-      if (cardId === id) setCardId(null)
+      if (openId === id) setOpenId(null)
     } catch (e) {
       setErr('Delete nahi hua: ' + (e as Error).message)
     }
   }
 
-  const card = cardId != null ? (rows ?? []).find((r) => r.id === cardId) : null
+  const open = openId != null ? (rows ?? []).find((r) => r.id === openId) : null
 
   return (
     <div className="adm-panel">
@@ -85,43 +92,72 @@ export default function RegistrationsManager({
 
       <div className="reg-list">
         {filtered.map((r) => (
-          <div className="reg-line" key={r.id}>
-            <b className="reg-roll">{r.roll_no}</b>
-            <span className="reg-name">{r.name}</span>
-            <span className="reg-meta">{r.class || '-'}</span>
-            <span className="reg-meta">{r.mobile}</span>
-            <button
-              className="btn sm"
-              type="button"
-              onClick={() => {
-                const next = cardId === r.id ? null : r.id
-                setCardId(next)
-                setCardPhoto('')
-                if (next != null) void fetchPhoto(pass, next).then(setCardPhoto)
-              }}
-            >
-              Admit card
-            </button>
-            <button className="btn sm ghost danger" type="button" onClick={() => void del(r.id)}>
-              Delete
-            </button>
+          <div key={r.id}>
+            <div className={'reg-line' + (openId === r.id ? ' on' : '')}>
+              <button type="button" className="reg-open" onClick={() => toggle(r)}>
+                {r.thumb ? (
+                  <img className="reg-thumb" src={r.thumb} alt="" />
+                ) : (
+                  <span className="reg-thumb reg-thumb-empty" />
+                )}
+                <span className="reg-name">{r.name}</span>
+                <span className="reg-meta">
+                  {r.roll_no} &middot; {r.class || '-'} &middot; {r.mobile}
+                </span>
+              </button>
+              <button
+                className="btn sm ghost danger"
+                type="button"
+                onClick={() => void del(r.id)}
+              >
+                Delete
+              </button>
+            </div>
+
+            {openId === r.id && (
+              <div className="reg-body">
+                <table>
+                  <tbody>
+                    {[
+                      ['Roll No.', r.roll_no],
+                      ['Student', r.name],
+                      ["Father's name", r.father],
+                      ['Class', r.class],
+                      ['Category', r.category],
+                      ['Date of birth', r.dob],
+                      ['Gender', r.gender],
+                      ['Mobile', r.mobile],
+                      ['Registered at', new Date(r.created_at).toLocaleString('en-IN')],
+                    ]
+                      .filter(([, v]) => v)
+                      .map(([k, v]) => (
+                        <tr key={k as string}>
+                          <td>{k}</td>
+                          <td>{v}</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+
+                <div className="no-print reg-cardbtns">
+                  <button
+                    className="btn"
+                    type="button"
+                    onClick={() => printAdmitCard(r.roll_no)}
+                  >
+                    Download admit card (PDF)
+                  </button>
+                  <button className="btn ghost" type="button" onClick={() => setOpenId(null)}>
+                    Band karein
+                  </button>
+                </div>
+
+                <AdmitCard reg={{ ...r, photo: cardPhoto }} block={block} />
+              </div>
+            )}
           </div>
         ))}
       </div>
-
-      {card && (
-        <div className="reg-cardwrap">
-          <div className="no-print reg-cardbtns">
-            <button className="btn" type="button" onClick={() => printAdmitCard(card.roll_no)}>
-              Print / Save as PDF
-            </button>
-            <button className="btn ghost" type="button" onClick={() => setCardId(null)}>
-              Band karein
-            </button>
-          </div>
-          <AdmitCard reg={{ ...card, photo: cardPhoto }} block={block} />
-        </div>
-      )}
     </div>
   )
 }

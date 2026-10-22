@@ -65,6 +65,7 @@ export default function AdmitCard({
             <div className="ac-photo ac-photo-empty">PHOTO</div>
           )}
 
+
           <div className="ac-result">
           <span className="ac-title">RESULT</span>
           <p>Result will be published on our website and WhatsApp group on</p>

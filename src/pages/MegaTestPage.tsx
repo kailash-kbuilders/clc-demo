@@ -11,6 +11,7 @@ import Seo from '../components/Seo'
 
 const EMPTY = {
   photo: '',
+  thumb: '',
   name: '',
   father: '',
   class: '',
@@ -94,11 +95,11 @@ export default function MegaTestPage() {
             'यह विद्यार्थी पहले से रजिस्टर्ड है।',
           ]),
         )
-      } else if (m.includes('mobile_limit'))
+      } else if (m.includes('mobile_used'))
         setErr(
           L([
-            'Two students are already registered with this mobile number.',
-            'इस मोबाइल नंबर से दो विद्यार्थी पहले से रजिस्टर्ड हैं।',
+            'This mobile number is already used for another registration. One mobile number can be used only once.',
+            'यह मोबाइल नंबर पहले ही किसी और रजिस्ट्रेशन में इस्तेमाल हो चुका है। एक मोबाइल नंबर से सिर्फ एक ही रजिस्ट्रेशन हो सकता है।',
           ]),
         )
       else if (m.includes('registration_not_started'))
@@ -157,7 +158,7 @@ export default function MegaTestPage() {
             </p>
             <div className="mt-btns no-print">
               <button className="btn" type="button" onClick={() => printAdmitCard(reg.roll_no)}>
-                {L(['Print / Save as PDF', 'प्रिंट / PDF सेव करें'])}
+                {L(['Download admit card (PDF)', 'एडमिट कार्ड डाउनलोड करें (PDF)'])}
               </button>
               <Link className="btn ghost" to="/">
                 {L(['Back to website', 'वेबसाइट पर वापस'])}
@@ -246,7 +247,7 @@ export default function MegaTestPage() {
                         const f = e.target.files?.[0]
                         if (!f) return
                         void makeSmallPhoto(f)
-                          .then((d) => setForm((p) => ({ ...p, photo: d })))
+                          .then((d) => setForm((p) => ({ ...p, photo: d.photo, thumb: d.thumb })))
                           .catch(() =>
                             setErr(
                               L([
@@ -350,8 +351,8 @@ export default function MegaTestPage() {
               </div>
               <p className="mt-note mt-full">
                 {L([
-                  'After registering you will get your admit card with a roll number. One mobile number can be used for two students.',
-                  'रजिस्ट्रेशन के बाद आपको रोल नंबर के साथ एडमिट कार्ड मिल जाएगा। एक मोबाइल नंबर से दो विद्यार्थी रजिस्टर हो सकते हैं।',
+                  'After registering you will get your admit card with a roll number. One mobile number can be used for only one registration.',
+                  'रजिस्ट्रेशन के बाद आपको रोल नंबर के साथ एडमिट कार्ड मिल जाएगा। एक मोबाइल नंबर से सिर्फ एक ही रजिस्ट्रेशन हो सकता है।',
                 ])}
               </p>
             </form>

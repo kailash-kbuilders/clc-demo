@@ -127,3 +127,19 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - Admit card abhi bhi **1 page** me chhapta hai (PDF banakar check kiya).
 - Admin ki list halki rehti hai (photo list me nahi aati; "Admit card" dabane par alag se aati hai).
 - **Document upload nahi** kiya (aapne kaha nahi chahiye).
+
+---
+
+## Checkpoint 7 — 22 October 2026
+**Commit:** `__CHECKPOINT_7__`
+
+- **1 mobile number = sirf 1 registration** (strict). Same naam + same number se dobara
+  karne par "already registered" + admit card download ka option; doosre naam se usi
+  number par "mobile already used" ka message.
+- **Admin list:** har line me chhoti **photo (thumbnail) + naam**, peeche roll/class/mobile.
+  Line par click karne se **poori details + us bacha ka admit card** khulta hai (Download PDF ke saath).
+- **Thumbnail** (~2-3 KB) list me aata hai, poori photo alag se (list halki rehti hai).
+- **Admit card:** photo ab thodi badi (148px), aur **photo ke just neeche** RESULT box
+  (kab aur kahan dekhna hai). PDF **1 page** — check kiya.
+- Download button ka naam: **"Download admit card (PDF)"**.
+- Photo **apne aap compress** hoti hai — kuch karna nahi padta.
