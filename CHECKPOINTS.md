@@ -61,7 +61,7 @@ Website ka poora puraana version:
 ---
 
 ## Checkpoint 3 — 22 October 2026
-**Commit:** `__CHECKPOINT_3__`
+**Commit:** `f29f74df`
 
 Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 
