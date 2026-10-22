@@ -15,7 +15,7 @@ export const CONFIG = {
     youtube: 'https://youtube.com/@clcbarmer?si=BYlHlDdjgQWfMkPV',
     telegram: 'https://t.me/Clcbme',
   },
-  siteUrl: 'https://clcbarmer.com',
+  siteUrl: 'https://clcbarmer.in',
 }
 
 export const NAV: { href: string; id: string; label: Pair }[] = [
@@ -253,7 +253,56 @@ export const MEGATEST_DEFAULT = {
     'Date, syllabus and other details are on the poster.',
     'तारीख, पाठ्यक्रम आदि की जानकारी पोस्टर में है।',
   ] as Pair,
+  // --- admin controls ---
+  hidden: false,
+  regOpen: true,
+  regFrom: '',
+  regTo: '',
+  examDate: '',
+  reportingTime: '',
+  examTime: '',
+  centre: 'Career Launcher Classes, Shastri Nagar, Barmer (Raj.)',
+  resultDate: '',
 }
+
+/** Printed on every admit card. */
+export const ADMIT_INSTRUCTIONS: Pair[] = [
+  [
+    'This admit card must be brought to the exam centre on the day of the test.',
+    'इस एडमिट कार्ड को परीक्षा के दिन साथ लाना अनिवार्य है।',
+  ],
+  [
+    'Without the admit card, the candidate will not be allowed to sit for the exam.',
+    'बिना एडमिट कार्ड के किसी भी स्थिति में परीक्षा में बैठने की अनुमति नहीं होगी।',
+  ],
+  [
+    'Reach the exam centre 30 minutes before the exam time.',
+    'परीक्षा समय से 30 मिनट पहले परीक्षा केंद्र पर पहुँचें।',
+  ],
+  [
+    'Mobile phones, smart watches, calculators or any electronic item are strictly prohibited.',
+    'मोबाइल फोन, स्मार्ट वॉच, कैलकुलेटर आदि किसी भी प्रकार की इलेक्ट्रॉनिक वस्तु साथ लाना पूर्णतः वर्जित है।',
+  ],
+  [
+    'Follow the instructions printed on the question paper.',
+    'उत्तर पुस्तिका पर दिए गए निर्देशों का पालन करें।',
+  ],
+  [
+    'If unfair means are found, the candidature can be cancelled.',
+    'किसी भी प्रकार की अनुचित गतिविधि पाए जाने पर उम्मीदवारी रद्द की जा सकती है।',
+  ],
+  [
+    'For any exam-related information, contact the staff present at the centre.',
+    'परीक्षा से संबंधित किसी भी जानकारी के लिए केंद्र पर उपस्थित पर्यवेक्षक से संपर्क करें।',
+  ],
+  [
+    'Please check that all the details printed on this admit card are correct.',
+    'एडमिट कार्ड पर छपी जानकारी की पुष्टि अवश्य कर लें।',
+  ],
+]
+
+export const CATEGORY_OPTIONS = ['General', 'OBC', 'SC', 'ST', 'Other']
+export const GENDER_OPTIONS = ['Male', 'Female']
 
 export const TESTSERIES_DEFAULT = {
   poster: '',

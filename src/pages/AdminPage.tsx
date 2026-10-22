@@ -6,8 +6,9 @@ import AdminLogin from '../components/admin/AdminLogin'
 import ResultsManager from '../components/admin/ResultsManager'
 import PosterManager from '../components/admin/PosterManager'
 import MaterialManager from '../components/admin/MaterialManager'
+import RegistrationsManager from '../components/admin/RegistrationsManager'
 
-type Tab = 'results' | 'megatest' | 'testseries' | 'material'
+type Tab = 'results' | 'megatest' | 'registrations' | 'testseries' | 'material'
 
 /**
  * Admin panel - only reachable at /admin.
@@ -58,6 +59,7 @@ export default function AdminPage() {
   const tabs: { id: Tab; label: [string, string] }[] = [
     { id: 'results', label: ['Results', 'परिणाम'] },
     { id: 'megatest', label: ['Mega Test', 'मेगा टेस्ट'] },
+    { id: 'registrations', label: ['Registrations', 'रजिस्ट्रेशन'] },
     { id: 'testseries', label: ['Test Series', 'टेस्ट सीरीज़'] },
     { id: 'material', label: ['Study material', 'अध्ययन सामग्री'] },
   ]
@@ -101,6 +103,7 @@ export default function AdminPage() {
               block={content.megatest}
             />
           )}
+          {tab === 'registrations' && <RegistrationsManager pass={pass} />}
           {tab === 'testseries' && (
             <PosterManager
               key={'series' + content.testseries.poster + content.testseries.title[0]}

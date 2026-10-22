@@ -3,6 +3,7 @@ import { waFor } from '../lib/links'
 import { toast } from './Toast'
 import { safeName, startDownload } from '../lib/download'
 import type { PosterBlock, SiteContent } from '../data/content'
+import { registrationState } from '../data/content'
 
 function PosterCard({ block, kind }: { block: PosterBlock; kind: 'mega' | 'series' }) {
   const { L } = useLang()
@@ -12,6 +13,11 @@ function PosterCard({ block, kind }: { block: PosterBlock; kind: 'mega' | 'serie
       <div>
         <h3>{L(block.title)}</h3>
         <p>{L(block.description)}</p>
+        {kind === 'mega' && registrationState(block) === 'open' && (
+          <a className="btn reg-btn" href="/mega-test">
+            {L(['Register for the Mega Test', 'मेगा टेस्ट के लिए रजिस्टर करें'])}
+          </a>
+        )}
         <div className="sch-actions">
           <a
             className="btn wa icwa"

@@ -3,7 +3,21 @@ import type { Pair } from '../i18n/LangContext'
 import { MATERIAL, MEGATEST_DEFAULT, RESULTS, TESTSERIES_DEFAULT } from './site'
 
 export type ResultItem = { img: string; name: Pair; detail: Pair }
-export type PosterBlock = { poster: string; title: Pair; description: Pair }
+export type PosterBlock = {
+  poster: string
+  title: Pair
+  description: Pair
+  // admin controls (mega test only)
+  hidden?: boolean
+  regOpen?: boolean
+  regFrom?: string
+  regTo?: string
+  examDate?: string
+  reportingTime?: string
+  examTime?: string
+  centre?: string
+  resultDate?: string
+}
 export type MaterialItem = { title: Pair; sub: Pair; file: string }
 
 export type SiteContent = {
@@ -26,7 +40,7 @@ const BUCKET = 'media'
 
 function merge(d: Partial<SiteContent> | null | undefined): SiteContent {
   return {
-    megatest: d?.megatest ?? defaultContent.megatest,
+    megatest: { ...defaultContent.megatest, ...(d?.megatest ?? {}) },
     testseries: d?.testseries ?? defaultContent.testseries,
     results: d?.results ?? defaultContent.results,
     materials: d?.materials ?? defaultContent.materials,
@@ -136,4 +150,68 @@ export async function uploadFile(folder: string, file: File): Promise<string> {
 
   const { data } = supabase.storage.from(BUCKET).getPublicUrl(path)
   return data.publicUrl
+}
+
+/* ==================== mega test registration ==================== */
+
+export type Registration = {
+  id: number
+  roll_no: string
+  name: string
+  father: string | null
+  class: string | null
+  school: string | null
+  category: string | null
+  dob: string | null
+  gender: string | null
+  mobile: string
+  address: string | null
+  created_at: string
+}
+
+export type RegisterPayload = {
+  name: string
+  father: string
+  class: string
+  school: string
+  category: string
+  dob: string
+  gender: string
+  mobile: string
+  address: string
+}
+
+/** Is registration open right now? */
+export function registrationState(mt: PosterBlock): 'hidden' | 'closed' | 'notyet' | 'open' {
+  if (mt.hidden) return 'hidden'
+  if (!mt.regOpen) return 'closed'
+  const now = Date.now()
+  if (mt.regFrom) {
+    const t = Date.parse(mt.regFrom)
+    if (!Number.isNaN(t) && now < t) return 'notyet'
+  }
+  if (mt.regTo) {
+    const t = Date.parse(mt.regTo)
+    if (!Number.isNaN(t) && now > t) return 'closed'
+  }
+  return 'open'
+}
+
+export async function registerForMegaTest(
+  payload: RegisterPayload,
+): Promise<{ roll_no: string; name: string }> {
+  const { data, error } = await supabase.rpc('mega_register', { p: payload })
+  if (error) throw new Error(error.message)
+  return data as { roll_no: string; name: string }
+}
+
+export async function fetchRegistrations(pass: string): Promise<Registration[]> {
+  const { data, error } = await supabase.rpc('admin_registrations', { pass })
+  if (error) throw new Error(error.message)
+  return (data || []) as Registration[]
+}
+
+export async function deleteRegistration(pass: string, id: number): Promise<void> {
+  const { error } = await supabase.rpc('admin_delete_registration', { pass, id_in: id })
+  if (error) throw new Error(error.message)
 }
