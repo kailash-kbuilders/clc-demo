@@ -118,7 +118,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 6 — 22 October 2026
-**Commit:** `__CHECKPOINT_6__`
+**Commit:** `f58288cc`
 
 - **Student photo** registration me (zaroori). Photo browser me hi chhoti ho jati hai (~20-30 KB)
   aur **database me** rakhi jati hai — **file storage me 0 byte**.
