@@ -143,3 +143,16 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   (kab aur kahan dekhna hai). PDF **1 page** — check kiya.
 - Download button ka naam: **"Download admit card (PDF)"**.
 - Photo **apne aap compress** hoti hai — kuch karna nahi padta.
+
+---
+
+## Checkpoint 8 — 22 October 2026
+**Commit:** `__CHECKPOINT_8__`
+
+- **Admit card:** photo aur result ab **ek hi box** me ("PHOTO & RESULT") — baaki boxes
+  jaisa hi navy header. Alag-alag do box nahi. Abhi bhi **1 page**. Design saaf-suthra.
+- **Duplicate rok:** same student **doosre mobile number se bhi** register nahi kar sakta —
+  lekin rok sirf tab jab **naam + janm tithi + pita ka naam** teeno match karein.
+  - Sirf janm tithi same ho → nahi rokta ✓
+  - Sirf naam same ho → nahi rokta ✓
+  - Naam + janm tithi + pita ka naam — teeno same → rok deta hai ✓

@@ -418,11 +418,13 @@ main section{overflow-x:clip}
 .ac-box table{width:100%;border-collapse:collapse;font-size:.86rem}
 .ac-box td{padding:6px 10px;vertical-align:top}
 .ac-box td:first-child{width:36%;font-weight:600;color:#123f86}
-.ac-side{display:flex;flex-direction:column;gap:10px;min-width:0}
-.ac-photo{width:100%;max-width:148px;aspect-ratio:3/4;object-fit:cover;border:2px solid #0b2a5b;border-radius:6px;align-self:center;background:#fff}
+.ac-sidebox{display:flex;flex-direction:column}
+.ac-resultbody{padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-size:.84rem}
+.ac-photo{width:100%;max-width:150px;aspect-ratio:3/4;object-fit:cover;border:2px solid #0b2a5b;border-radius:6px;align-self:center;background:#fff}
 .ac-photo-empty{display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;letter-spacing:1px;color:#9aa6c4;border-style:dashed}
 .ac-result{border:2px solid #0b2a5b;border-radius:9px;padding:12px;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:8px;font-size:.84rem;flex:1}
-.ac-result p{margin:0}
+.ac-resultbody p{margin:0}
+.ac-rp{color:#123f86}
 .ac-result .ac-title{background:#0b2a5b;color:#fff;padding:5px;border-radius:5px;font-size:.78rem;font-weight:700;letter-spacing:1px}
 .ac-result .ac-date{font-size:1.05rem;font-weight:800;color:#b8860b}
 .ac-result .ac-hi{font-size:.78rem;color:#123f86}

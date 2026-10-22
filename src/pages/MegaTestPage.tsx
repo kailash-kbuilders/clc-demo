@@ -95,7 +95,14 @@ export default function MegaTestPage() {
             'यह विद्यार्थी पहले से रजिस्टर्ड है।',
           ]),
         )
-      } else if (m.includes('mobile_used'))
+      } else if (m.includes('duplicate_student'))
+        setErr(
+          L([
+            'A student with the same name, date of birth and father\'s name is already registered.',
+            'इसी नाम, जन्म तिथि और पिता के नाम वाला विद्यार्थी पहले से रजिस्टर्ड है।',
+          ]),
+        )
+      else if (m.includes('mobile_used'))
         setErr(
           L([
             'This mobile number is already used for another registration. One mobile number can be used only once.',
