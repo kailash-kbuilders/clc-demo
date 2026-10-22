@@ -156,3 +156,14 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   - Sirf janm tithi same ho → nahi rokta ✓
   - Sirf naam same ho → nahi rokta ✓
   - Naam + janm tithi + pita ka naam — teeno same → rok deta hai ✓
+
+---
+
+## Checkpoint 9 — 22 October 2026
+**Commit:** `__CHECKPOINT_9__`
+
+- **Gol photo wali dikkat theek:** admin me ek CSS rule (`admin-card img`) **har photo ko
+  gol** bana raha tha (wo sirf login screen ke logo ke liye tha). Isliye admin me poster,
+  registration ki thumbnail aur admit card ki photo — sab **gol** dikh rahi thi.
+  Ab wo rule sirf login screen par lagta hai, aur admin ke andar har photo apne **asli
+  shape** (square/rectangular) me dikhti hai.
