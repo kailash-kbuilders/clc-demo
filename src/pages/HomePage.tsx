@@ -41,8 +41,8 @@ export default function HomePage() {
       <main>
         <Hero />
         <Exams />
-        <Results content={content} />
         <MegaTest content={content} />
+        <Results content={content} />
         <About />
         <AdmissionForm />
         <StudyMaterial content={content} />

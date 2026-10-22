@@ -57,3 +57,37 @@ Website ka poora puraana version:
 - Naya table `registrations` (RLS on, koi direct access nahi)
 - Functions: `mega_register`, `admin_registrations`, `admin_delete_registration`
 - Admit card **kahin save nahi hota** — student ke phone par live banta hai (0 storage)
+
+---
+
+## Checkpoint 3 — 22 October 2026
+**Commit:** `__CHECKPOINT_3__`
+
+Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
+
+**Admit card**
+- Ab **ek hi page** me chhapta hai (A4)
+- Header pill se "Other Govt. Exams" hata diya
+- Form/card se **School aur Address hata diye**
+- Exam Details me **sirf Test Centre** (EXAM FOR list hata di)
+- RESULT box: "Result will be published on our **website and WhatsApp group** on [tarikh]"
+- Date of birth **DD/MM/YYYY** — slash apne aap lagte hain
+
+**Roll number**
+- Ab **4 digit**, `CLCMT1001` se shuru
+
+**Registration rules**
+- Ek hi naam + ek hi mobile se dobara registration nahi
+- Ek mobile number se **zyada se zyada 2** registration (bhai-behen ke liye)
+- Pehle se registered ho to page par likha aata hai + **"Click to download admit card"** button
+
+**Website**
+- Section order: 01 प्रवेश परीक्षाएँ, **02 मेगा टेस्ट**, **03 परिणाम**, 04 हमारे बारे में…
+- Poster se **download button hata diya**
+- Registration band hone par poster **fade** ho jata hai + **✗ REGISTRATION CLOSED** banner
+
+**Admin**
+- Dark mode me text dikh nahi raha tha — **theek kar diya**
+- Registration status ab **2 button**: "Registration चालू" / "Registration बंद" (checkbox nahi)
+- Schedule alag collapsible box me (optional)
+- Sirf 2 field: Test centre ka naam + Result ki tarikh

@@ -1,15 +1,23 @@
 import { useLang } from '../i18n/LangContext'
 import { waFor } from '../lib/links'
-import { toast } from './Toast'
-import { safeName, startDownload } from '../lib/download'
 import type { PosterBlock, SiteContent } from '../data/content'
 import { registrationState } from '../data/content'
 
 function PosterCard({ block, kind }: { block: PosterBlock; kind: 'mega' | 'series' }) {
   const { L } = useLang()
+  const closed = kind === 'mega' && registrationState(block) === 'closed'
   return (
-    <div className="sch rv">
-      <img src={block.poster} alt={L(block.title)} data-zoom loading="lazy" />
+    <div className={'sch rv' + (closed ? ' sch-closed' : '')}>
+      <div className="sch-imgw">
+        <img src={block.poster} alt={L(block.title)} data-zoom loading="lazy" />
+        {closed && (
+          <div className="sch-closed-ov">
+            <span className="sch-cross">&#10007;</span>
+            <b>REGISTRATION CLOSED</b>
+            <span>रजिस्ट्रेशन बंद हो गया है</span>
+          </div>
+        )}
+      </div>
       <div>
         <h3>{L(block.title)}</h3>
         <p>{L(block.description)}</p>
@@ -29,15 +37,6 @@ function PosterCard({ block, kind }: { block: PosterBlock; kind: 'mega' | 'serie
               ? L(['Ask about the Mega Test', 'मेगा टेस्ट के बारे में पूछें'])
               : L(['Ask about the Test Series', 'टेस्ट सीरीज़ के बारे में पूछें'])}
           </a>
-          <button
-            className="btn icdl ghost"
-            type="button"
-            onClick={() =>
-              startDownload(block.poster, safeName(L(block.title), 'CLC-poster') + '.jpg', L, toast)
-            }
-          >
-            {L(['Download poster', 'पोस्टर डाउनलोड करें'])}
-          </button>
         </div>
       </div>
     </div>
@@ -59,7 +58,9 @@ export default function MegaTest({ content }: { content: SiteContent }) {
       <div className="w">
         <h2 className="rv">
           {blocks.length === 1
-            ? L(['Test', 'टेस्ट'])
+            ? blocks[0].kind === 'mega'
+              ? L(['Mega Test', 'मेगा टेस्ट'])
+              : L(['Test Series', 'टेस्ट सीरीज़'])
             : L(['Mega Test & Test Series', 'मेगा टेस्ट व टेस्ट सीरीज़'])}
         </h2>
         {blocks.map((b) => (

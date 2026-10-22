@@ -173,12 +173,10 @@ export type RegisterPayload = {
   name: string
   father: string
   class: string
-  school: string
   category: string
   dob: string
   gender: string
   mobile: string
-  address: string
 }
 
 /** Is registration open right now? */
@@ -203,6 +201,13 @@ export async function registerForMegaTest(
   const { data, error } = await supabase.rpc('mega_register', { p: payload })
   if (error) throw new Error(error.message)
   return data as { roll_no: string; name: string }
+}
+
+/** Get an already-made admit card back (mobile + name must both match). */
+export async function getAdmitCard(mobile: string, name: string): Promise<Registration> {
+  const { data, error } = await supabase.rpc('mega_get_card', { p_mobile: mobile, p_name: name })
+  if (error) throw new Error(error.message)
+  return data as Registration
 }
 
 export async function fetchRegistrations(pass: string): Promise<Registration[]> {

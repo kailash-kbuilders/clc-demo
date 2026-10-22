@@ -5,37 +5,36 @@ import { useLang } from '../../i18n/LangContext'
 
 type Props = { which: 'megatest' | 'testseries'; pass: string; block: PosterBlock }
 
+function toLocal(iso?: string) {
+  if (!iso) return ''
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return ''
+  const p = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`
+}
+
+function toIso(local: string) {
+  if (!local) return ''
+  const d = new Date(local)
+  return Number.isNaN(d.getTime()) ? '' : d.toISOString()
+}
+
 export default function PosterManager({ which, pass, block }: Props) {
   const { L } = useLang()
+  const isMega = which === 'megatest'
+
   const [title, setTitle] = useState(L(block.title))
   const [desc, setDesc] = useState(L(block.description))
   const [file, setFile] = useState<File | null>(null)
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState('')
 
-  // ---- mega test controls (only used when which === 'megatest') ----
-  const isMega = which === 'megatest'
   const [showOnSite, setShowOnSite] = useState(!block.hidden)
   const [regOpen, setRegOpen] = useState(block.regOpen !== false)
   const [regFrom, setRegFrom] = useState(toLocal(block.regFrom))
   const [regTo, setRegTo] = useState(toLocal(block.regTo))
-  const [examDate, setExamDate] = useState(block.examDate ?? '')
-  const [reportingTime, setReportingTime] = useState(block.reportingTime ?? '')
-  const [examTime, setExamTime] = useState(block.examTime ?? '')
   const [centre, setCentre] = useState(block.centre ?? '')
   const [resultDate, setResultDate] = useState(block.resultDate ?? '')
-
-  const controls = {
-    hidden: !showOnSite,
-    regOpen,
-    regFrom: toIso(regFrom),
-    regTo: toIso(regTo),
-    examDate: examDate.trim(),
-    reportingTime: reportingTime.trim(),
-    examTime: examTime.trim(),
-    centre: centre.trim(),
-    resultDate: resultDate.trim(),
-  }
 
   const save = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,7 +46,16 @@ export default function PosterManager({ which, pass, block }: Props) {
         poster,
         title: [title.trim() || L(block.title), title.trim() || L(block.title)],
         description: [desc.trim(), desc.trim()],
-        ...(isMega ? controls : {}),
+        ...(isMega
+          ? {
+              hidden: !showOnSite,
+              regOpen,
+              regFrom: toIso(regFrom),
+              regTo: toIso(regTo),
+              centre: centre.trim(),
+              resultDate: resultDate.trim(),
+            }
+          : {}),
       }
       await saveContent(pass, { [which]: next } as never)
       setFile(null)
@@ -80,79 +88,117 @@ export default function PosterManager({ which, pass, block }: Props) {
 
   return (
     <div className="adm-panel">
-      <h3>{which === 'megatest' ? L(['Mega Test', 'मेगा टेस्ट']) : L(['Test Series', 'टेस्ट सीरीज़'])}</h3>
-      <p className="admin-note">Naya poster aur uske neeche likha description — dono yahan se badlein.</p>
+      <h3>{isMega ? 'Mega Test' : 'Test Series'}</h3>
 
       <form className="admin-form" onSubmit={save}>
-        <label>
-          <span>Naya poster (photo)</span>
+        <div className="adm-field">
+          <span className="adm-lbl">Poster</span>
           <input type="file" accept="image/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
-        </label>
-        {file ? (
-          <img className="adm-preview" src={URL.createObjectURL(file)} alt="" />
-        ) : (
-          block.poster && <img className="adm-preview" src={block.poster} alt="" />
-        )}
+          {file ? (
+            <img className="adm-preview" src={URL.createObjectURL(file)} alt="" />
+          ) : (
+            block.poster && <img className="adm-preview" src={block.poster} alt="" />
+          )}
+        </div>
+
         <label>
           <span>Heading</span>
           <input value={title} onChange={(e) => setTitle(e.target.value)} />
         </label>
+
         <label>
-          <span>Description</span>
+          <span>Poster ke neeche likha text</span>
           <textarea rows={3} value={desc} onChange={(e) => setDesc(e.target.value)} />
         </label>
+
         {isMega && (
           <div className="adm-settings">
-            <h4>Registration aur exam ki settings</h4>
-            <label className="adm-check">
-              <input
-                type="checkbox"
-                checked={showOnSite}
-                onChange={(e) => setShowOnSite(e.target.checked)}
-              />
-              <span>Mega test website par dikhayein</span>
-            </label>
-            <label className="adm-check">
-              <input type="checkbox" checked={regOpen} onChange={(e) => setRegOpen(e.target.checked)} />
-              <span>Registration chal raha hai (online)</span>
-            </label>
-            <div className="adm-two">
-              <label>
-                <span>Registration shuru (khaali chhod sakte hain)</span>
-                <input type="datetime-local" value={regFrom} onChange={(e) => setRegFrom(e.target.value)} />
-              </label>
-              <label>
-                <span>Registration band</span>
-                <input type="datetime-local" value={regTo} onChange={(e) => setRegTo(e.target.value)} />
-              </label>
+            <h4>Mega Test ki settings</h4>
+
+            <div className="adm-field">
+              <span className="adm-lbl">Registration ka status</span>
+              <div className="adm-seg">
+                <button
+                  type="button"
+                  className={regOpen ? 'on' : ''}
+                  onClick={() => setRegOpen(true)}
+                >
+                  Registration चालू
+                </button>
+                <button
+                  type="button"
+                  className={!regOpen ? 'on off' : ''}
+                  onClick={() => setRegOpen(false)}
+                >
+                  Registration बंद
+                </button>
+              </div>
+              <p className="admin-note">
+                बंद करने पर poster par "REGISTRATION CLOSED" लिखा आ जाएगा।
+              </p>
             </div>
-            <p className="admin-note">
-              Tarikh daalne par registration apne aap khulega aur band hoga. Khaali chhodne par
-              upar wala checkbox hi chalega.
-            </p>
-            <div className="adm-two">
-              <label>
-                <span>Exam ki tarikh</span>
-                <input value={examDate} onChange={(e) => setExamDate(e.target.value)} placeholder="26 October 2026 (Monday)" />
-              </label>
-              <label>
-                <span>Reporting time</span>
-                <input value={reportingTime} onChange={(e) => setReportingTime(e.target.value)} placeholder="09:00 AM" />
-              </label>
+
+            <div className="adm-field">
+              <span className="adm-lbl">Website par mega test</span>
+              <div className="adm-seg">
+                <button
+                  type="button"
+                  className={showOnSite ? 'on' : ''}
+                  onClick={() => setShowOnSite(true)}
+                >
+                  दिखाएँ
+                </button>
+                <button
+                  type="button"
+                  className={!showOnSite ? 'on off' : ''}
+                  onClick={() => setShowOnSite(false)}
+                >
+                  हटाएँ
+                </button>
+              </div>
             </div>
-            <div className="adm-two">
-              <label>
-                <span>Exam ka samay</span>
-                <input value={examTime} onChange={(e) => setExamTime(e.target.value)} placeholder="10:00 AM - 01:00 PM (3 Hours)" />
-              </label>
-              <label>
-                <span>Result ki tarikh</span>
-                <input value={resultDate} onChange={(e) => setResultDate(e.target.value)} placeholder="5 November 2026" />
-              </label>
-            </div>
+
+            <details className="adm-sched">
+              <summary>Schedule — tarikh se apne aap chalu/band (optional)</summary>
+              <div className="adm-two">
+                <label>
+                  <span>Registration shuru</span>
+                  <input
+                    type="datetime-local"
+                    value={regFrom}
+                    onChange={(e) => setRegFrom(e.target.value)}
+                  />
+                </label>
+                <label>
+                  <span>Registration band</span>
+                  <input
+                    type="datetime-local"
+                    value={regTo}
+                    onChange={(e) => setRegTo(e.target.value)}
+                  />
+                </label>
+              </div>
+              <p className="admin-note">
+                Khaali chhodne par upar wala status hi chalega.
+              </p>
+            </details>
+
             <label>
-              <span>Test centre ka address</span>
-              <input value={centre} onChange={(e) => setCentre(e.target.value)} />
+              <span>Test centre ka naam (admit card par chhapta hai)</span>
+              <input
+                value={centre}
+                onChange={(e) => setCentre(e.target.value)}
+                placeholder="Career Launcher Classes, Shastri Nagar, Barmer (Raj.)"
+              />
+            </label>
+
+            <label>
+              <span>Result ki tarikh (admit card par chhapti hai)</span>
+              <input
+                value={resultDate}
+                onChange={(e) => setResultDate(e.target.value)}
+                placeholder="5 November 2026"
+              />
             </label>
           </div>
         )}
@@ -170,18 +216,4 @@ export default function PosterManager({ which, pass, block }: Props) {
       {msg && <p className="admin-msg">{msg}</p>}
     </div>
   )
-}
-
-function toLocal(iso?: string) {
-  if (!iso) return ''
-  const d = new Date(iso)
-  if (Number.isNaN(d.getTime())) return ''
-  const p = (n: number) => String(n).padStart(2, '0')
-  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`
-}
-
-function toIso(local: string) {
-  if (!local) return ''
-  const d = new Date(local)
-  return Number.isNaN(d.getTime()) ? '' : d.toISOString()
 }

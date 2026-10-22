@@ -386,7 +386,7 @@ main section{overflow-x:clip}
 .mt-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
 .mt-form label{display:flex;flex-direction:column;gap:6px;min-width:0}
 .mt-form span{font-weight:600;font-size:.86rem}
-.mt-form input,.mt-form select,.mt-form textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:#111}
+.mt-form input,.mt-form select,.mt-form textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--bg);color:var(--ink)}
 .mt-full{grid-column:1 / -1}
 .mt-btns{display:flex;gap:10px;flex-wrap:wrap}
 .mt-err{color:#c0272d;font-weight:600;margin:0}
@@ -394,6 +394,12 @@ main section{overflow-x:clip}
 .mt-ok{background:#e8f7ee;border:1px solid #2e9e5b;color:#14612f;padding:12px 14px;border-radius:12px;font-weight:600}
 .mt-closed{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
 .reg-btn{margin-top:14px}
+.sch-imgw{position:relative}
+.sch-closed .sch-imgw img{opacity:.35;filter:grayscale(.6)}
+.sch-closed-ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:10px}
+.sch-cross{font-size:2.6rem;line-height:1;color:#d3302f;font-weight:900;text-shadow:0 2px 10px #fff}
+.sch-closed-ov b{background:#d3302f;color:#fff;padding:6px 14px;border-radius:999px;font-size:.86rem;letter-spacing:1px}
+.sch-closed-ov span:last-child{font-weight:700;color:#fff;background:#150e33cc;padding:3px 10px;border-radius:999px;font-size:.8rem}
 
 /* ---- admit card ---- */
 .ac{background:#fff;color:#0b2a5b;max-width:860px;margin:18px auto;padding:20px;border:3px solid #0b2a5b;border-radius:12px;font-family:Mukta,Hind,sans-serif}
@@ -441,11 +447,11 @@ main section{overflow-x:clip}
 .reg-count b{font-size:1.6rem;color:var(--gold)}
 .reg-count span{font-size:.84rem}
 .reg-actions{display:flex;gap:8px;flex-wrap:wrap}
-.reg-search{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font:inherit;margin-bottom:12px}
+.reg-search{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font:inherit;margin-bottom:12px;background:var(--bg);color:var(--ink)}
 .reg-list{display:flex;flex-direction:column;gap:8px}
-.reg-row{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.reg-row{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
 .reg-head{display:flex;gap:10px;align-items:center;width:100%;text-align:left;padding:12px;background:none;border:0;cursor:pointer;font:inherit;flex-wrap:wrap}
-.reg-roll{color:#123f86}
+.reg-roll{color:var(--navy)}
 .reg-name{font-weight:600;flex:1;min-width:120px}
 .reg-meta{font-size:.82rem;color:var(--mut)}
 .reg-body{padding:0 12px 12px;border-top:1px dashed var(--line)}
@@ -453,7 +459,18 @@ main section{overflow-x:clip}
 .reg-body td{padding:5px 0;vertical-align:top}
 .reg-body td:first-child{width:38%;color:var(--mut)}
 .btn.danger{color:#c0272d;border-color:#c0272d}
-.adm-settings{border:1px solid var(--line);border-radius:12px;padding:14px;margin:6px 0;display:flex;flex-direction:column;gap:10px;background:#fbfaf6}
+.adm-settings{border:1px solid var(--line);border-radius:14px;padding:14px;margin:6px 0;display:flex;flex-direction:column;gap:14px;background:var(--bg)}
+.adm-settings h4{margin:0;font-size:1rem;color:var(--ink)}
+.adm-field{display:flex;flex-direction:column;gap:8px}
+.adm-lbl{font-weight:700;font-size:.95rem;color:var(--ink)}
+.adm-seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.adm-seg button{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:12px 10px;font:700 .92rem Mukta,Hind,sans-serif;cursor:pointer}
+.adm-seg button.on{background:var(--grn);border-color:var(--grn);color:#fff}
+.adm-seg button.on.off{background:var(--red);border-color:var(--red)}
+.adm-sched{border:1px dashed var(--line);border-radius:12px;padding:10px 12px;background:var(--card)}
+.adm-sched summary{cursor:pointer;font-weight:600;font-size:.92rem;color:var(--ink)}
+.adm-sched .adm-two{margin-top:10px}
+.adm-preview{max-width:100%;border-radius:12px;border:1px solid var(--line)}
 .adm-settings h4{margin:0;font-size:.95rem}
 .adm-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .adm-check{flex-direction:row!important;align-items:center;gap:8px!important}
@@ -463,9 +480,12 @@ main section{overflow-x:clip}
 
 /* ================= print: only the admit card ================= */
 @media print{
+  html,body{background:#fff!important;margin:0!important;padding:0!important}
   body *{visibility:hidden!important}
   #admit-card,#admit-card *{visibility:visible!important}
-  #admit-card{position:absolute;left:0;top:0;width:100%;max-width:none;margin:0;border-radius:0;padding:10mm}
+  #admit-card{position:absolute;left:0;top:0;width:100%;max-width:none;margin:0;border:0;border-radius:0;padding:0;box-shadow:none;page-break-inside:avoid;break-inside:avoid}
+  #admit-card .ac-ins{font-size:9.4pt;line-height:1.45}
+  #admit-card .ac-box td{padding:4px 8px;font-size:9.6pt}
   .no-print{display:none!important}
-  @page{size:A4;margin:8mm}
+  @page{size:A4 portrait;margin:8mm}
 }

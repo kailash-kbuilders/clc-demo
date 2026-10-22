@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../i18n/LangContext'
 import { useSiteContent } from '../hooks/useSiteContent'
-import { registrationState, registerForMegaTest } from '../data/content'
+import { getAdmitCard, registrationState, registerForMegaTest } from '../data/content'
 import type { Registration } from '../data/content'
 import { CATEGORY_OPTIONS, CLASS_OPTIONS, GENDER_OPTIONS } from '../data/site'
 import AdmitCard from '../components/AdmitCard'
@@ -12,12 +12,18 @@ const EMPTY = {
   name: '',
   father: '',
   class: '',
-  school: '',
   category: '',
   dob: '',
   gender: '',
   mobile: '',
-  address: '',
+}
+
+/** DD/MM/YYYY - slashes are added automatically. */
+function fmtDob(v: string) {
+  const d = v.replace(/\D/g, '').slice(0, 8)
+  if (d.length <= 2) return d
+  if (d.length <= 4) return `${d.slice(0, 2)}/${d.slice(2)}`
+  return `${d.slice(0, 2)}/${d.slice(2, 4)}/${d.slice(4)}`
 }
 
 export default function MegaTestPage() {
@@ -29,44 +35,70 @@ export default function MegaTestPage() {
   const [form, setForm] = useState(EMPTY)
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
+  const [already, setAlready] = useState(false)
   const [reg, setReg] = useState<Registration | null>(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  const set = (k: keyof typeof EMPTY) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-    setForm((f) => ({ ...f, [k]: e.target.value }))
+  const set =
+    (k: keyof typeof EMPTY) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+      setForm((f) => ({ ...f, [k]: k === 'dob' ? fmtDob(e.target.value) : e.target.value }))
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     setErr('')
+    setAlready(false)
     const mobile = form.mobile.replace(/\D/g, '')
-    if (form.name.trim().length < 2) return setErr(L(['Please enter the student name.', 'कृपया विद्यार्थी का नाम लिखें।']))
-    if (mobile.length !== 10) return setErr(L(['Please enter a 10 digit mobile number.', 'कृपया 10 अंकों का मोबाइल नंबर लिखें।']))
+    if (form.name.trim().length < 2)
+      return setErr(L(['Please enter the student name.', 'कृपया विद्यार्थी का नाम लिखें।']))
+    if (mobile.length !== 10)
+      return setErr(L(['Please enter a 10 digit mobile number.', 'कृपया 10 अंकों का मोबाइल नंबर लिखें।']))
 
     setBusy(true)
     try {
       const res = await registerForMegaTest({ ...form, mobile })
-      setReg({
-        ...form,
-        mobile,
-        id: 0,
-        roll_no: res.roll_no,
-        created_at: new Date().toISOString(),
-      } as Registration)
+      setReg({ ...form, mobile, id: 0, roll_no: res.roll_no, created_at: new Date().toISOString() } as Registration)
       window.scrollTo(0, 0)
     } catch (e2) {
       const m = (e2 as Error).message
-      if (m.includes('already_registered'))
-        setErr(L(['This mobile number is already registered.', 'यह मोबाइल नंबर पहले से रजिस्टर्ड है।']))
+      if (m.includes('already_registered')) {
+        setAlready(true)
+        setErr(
+          L([
+            'This student is already registered.',
+            'यह विद्यार्थी पहले से रजिस्टर्ड है।',
+          ]),
+        )
+      } else if (m.includes('mobile_limit'))
+        setErr(
+          L([
+            'Two students are already registered with this mobile number.',
+            'इस मोबाइल नंबर से दो विद्यार्थी पहले से रजिस्टर्ड हैं।',
+          ]),
+        )
       else if (m.includes('registration_not_started'))
         setErr(L(['Registration has not started yet.', 'रजिस्ट्रेशन अभी शुरू नहीं हुआ है।']))
       else if (m.includes('registration_closed'))
         setErr(L(['Registration is closed.', 'रजिस्ट्रेशन बंद हो गया है।']))
-      else if (m.includes('mobile_invalid'))
-        setErr(L(['Please enter a 10 digit mobile number.', 'कृपया 10 अंकों का मोबाइल नंबर लिखें।']))
-      else setErr(L(['Something went wrong. Please try again.', 'कुछ गड़बड़ हो गई। दोबारा कोशिश करें।']) + ' (' + m + ')')
+      else setErr(L(['Something went wrong. Please try again.', 'कुछ गड़बड़ हो गई। दोबारा कोशिश करें।']))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const getCard = async () => {
+    setErr('')
+    setBusy(true)
+    try {
+      const r = await getAdmitCard(form.mobile, form.name)
+      setReg(r)
+      setAlready(false)
+      window.scrollTo(0, 0)
+    } catch {
+      setErr(L(['Admit card not found. Please check the name and mobile number.', 'एडमिट कार्ड नहीं मिला। नाम और मोबाइल नंबर जाँच लें।']))
     } finally {
       setBusy(false)
     }
@@ -92,17 +124,13 @@ export default function MegaTestPage() {
       </header>
 
       <main className="mt-wrap">
-        <h1 className="mt-h1">
-          {L(['Mega Test — Online registration', 'मेगा टेस्ट — ऑनलाइन रजिस्ट्रेशन'])}
-        </h1>
-        <p className="mt-sub">{L(block.title)}</p>
-
         {reg ? (
           <>
+            <h1 className="mt-h1">{L(['Your admit card', 'आपका एडमिट कार्ड'])}</h1>
             <p className="mt-ok no-print">
               {L([
-                'Registration done! Your admit card is below — save it or print it.',
-                'रजिस्ट्रेशन हो गया! नीचे आपका एडमिट कार्ड है — इसे सेव कर लें या प्रिंट कर लें।',
+                'Save this admit card or print it. You can open it again any time with the same name and mobile number.',
+                'इस एडमिट कार्ड को सेव या प्रिंट कर लें। उसी नाम और मोबाइल नंबर से आप इसे दोबारा खोल सकते हैं।',
               ])}
             </p>
             <div className="mt-btns no-print">
@@ -133,88 +161,102 @@ export default function MegaTestPage() {
             </Link>
           </div>
         ) : (
-          <form className="mt-form" onSubmit={submit}>
-            <label>
-              <span>{L(['Student name', 'विद्यार्थी का नाम'])} *</span>
-              <input value={form.name} onChange={set('name')} required />
-            </label>
-            <label>
-              <span>{L(["Father's name", 'पिता का नाम'])}</span>
-              <input value={form.father} onChange={set('father')} />
-            </label>
-            <label>
-              <span>{L(['Class', 'कक्षा'])}</span>
-              <select value={form.class} onChange={set('class')}>
-                <option value="">{L(['Select', 'चुनें'])}</option>
-                {CLASS_OPTIONS.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-                <option value="Other">Other</option>
-              </select>
-            </label>
-            <label>
-              <span>{L(['School', 'स्कूल'])}</span>
-              <input value={form.school} onChange={set('school')} />
-            </label>
-            <label>
-              <span>{L(['Category', 'वर्ग'])}</span>
-              <select value={form.category} onChange={set('category')}>
-                <option value="">{L(['Select', 'चुनें'])}</option>
-                {CATEGORY_OPTIONS.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              <span>{L(['Date of birth', 'जन्म तिथि'])}</span>
-              <input value={form.dob} onChange={set('dob')} placeholder="DD-MM-YYYY" />
-            </label>
-            <label>
-              <span>{L(['Gender', 'लिंग'])}</span>
-              <select value={form.gender} onChange={set('gender')}>
-                <option value="">{L(['Select', 'चुनें'])}</option>
-                {GENDER_OPTIONS.map((g) => (
-                  <option key={g} value={g}>
-                    {g}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              <span>{L(['Mobile number', 'मोबाइल नंबर'])} *</span>
-              <input
-                value={form.mobile}
-                onChange={set('mobile')}
-                inputMode="numeric"
-                maxLength={10}
-                required
-              />
-            </label>
-            <label className="mt-full">
-              <span>{L(['Address', 'पता'])}</span>
-              <textarea rows={2} value={form.address} onChange={set('address')} />
-            </label>
+          <>
+            <h1 className="mt-h1">
+              {L(['Mega Test — Online registration', 'मेगा टेस्ट — ऑनलाइन रजिस्ट्रेशन'])}
+            </h1>
+            <p className="mt-sub">{L(block.title)}</p>
 
-            {err && <p className="mt-err mt-full">{err}</p>}
+            <form className="mt-form" onSubmit={submit}>
+              <label>
+                <span>{L(['Student name', 'विद्यार्थी का नाम'])} *</span>
+                <input value={form.name} onChange={set('name')} required />
+              </label>
+              <label>
+                <span>{L(["Father's name", 'पिता का नाम'])}</span>
+                <input value={form.father} onChange={set('father')} />
+              </label>
+              <label>
+                <span>{L(['Class', 'कक्षा'])}</span>
+                <select value={form.class} onChange={set('class')}>
+                  <option value="">{L(['Select', 'चुनें'])}</option>
+                  {CLASS_OPTIONS.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+              <label>
+                <span>{L(['Category', 'वर्ग'])}</span>
+                <select value={form.category} onChange={set('category')}>
+                  <option value="">{L(['Select', 'चुनें'])}</option>
+                  {CATEGORY_OPTIONS.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                <span>{L(['Date of birth', 'जन्म तिथि'])}</span>
+                <input
+                  value={form.dob}
+                  onChange={set('dob')}
+                  inputMode="numeric"
+                  placeholder="DD/MM/YYYY"
+                />
+              </label>
+              <label>
+                <span>{L(['Gender', 'लिंग'])}</span>
+                <select value={form.gender} onChange={set('gender')}>
+                  <option value="">{L(['Select', 'चुनें'])}</option>
+                  {GENDER_OPTIONS.map((g) => (
+                    <option key={g} value={g}>
+                      {g}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="mt-full">
+                <span>{L(['Mobile number', 'मोबाइल नंबर'])} *</span>
+                <input
+                  value={form.mobile}
+                  onChange={set('mobile')}
+                  inputMode="numeric"
+                  maxLength={10}
+                  required
+                />
+              </label>
 
-            <div className="mt-full mt-btns">
-              <button className="btn" type="submit" disabled={busy}>
-                {busy
-                  ? L(['Registering…', 'रजिस्ट्रेशन हो रहा है…'])
-                  : L(['Register', 'रजिस्टर करें'])}
-              </button>
-            </div>
-            <p className="mt-note mt-full">
-              {L([
-                'After registering you will get your admit card with a roll number.',
-                'रजिस्ट्रेशन के बाद आपको रोल नंबर के साथ एडमिट कार्ड मिल जाएगा।',
-              ])}
-            </p>
-          </form>
+              {err && <p className="mt-err mt-full">{err}</p>}
+
+              {already && (
+                <div className="mt-full">
+                  <button className="btn" type="button" onClick={() => void getCard()} disabled={busy}>
+                    {busy
+                      ? L(['Please wait…', 'रुकें…'])
+                      : L(['Click to download admit card', 'एडमिट कार्ड डाउनलोड करने के लिए दबाएं'])}
+                  </button>
+                </div>
+              )}
+
+              <div className="mt-full mt-btns">
+                <button className="btn" type="submit" disabled={busy}>
+                  {busy
+                    ? L(['Registering…', 'रजिस्ट्रेशन हो रहा है…'])
+                    : L(['Register', 'रजिस्टर करें'])}
+                </button>
+              </div>
+              <p className="mt-note mt-full">
+                {L([
+                  'After registering you will get your admit card with a roll number. One mobile number can be used for two students.',
+                  'रजिस्ट्रेशन के बाद आपको रोल नंबर के साथ एडमिट कार्ड मिल जाएगा। एक मोबाइल नंबर से दो विद्यार्थी रजिस्टर हो सकते हैं।',
+                ])}
+              </p>
+            </form>
+          </>
         )}
       </main>
     </>
