@@ -95,7 +95,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 4 — 22 October 2026
-**Commit:** `__CHECKPOINT_4__`
+**Commit:** `740b6e9d`
 
 - Registration **band/schedule** hone par page par likha aata hai — "Registration starts on
   [tarikh]" ya "Registration is closed", aur saath me **"Already registered? Get your admit
