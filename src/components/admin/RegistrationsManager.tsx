@@ -1,59 +1,19 @@
 import { useEffect, useMemo, useState } from 'react'
 import { deleteRegistration, fetchRegistrations } from '../../data/content'
-import type { Registration } from '../../data/content'
+import type { PosterBlock, Registration } from '../../data/content'
+import AdmitCard from '../AdmitCard'
 
-function csvCell(v: string | null | undefined) {
-  const s = (v ?? '').toString().replace(/"/g, '""')
-  return `"${s}"`
-}
-
-function downloadCsv(rows: Registration[]) {
-  const head = [
-    'Roll No',
-    'Name',
-    "Father's Name",
-    'Class',
-    'School',
-    'Category',
-    'DOB',
-    'Gender',
-    'Mobile',
-    'Address',
-    'Registered at',
-  ]
-  const body = rows.map((r) =>
-    [
-      r.roll_no,
-      r.name,
-      r.father,
-      r.class,
-      r.school,
-      r.category,
-      r.dob,
-      r.gender,
-      r.mobile,
-      r.address,
-      new Date(r.created_at).toLocaleString('en-IN'),
-    ]
-      .map(csvCell)
-      .join(','),
-  )
-  const csv = '\uFEFF' + [head.map(csvCell).join(','), ...body].join('\r\n')
-  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }))
-  const a = document.createElement('a')
-  a.href = url
-  a.download = 'clc-mega-test-registrations.csv'
-  document.body.appendChild(a)
-  a.click()
-  a.remove()
-  setTimeout(() => URL.revokeObjectURL(url), 15000)
-}
-
-export default function RegistrationsManager({ pass }: { pass: string }) {
+export default function RegistrationsManager({
+  pass,
+  block,
+}: {
+  pass: string
+  block: PosterBlock
+}) {
   const [rows, setRows] = useState<Registration[] | null>(null)
   const [err, setErr] = useState('')
   const [q, setQ] = useState('')
-  const [openId, setOpenId] = useState<number | null>(null)
+  const [cardId, setCardId] = useState<number | null>(null)
 
   const load = async () => {
     setErr('')
@@ -87,10 +47,13 @@ export default function RegistrationsManager({ pass }: { pass: string }) {
     try {
       await deleteRegistration(pass, id)
       setRows((r) => (r ?? []).filter((x) => x.id !== id))
+      if (cardId === id) setCardId(null)
     } catch (e) {
       setErr('Delete nahi hua: ' + (e as Error).message)
     }
   }
+
+  const card = cardId != null ? (rows ?? []).find((r) => r.id === cardId) : null
 
   return (
     <div className="adm-panel">
@@ -101,19 +64,9 @@ export default function RegistrationsManager({ pass }: { pass: string }) {
           <b>{rows ? rows.length : '…'}</b>
           <span>ab tak register</span>
         </div>
-        <div className="reg-actions">
-          <button className="btn sm" type="button" onClick={() => void load()}>
-            Refresh
-          </button>
-          <button
-            className="btn sm ghost"
-            type="button"
-            disabled={!rows || rows.length === 0}
-            onClick={() => downloadCsv(filtered)}
-          >
-            Excel (CSV) download
-          </button>
-        </div>
+        <button className="btn sm" type="button" onClick={() => void load()}>
+          Refresh
+        </button>
       </div>
 
       <input
@@ -130,52 +83,38 @@ export default function RegistrationsManager({ pass }: { pass: string }) {
 
       <div className="reg-list">
         {filtered.map((r) => (
-          <div className="reg-row" key={r.id}>
+          <div className="reg-line" key={r.id}>
+            <b className="reg-roll">{r.roll_no}</b>
+            <span className="reg-name">{r.name}</span>
+            <span className="reg-meta">{r.class || '-'}</span>
+            <span className="reg-meta">{r.mobile}</span>
             <button
+              className="btn sm"
               type="button"
-              className="reg-head"
-              onClick={() => setOpenId(openId === r.id ? null : r.id)}
+              onClick={() => setCardId(cardId === r.id ? null : r.id)}
             >
-              <b className="reg-roll">{r.roll_no}</b>
-              <span className="reg-name">{r.name}</span>
-              <span className="reg-meta">
-                {r.class || '-'} &middot; {r.mobile}
-              </span>
+              Admit card
             </button>
-            {openId === r.id && (
-              <div className="reg-body">
-                <table>
-                  <tbody>
-                    {[
-                      ['Roll No.', r.roll_no],
-                      ['Student', r.name],
-                      ["Father's name", r.father],
-                      ['Class', r.class],
-                      ['School', r.school],
-                      ['Category', r.category],
-                      ['Date of birth', r.dob],
-                      ['Gender', r.gender],
-                      ['Mobile', r.mobile],
-                      ['Address', r.address],
-                      ['Registered at', new Date(r.created_at).toLocaleString('en-IN')],
-                    ]
-                      .filter(([, v]) => v)
-                      .map(([k, v]) => (
-                        <tr key={k as string}>
-                          <td>{k}</td>
-                          <td>{v}</td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-                <button className="btn sm ghost danger" type="button" onClick={() => void del(r.id)}>
-                  Delete
-                </button>
-              </div>
-            )}
+            <button className="btn sm ghost danger" type="button" onClick={() => void del(r.id)}>
+              Delete
+            </button>
           </div>
         ))}
       </div>
+
+      {card && (
+        <div className="reg-cardwrap">
+          <div className="no-print reg-cardbtns">
+            <button className="btn" type="button" onClick={() => window.print()}>
+              Print / Save as PDF
+            </button>
+            <button className="btn ghost" type="button" onClick={() => setCardId(null)}>
+              Band karein
+            </button>
+          </div>
+          <AdmitCard reg={card} block={block} />
+        </div>
+      )}
     </div>
   )
 }

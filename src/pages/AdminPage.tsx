@@ -103,7 +103,9 @@ export default function AdminPage() {
               block={content.megatest}
             />
           )}
-          {tab === 'registrations' && <RegistrationsManager pass={pass} />}
+          {tab === 'registrations' && (
+            <RegistrationsManager pass={pass} block={content.megatest} />
+          )}
           {tab === 'testseries' && (
             <PosterManager
               key={'series' + content.testseries.poster + content.testseries.title[0]}

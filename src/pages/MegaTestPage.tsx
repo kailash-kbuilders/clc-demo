@@ -18,6 +18,20 @@ const EMPTY = {
   mobile: '',
 }
 
+/** 25 October 2026, 9:00 am */
+function fmtWhen(iso?: string) {
+  if (!iso) return ''
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return ''
+  return d.toLocaleString('en-IN', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  })
+}
+
 /** DD/MM/YYYY - slashes are added automatically. */
 function fmtDob(v: string) {
   const d = v.replace(/\D/g, '').slice(0, 8)
@@ -37,6 +51,8 @@ export default function MegaTestPage() {
   const [err, setErr] = useState('')
   const [already, setAlready] = useState(false)
   const [reg, setReg] = useState<Registration | null>(null)
+  const [lkName, setLkName] = useState('')
+  const [lkMobile, setLkMobile] = useState('')
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -89,11 +105,11 @@ export default function MegaTestPage() {
     }
   }
 
-  const getCard = async () => {
+  const getCard = async (mobile = form.mobile, name = form.name) => {
     setErr('')
     setBusy(true)
     try {
-      const r = await getAdmitCard(form.mobile, form.name)
+      const r = await getAdmitCard(mobile, name)
       setReg(r)
       setAlready(false)
       window.scrollTo(0, 0)
@@ -147,9 +163,47 @@ export default function MegaTestPage() {
           <div className="mt-closed">
             <b>
               {state === 'notyet'
-                ? L(['Registration has not started yet.', 'रजिस्ट्रेशन अभी शुरू नहीं हुआ है।'])
+                ? block.regFrom
+                  ? L([
+                      'Registration starts on ' + fmtWhen(block.regFrom),
+                      'रजिस्ट्रेशन ' + fmtWhen(block.regFrom) + ' से शुरू होगा',
+                    ])
+                  : L(['Registration has not started yet.', 'रजिस्ट्रेशन अभी शुरू नहीं हुआ है।'])
                 : L(['Registration is closed.', 'रजिस्ट्रेशन बंद हो गया है।'])}
             </b>
+
+            <div className="mt-lookup">
+              <h3>
+                {L([
+                  'Already registered? Get your admit card',
+                  'पहले से रजिस्टर्ड हैं? अपना एडमिट कार्ड लें',
+                ])}
+              </h3>
+              <label>
+                <span>{L(['Student name', 'विद्यार्थी का नाम'])}</span>
+                <input value={lkName} onChange={(e) => setLkName(e.target.value)} />
+              </label>
+              <label>
+                <span>{L(['Mobile number', 'मोबाइल नंबर'])}</span>
+                <input
+                  value={lkMobile}
+                  onChange={(e) => setLkMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                  inputMode="numeric"
+                />
+              </label>
+              {err && <p className="mt-err">{err}</p>}
+              <button
+                className="btn"
+                type="button"
+                disabled={busy}
+                onClick={() => void getCard(lkMobile, lkName)}
+              >
+                {busy
+                  ? L(['Please wait…', 'रुकें…'])
+                  : L(['Download admit card', 'एडमिट कार्ड डाउनलोड करें'])}
+              </button>
+            </div>
+
             <p>
               {L([
                 'For any information please contact us on WhatsApp.',

@@ -91,3 +91,17 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - Registration status ab **2 button**: "Registration चालू" / "Registration बंद" (checkbox nahi)
 - Schedule alag collapsible box me (optional)
 - Sirf 2 field: Test centre ka naam + Result ki tarikh
+
+---
+
+## Checkpoint 4 — 22 October 2026
+**Commit:** `__CHECKPOINT_4__`
+
+- Registration **band/schedule** hone par page par likha aata hai — "Registration starts on
+  [tarikh]" ya "Registration is closed", aur saath me **"Already registered? Get your admit
+  card"** box (naam + mobile daal kar apna admit card dobara nikaal sakte hain)
+- **Roll number reuse:** koi registration delete karne par uska roll number **fir se free**
+  ho jata hai aur agli registration ko wahi milta hai (1001 se shuru, sabse chhota khaali number)
+- **Admin — Registrations tab:** har registration **1 line** me (roll, naam, class, mobile),
+  har line par **"Admit card"** button (uska admit card khulta hai + Print/PDF) aur **Delete**
+- Admin se **CSV download hata diya**
