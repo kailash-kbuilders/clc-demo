@@ -147,7 +147,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 8 — 22 October 2026
-**Commit:** `__CHECKPOINT_8__`
+**Commit:** `f04f4ce3`
 
 - **Admit card:** photo aur result ab **ek hi box** me ("PHOTO & RESULT") — baaki boxes
   jaisa hi navy header. Alag-alag do box nahi. Abhi bhi **1 page**. Design saaf-suthra.
