@@ -131,7 +131,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 7 — 22 October 2026
-**Commit:** `__CHECKPOINT_7__`
+**Commit:** `02654a44`
 
 - **1 mobile number = sirf 1 registration** (strict). Same naam + same number se dobara
   karne par "already registered" + admit card download ka option; doosre naam se usi
