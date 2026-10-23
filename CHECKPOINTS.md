@@ -167,3 +167,15 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   registration ki thumbnail aur admit card ki photo — sab **gol** dikh rahi thi.
   Ab wo rule sirf login screen par lagta hai, aur admin ke andar har photo apne **asli
   shape** (square/rectangular) me dikhti hai.
+
+---
+
+## Checkpoint 10 — 23 October 2026
+**Commit:** `__CHECKPOINT_10__`
+
+- Google me result ke upar jo **"Vercel"** likha aa raha tha, uske liye:
+  - **WebSite structured data** add ki (`name: "CLC Barmer"`) — isse Google apna naam
+    "CLC Barmer" dikhata hai, "Vercel" nahi
+  - **Asli square favicon** banaya (`favicon.png` + `favicon.ico`, logo se) — pehle JPEG
+    logo tha, jo Google kabhi-kabhi nahi uthata
+- Meta description se **"Since 2021"** hata diya (aapne pehle kaha tha).
