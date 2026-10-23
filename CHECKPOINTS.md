@@ -171,7 +171,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 10 — 23 October 2026
-**Commit:** `__CHECKPOINT_10__`
+**Commit:** `655d015a`
 
 - Google me result ke upar jo **"Vercel"** likha aa raha tha, uske liye:
   - **WebSite structured data** add ki (`name: "CLC Barmer"`) — isse Google apna naam
