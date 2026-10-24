@@ -183,7 +183,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 11 — 24 October 2026
-**Commit:** `__CHECKPOINT_11__`
+**Commit:** `ce7d6511`
 
 - **Document upload** form me add (photo ke saath). Ab **dono zaroori** hain — photo aur
   **bhara hua Navodaya form** (photo ya PDF). Bina dono ke **form submit nahi hoga**.
