@@ -197,7 +197,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 12 — 24 October 2026
-**Commit:** `__CHECKPOINT_12__`
+**Commit:** `9e05282a`
 
 - **Document ab save nahi hota.** Form me bhara hua Navodaya form maangta hai (aur bina
   diye submit nahi hota — student ke liye anivary), lekin file **kahin upload nahi hoti**.
