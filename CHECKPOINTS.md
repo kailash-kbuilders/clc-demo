@@ -179,3 +179,17 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   - **Asli square favicon** banaya (`favicon.png` + `favicon.ico`, logo se) — pehle JPEG
     logo tha, jo Google kabhi-kabhi nahi uthata
 - Meta description se **"Since 2021"** hata diya (aapne pehle kaha tha).
+
+---
+
+## Checkpoint 11 — 24 October 2026
+**Commit:** `__CHECKPOINT_11__`
+
+- **Document upload** form me add (photo ke saath). Ab **dono zaroori** hain — photo aur
+  **bhara hua Navodaya form** (photo ya PDF). Bina dono ke **form submit nahi hoga**.
+- Form ka file **1.5 MB** tak (image ho to browser me chhoti kar di jati hai).
+- Document **`documents` bucket** me jaata hai, file ka naam **random** hota hai
+  (isliye URL se koi doosre ka document nahi dhoondh sakta).
+- **Admin** me har registration ke details me **"Navodaya form: Document dekhein / download"**
+  ka link aata hai.
+- Photo pehle jaisa hi: database me, private.

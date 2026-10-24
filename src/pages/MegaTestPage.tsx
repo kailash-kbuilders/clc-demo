@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../i18n/LangContext'
 import { useSiteContent } from '../hooks/useSiteContent'
-import { getAdmitCard, makeSmallPhoto, registrationState, registerForMegaTest } from '../data/content'
+import { getAdmitCard, makeSmallPhoto, registrationState, registerForMegaTest, uploadDocument } from '../data/content'
 import type { Registration } from '../data/content'
 import { CATEGORY_OPTIONS, CLASS_OPTIONS, GENDER_OPTIONS } from '../data/site'
 import AdmitCard from '../components/AdmitCard'
@@ -12,6 +12,7 @@ import Seo from '../components/Seo'
 const EMPTY = {
   photo: '',
   thumb: '',
+  document: '',
   name: '',
   father: '',
   class: '',
@@ -56,6 +57,8 @@ export default function MegaTestPage() {
   const [reg, setReg] = useState<Registration | null>(null)
   const [lkName, setLkName] = useState('')
   const [lkMobile, setLkMobile] = useState('')
+  const [docFile, setDocFile] = useState<File | null>(null)
+  const [docName, setDocName] = useState('')
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -73,6 +76,13 @@ export default function MegaTestPage() {
     const mobile = form.mobile.replace(/\D/g, '')
     if (!form.photo)
       return setErr(L(['Please add the student photo.', 'कृपया विद्यार्थी की फोटो लगाएँ।']))
+    if (!docFile)
+      return setErr(
+        L([
+          'Please upload the filled Navodaya form.',
+          'कृपया भरा हुआ नवोदय फॉर्म अपलोड करें।',
+        ]),
+      )
     if (form.name.trim().length < 2)
       return setErr(L(['Please enter the student name.', 'कृपया विद्यार्थी का नाम लिखें।']))
     if (mobile.length !== 10)
@@ -80,12 +90,27 @@ export default function MegaTestPage() {
 
     setBusy(true)
     try {
-      const res = await registerForMegaTest({ ...form, mobile })
+      const documentUrl = await uploadDocument(docFile)
+      const res = await registerForMegaTest({ ...form, mobile, document: documentUrl })
       setReg({ ...form, mobile, id: 0, roll_no: res.roll_no, created_at: new Date().toISOString() } as Registration)
       window.scrollTo(0, 0)
     } catch (e2) {
       const m = (e2 as Error).message
-      if (m.includes('photo_required') || m.includes('photo_invalid') || m.includes('photo_too_big')) {
+      if (m.includes('document_too_big'))
+        setErr(
+          L([
+            'That file is too big. Please keep it under 1.5 MB.',
+            'यह फाइल बहुत बड़ी है। कृपया 1.5 MB से छोटी फाइल लगाएँ।',
+          ]),
+        )
+      else if (m.includes('document_required') || m.includes('document_invalid'))
+        setErr(
+          L([
+            'Please upload the filled Navodaya form.',
+            'कृपया भरा हुआ नवोदय फॉर्म अपलोड करें।',
+          ]),
+        )
+      else if (m.includes('photo_required') || m.includes('photo_invalid') || m.includes('photo_too_big')) {
         setErr(L(['Please add the student photo.', 'कृपया विद्यार्थी की फोटो लगाएँ।']))
       } else if (m.includes('already_registered')) {
         setAlready(true)
@@ -271,6 +296,35 @@ export default function MegaTestPage() {
                         'साफ चेहरे वाली फोटो। यह एडमिट कार्ड पर छपेगी।',
                       ])}
                     </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-full mt-photo">
+                <span className="adm-lbl">
+                  {L(['Filled Navodaya form (photo or PDF)', 'भरा हुआ नवोदय फॉर्म (फोटो या PDF)'])} *
+                </span>
+                <div className="mt-photorow">
+                  <div className="mt-photoprev mt-photoprev-empty">
+                    {L(['Form', 'फॉर्म'])}
+                  </div>
+                  <div>
+                    <input
+                      type="file"
+                      accept="image/*,application/pdf"
+                      onChange={(e) => {
+                        const f = e.target.files?.[0] ?? null
+                        setDocFile(f)
+                        setDocName(f ? f.name : '')
+                      }}
+                    />
+                    <p className="mt-note">
+                      {L([
+                        'Take a clear photo of the filled form, or choose the PDF. Under 1.5 MB.',
+                        'भरे हुए फॉर्म की साफ फोटो खींचें, या PDF चुनें। 1.5 MB se chhoti honi chahiye.',
+                      ])}
+                    </p>
+                    {docName && <p className="mt-docname">{docName}</p>}
                   </div>
                 </div>
               </div>

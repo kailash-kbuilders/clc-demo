@@ -168,6 +168,7 @@ export type Registration = {
   address: string | null
   photo?: string | null
   thumb?: string | null
+  document?: string | null
   created_at: string
 }
 
@@ -181,6 +182,7 @@ export type RegisterPayload = {
   mobile: string
   photo: string
   thumb: string
+  document: string
 }
 
 /**
@@ -244,6 +246,56 @@ export async function getAdmitCard(mobile: string, name: string): Promise<Regist
   const { data, error } = await supabase.rpc('mega_get_card', { p_mobile: mobile, p_name: name })
   if (error) throw new Error(error.message)
   return data as Registration
+}
+
+/**
+ * Upload the filled Navodaya form. Photos are shrunk first; PDFs are uploaded
+ * as they are. Stored in the "documents" bucket with a random file name.
+ */
+export async function uploadDocument(file: File): Promise<string> {
+  let blob: Blob = file
+  let name = file.name
+
+  if (/^image\//.test(file.type)) {
+    try {
+      const bitmap = await createImageBitmap(file)
+      const maxSide = 1600
+      const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height))
+      const w = Math.max(1, Math.round(bitmap.width * scale))
+      const h = Math.max(1, Math.round(bitmap.height * scale))
+      const canvas = document.createElement('canvas')
+      canvas.width = w
+      canvas.height = h
+      const ctx = canvas.getContext('2d')
+      if (ctx) {
+        ctx.drawImage(bitmap, 0, 0, w, h)
+        const out = await new Promise<Blob | null>((res) => canvas.toBlob(res, 'image/jpeg', 0.72))
+        if (out) {
+          blob = out
+          name = name.replace(/\.[^.]+$/, '') + '.jpg'
+        }
+      }
+    } catch {
+      /* keep the original file */
+    }
+  }
+
+  if (blob.size > 1400000) throw new Error('document_too_big')
+
+  const rand = Array.from(crypto.getRandomValues(new Uint8Array(12)))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+  const safe = name.replace(/[^a-zA-Z0-9._-]/g, '-')
+  const path = `docs/${rand}-${safe}`
+
+  const { error } = await supabase.storage.from('documents').upload(path, blob, {
+    cacheControl: '31536000',
+    upsert: false,
+  })
+  if (error) throw new Error(error.message)
+
+  const { data } = supabase.storage.from('documents').getPublicUrl(path)
+  return data.publicUrl
 }
 
 /** One student's photo (the admin list does not carry photos). */
