@@ -207,3 +207,14 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - `documents` bucket ke rules hata diye — bucket khaali aur inert pada hai.
 - Admin se "Document dekhein" wala link hata diya.
 - **Aage jab chahiye:** save karna sirf 5 minute ka kaam hai — bata dein to on kar dunga.
+
+---
+
+## Checkpoint 13 — 24 October 2026
+**Commit:** `__CHECKPOINT_13__`
+
+- **301 redirect** laga diya: `clcbarmer.vercel.app` ki koi bhi link ab apne aap
+  **`clcbarmer.in`** par bhej deti hai.
+- Isse Google ko saaf signal jata hai ki asli pata `.in` hai — aur wo purani
+  vercel.app wali entry ko hata kar `.in` dikhane lagta hai.
+- (Site ka canonical pehle se `.in` par tha; ab redirect bhi hai.)
