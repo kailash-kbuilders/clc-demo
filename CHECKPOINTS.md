@@ -211,7 +211,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 13 — 24 October 2026
-**Commit:** `__CHECKPOINT_13__`
+**Commit:** `2f10c033`
 
 - **301 redirect** laga diya: `clcbarmer.vercel.app` ki koi bhi link ab apne aap
   **`clcbarmer.in`** par bhej deti hai.
