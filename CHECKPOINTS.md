@@ -218,3 +218,13 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - Isse Google ko saaf signal jata hai ki asli pata `.in` hai — aur wo purani
   vercel.app wali entry ko hata kar `.in` dikhane lagta hai.
 - (Site ka canonical pehle se `.in` par tha; ab redirect bhi hai.)
+
+---
+
+## Checkpoint 14 — 24 October 2026
+**Commit:** `222b99ed`
+
+- Google Search Console ka **verification meta tag** `index.html` me add kiya.
+  (DNS wala tareeka kaam nahi kar raha tha kyunki domain ke nameservers **Vercel** ke hain,
+  Hostinger ke nahi — isliye Hostinger me daala TXT record live hi nahi tha.)
+- Ab Search Console me **URL prefix** property (`https://clcbarmer.in`) HTML tag se verify hogi.
