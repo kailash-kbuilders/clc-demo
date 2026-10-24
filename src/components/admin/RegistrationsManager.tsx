@@ -139,15 +139,6 @@ export default function RegistrationsManager({
                   </tbody>
                 </table>
 
-                {r.document && (
-                  <p className="reg-doc no-print">
-                    <b>Navodaya form:</b>{' '}
-                    <a href={r.document} target="_blank" rel="noopener noreferrer">
-                      Document dekhein / download
-                    </a>
-                  </p>
-                )}
-
                 <div className="no-print reg-cardbtns">
                   <button
                     className="btn"

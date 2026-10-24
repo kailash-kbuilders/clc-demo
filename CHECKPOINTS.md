@@ -193,3 +193,17 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - **Admin** me har registration ke details me **"Navodaya form: Document dekhein / download"**
   ka link aata hai.
 - Photo pehle jaisa hi: database me, private.
+
+---
+
+## Checkpoint 12 — 24 October 2026
+**Commit:** `__CHECKPOINT_12__`
+
+- **Document ab save nahi hota.** Form me bhara hua Navodaya form maangta hai (aur bina
+  diye submit nahi hota — student ke liye anivary), lekin file **kahin upload nahi hoti**.
+  **Storage 0 MB.**
+- **Purane saare registrations delete** kar diye (aapne kaha). Ab pehli asli registration
+  ko `CLCMT1001` milega.
+- `documents` bucket ke rules hata diye — bucket khaali aur inert pada hai.
+- Admin se "Document dekhein" wala link hata diya.
+- **Aage jab chahiye:** save karna sirf 5 minute ka kaam hai — bata dein to on kar dunga.
