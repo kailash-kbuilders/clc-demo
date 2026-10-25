@@ -12,6 +12,7 @@ import Exams from '../components/Exams'
 import Results from '../components/Results'
 import MegaTest from '../components/MegaTest'
 import About from '../components/About'
+import Hostel from '../components/Hostel'
 import AdmissionForm from '../components/AdmissionForm'
 import StudyMaterial from '../components/StudyMaterial'
 import Faq from '../components/Faq'
@@ -44,6 +45,7 @@ export default function HomePage() {
         <MegaTest content={content} />
         <Results content={content} />
         <About />
+        <Hostel />
         <AdmissionForm />
         <StudyMaterial content={content} />
         <Faq />

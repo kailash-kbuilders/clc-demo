@@ -529,3 +529,12 @@ main section{overflow-x:clip}
 .admin-card .reg-thumb{border-radius:6px;padding:0;margin:0;box-shadow:none;background:var(--bg)}
 .admin-card .ac-photo{border-radius:6px;padding:0;margin:0;box-shadow:none;background:#fff}
 .admin-card .ac-logo{border-radius:50%;padding:0;margin:0;box-shadow:none;background:#fff}
+
+/* ================= hostel ================= */
+.hostel{display:grid;gap:22px;align-items:start}
+.hostel-img{width:100%;border-radius:16px;border:1px solid var(--line);background:var(--card);cursor:zoom-in}
+.hostel-side{display:flex;flex-direction:column;gap:16px}
+.hostel-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.hostel-list li{position:relative;padding-left:30px;font-weight:500}
+.hostel-list li:before{content:"\2713";position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:var(--grn);color:#fff;font-size:.7rem;display:grid;place-items:center;font-weight:700}
+@media(min-width:820px){.hostel{grid-template-columns:1.25fr 1fr;gap:30px}}

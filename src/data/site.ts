@@ -24,6 +24,7 @@ export const NAV: { href: string; id: string; label: Pair }[] = [
   { href: '#tests', id: 'tests', label: ['Mega Test', 'मेगा टेस्ट'] },
   { href: '#material', id: 'material', label: ['Study Material', 'अध्ययन सामग्री'] },
   { href: '#about', id: 'about', label: ['About us', 'हमारे बारे में'] },
+  { href: '#hostel', id: 'hostel', label: ['Hostel', 'छात्रावास'] },
   { href: '#faq', id: 'faq', label: ['FAQ', 'सवाल-जवाब'] },
   { href: '#contact', id: 'contact', label: ['Contact', 'संपर्क'] },
 ]

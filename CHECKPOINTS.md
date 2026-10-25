@@ -228,3 +228,16 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   (DNS wala tareeka kaam nahi kar raha tha kyunki domain ke nameservers **Vercel** ke hain,
   Hostinger ke nahi — isliye Hostinger me daala TXT record live hi nahi tha.)
 - Ab Search Console me **URL prefix** property (`https://clcbarmer.in`) HTML tag se verify hogi.
+
+---
+
+## Checkpoint 15 — 25 October 2026
+**Commit:** `__CHECKPOINT_15__`
+
+- **Naya section: "छात्रावास"** (05) — "हमारे बारे में" ke baad.
+  - Hostel ka **banner** (CLC छात्रावास & कोचिंग संस्थान, BOYS & GIRLS) — tap karne par zoom
+  - **Suvidhaon ki list** (7): लड़के-लड़कियों के लिए, सुसज्जित व अनुशासित वातावरण, पौष्टिक
+    व स्वच्छ भोजन, 24x7 निगरानी, नियमित अध्ययन समय, खेल व योग, घर जैसा माहौल
+  - "छात्रावास के बारे में पूछें" WhatsApp button
+- **Nav me "छात्रावास"** add kiya.
+- Banner ki image `public/img/hostel-banner.jpg` (177 KB, web ke liye chhoti ki).
