@@ -255,7 +255,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 17 — 25 October 2026
-**Commit:** `__CHECKPOINT_17__`
+**Commit:** `2a1b01d0`
 
 - "छात्रावास" section se **neeche wala poster hata diya** (aapne kaha).
   Ab sirf **hostel banner** + suvidhaon ki list + WhatsApp button hai.
