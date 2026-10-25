@@ -245,7 +245,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 16 — 25 October 2026
-**Commit:** `__CHECKPOINT_16__`
+**Commit:** `63e495a5`
 
 - **Doosra poster bhi laga diya** — RMS + छात्रावास + परिणाम wala poora poster,
   "छात्रावास" section me banner ke neeche, poori chaudai me.
