@@ -538,3 +538,6 @@ main section{overflow-x:clip}
 .hostel-list li{position:relative;padding-left:30px;font-weight:500}
 .hostel-list li:before{content:"\2713";position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:var(--grn);color:#fff;font-size:.7rem;display:grid;place-items:center;font-weight:700}
 @media(min-width:820px){.hostel{grid-template-columns:1.25fr 1fr;gap:30px}}
+.poster-fig{margin:26px 0 0}
+.poster-img{width:100%;border-radius:16px;border:1px solid var(--line);background:var(--card);cursor:zoom-in}
+.poster-fig figcaption{margin-top:10px;font-size:.86rem;color:var(--mut);text-align:center}

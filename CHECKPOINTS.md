@@ -241,3 +241,13 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   - "छात्रावास के बारे में पूछें" WhatsApp button
 - **Nav me "छात्रावास"** add kiya.
 - Banner ki image `public/img/hostel-banner.jpg` (177 KB, web ke liye chhoti ki).
+
+---
+
+## Checkpoint 16 — 25 October 2026
+**Commit:** `__CHECKPOINT_16__`
+
+- **Doosra poster bhi laga diya** — RMS + छात्रावास + परिणाम wala poora poster,
+  "छात्रावास" section me banner ke neeche, poori chaudai me.
+- Tap karne par zoom ho jata hai (mobile par padhne ke liye), neeche caption bhi hai.
+- Image: `public/img/clc-info-poster.jpg` (242 KB).
