@@ -251,3 +251,12 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   "छात्रावास" section me banner ke neeche, poori chaudai me.
 - Tap karne par zoom ho jata hai (mobile par padhne ke liye), neeche caption bhi hai.
 - Image: `public/img/clc-info-poster.jpg` (242 KB).
+
+---
+
+## Checkpoint 17 — 25 October 2026
+**Commit:** `__CHECKPOINT_17__`
+
+- "छात्रावास" section se **neeche wala poster hata diya** (aapne kaha).
+  Ab sirf **hostel banner** + suvidhaon ki list + WhatsApp button hai.
+- Image `public/img/clc-info-poster.jpg` repo se delete kar di.

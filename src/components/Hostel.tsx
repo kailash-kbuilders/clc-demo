@@ -44,25 +44,6 @@ export default function Hostel() {
             </a>
           </div>
         </div>
-
-        <figure className="poster-fig rv">
-          <img
-            className="poster-img"
-            src="/img/clc-info-poster.jpg"
-            alt={L([
-              'CLC Barmer - RMS, hostel and coaching information poster',
-              'CLC बाड़मेर - आर.एम.एस., छात्रावास एवं कोचिंग की पूरी जानकारी',
-            ])}
-            data-zoom
-            loading="lazy"
-          />
-          <figcaption>
-            {L([
-              'Tap the poster to read it in full - RMS, hostel, results and contact details.',
-              'पूरी जानकारी के लिए पोस्टर पर टैप करें - आर.एम.एस., छात्रावास, परिणाम व संपर्क।',
-            ])}
-          </figcaption>
-        </figure>
       </div>
     </section>
   )
