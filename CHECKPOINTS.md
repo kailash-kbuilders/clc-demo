@@ -232,7 +232,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 15 — 25 October 2026
-**Commit:** `__CHECKPOINT_15__`
+**Commit:** `31d1149e`
 
 - **Naya section: "छात्रावास"** (05) — "हमारे बारे में" ke baad.
   - Hostel ka **banner** (CLC छात्रावास & कोचिंग संस्थान, BOYS & GIRLS) — tap karne par zoom
