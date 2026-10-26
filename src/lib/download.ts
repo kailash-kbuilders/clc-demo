@@ -54,3 +54,19 @@ export function printAdmitCard(rollNo: string) {
     }, 1500)
   }
 }
+
+
+/** Prints the mark sheet on its own (same pattern as the admit card). */
+export function printSheet(rollNo: string) {
+  const digits = rollNo.replace(/\D/g, '') || 'result'
+  const name = `CLC-MT-result${digits}`
+  const previous = document.title
+  document.title = name
+  try {
+    window.print()
+  } finally {
+    window.setTimeout(() => {
+      document.title = previous
+    }, 1500)
+  }
+}

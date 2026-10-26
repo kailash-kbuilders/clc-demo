@@ -7,8 +7,9 @@ import ResultsManager from '../components/admin/ResultsManager'
 import PosterManager from '../components/admin/PosterManager'
 import MaterialManager from '../components/admin/MaterialManager'
 import RegistrationsManager from '../components/admin/RegistrationsManager'
+import MarksManager from '../components/admin/MarksManager'
 
-type Tab = 'results' | 'megatest' | 'registrations' | 'testseries' | 'material'
+type Tab = 'results' | 'megatest' | 'registrations' | 'testseries' | 'material' | 'marks'
 
 /**
  * Admin panel - only reachable at /admin.
@@ -62,6 +63,7 @@ export default function AdminPage() {
     { id: 'registrations', label: ['Registrations', 'रजिस्ट्रेशन'] },
     { id: 'testseries', label: ['Test Series', 'टेस्ट सीरीज़'] },
     { id: 'material', label: ['Study material', 'अध्ययन सामग्री'] },
+    { id: 'marks', label: ['Marks (result)', 'अंक (परिणाम)'] },
   ]
 
   return (
@@ -115,6 +117,7 @@ export default function AdminPage() {
             />
           )}
           {tab === 'material' && <MaterialManager pass={pass} materials={content.materials} />}
+          {tab === 'marks' && <MarksManager pass={pass} />}
 
           <a className="admin-back" href="/">
             ← Website

@@ -573,3 +573,28 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   aur "मेगा टेस्ट के बारे में पूछें" — dono **299 x 44** (max-width 300px, poori chaudai nahi).
   Pehle dono apne text ke hisaab se alag-alag chaudai ke the.
 - Poster **poora** dikhta hai (kata nahi) — check kiya.
+
+---
+
+## Checkpoint 41 — 26 October 2026
+**Commit:** `__CHECKPOINT_41__`
+
+**Naya module: MEGA TEST KA RESULT (marks)**
+
+1. **Database** — nayi table `results` (roll_no, name, father, class, marks jsonb, total, max_total).
+   RPCs: `get_result`, `admin_results`, `admin_save_results`, `admin_delete_result`.
+   - **Rank** apne aap nikalta hai (district rank = 1 + kitne students ka total zyada hai).
+   - Result **band** hai by default — jab tak admin ON na kare, kuch nahi dikhta.
+2. **Students ke liye naya page — `/result`**
+   - Roll number daalein → **mark sheet**
+   - **PDF download** (print dialog — admit card jaisa hi)
+   - Galat roll par "koi parinaam nahi mila"
+3. **Mark sheet** — admit card jaisa hi design: header, banner, student details,
+   **subject-wise marks table**, कुल अंक / प्रतिशत / **जिला रैंक**, footer.
+   **Koi PASS/FAIL nahi** (district level nishulk mega test hai).
+4. **Admin me naya tab — "अंक (परिणाम)"**
+   - **Result dikhayein / band karein** (2 buttons)
+   - **Subjects set karein** (naam + poore marks, add/remove)
+   - **Marks paste** — ek line me ek student: `roll, naam, pita, class, m1, m2, m3`
+   - **List** — roll/naam se search, delete
+5. **Test kiya:** mark sheet ki PDF banayi — 1 page, A4, colours sahi, Hindi subjects sahi.

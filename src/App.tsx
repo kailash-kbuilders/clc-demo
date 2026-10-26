@@ -3,6 +3,7 @@ import { LangProvider } from './i18n/LangContext'
 import HomePage from './pages/HomePage'
 import AdminPage from './pages/AdminPage'
 import MegaTestPage from './pages/MegaTestPage'
+import ResultPage from './pages/ResultPage'
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/mega-test" element={<MegaTestPage />} />
+          <Route path="/result" element={<ResultPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </LangProvider>

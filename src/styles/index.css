@@ -540,25 +540,25 @@ main section{overflow-x:clip}
 @media print{
   html,body{background:#fff!important;margin:0!important;padding:0!important}
   body *{visibility:hidden!important}
-  #admit-card,#admit-card *{visibility:visible!important}
+  #admit-card,#admit-card *,#mark-sheet,#mark-sheet *{visibility:visible!important}
   /* collapse everything that is not the admit card, otherwise the hidden page
      content still takes layout space and prints an empty second page */
-  body *:not(:has(#admit-card)):not(#admit-card):not(#admit-card *){display:none!important}
-  #admit-card{position:static;width:100%;max-width:none;margin:0;border:0;border-radius:0;
+  body *:not(:has(#admit-card, #mark-sheet)):not(#admit-card):not(#mark-sheet):not(#admit-card *):not(#mark-sheet *){display:none!important}
+  #admit-card,#mark-sheet{position:static;width:100%;max-width:none;margin:0;border:0;border-radius:0;
     padding:0;box-shadow:none;page-break-inside:avoid;break-inside:avoid;
     zoom:1!important;transform:none!important}
   .acfit{zoom:1!important;transform:none!important;display:block!important}
-  #admit-card,#admit-card *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  #admit-card,#admit-card *,#mark-sheet,#mark-sheet *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   /* the page wrappers must not add width/padding, otherwise a blank 2nd page appears */
   .mt-wrap,.reg-body,.adm-panel,.admin-panelcard,.admin-wide,.admin{max-width:none!important;
     width:auto!important;padding:0!important;margin:0!important;min-height:0!important;
     background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;
     display:block!important;overflow:visible!important}
-  #admit-card .ac-grid{grid-template-columns:1.55fr 1fr!important}
-  #admit-card .ac-exam{grid-template-columns:1.35fr 1fr!important}
-  #admit-card .ac-head{flex-direction:row!important;text-align:left!important}
-  #admit-card .ac-ins{font-size:8.6pt;line-height:1.4}
-  #admit-card .ac-box td{padding:3px 8px;font-size:9pt}
+  #admit-card .ac-grid,#mark-sheet .ac-grid{grid-template-columns:1.55fr 1fr!important}
+  #admit-card .ac-exam,#mark-sheet .ac-exam{grid-template-columns:1.35fr 1fr!important}
+  #admit-card .ac-head,#mark-sheet .ac-head{flex-direction:row!important;text-align:left!important}
+  #admit-card .ac-ins,#mark-sheet .ac-ins{font-size:8.6pt;line-height:1.4}
+  #admit-card .ac-box td,#mark-sheet .ac-box td{padding:3px 8px;font-size:9pt}
   .no-print{display:none!important}
 }
 
@@ -625,3 +625,40 @@ main section{overflow-x:clip}
 .reg-btn{display:flex;width:100%;max-width:300px;justify-content:center;text-align:center;margin-top:14px}
 .sch-actions{display:block;margin-top:12px}
 .sch-actions .btn{display:flex;width:100%;max-width:300px;justify-content:center;text-align:center}
+
+/* ===== mark sheet (result) ===== */
+.ms-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.ms-sum>div{border:2px solid #0b2a5b;border-radius:9px;padding:8px 10px;text-align:center;background:#f3f6fc}
+.ms-sum span{display:block;font-size:.72rem;color:#123f86;font-weight:600;letter-spacing:.02em}
+.ms-sum b{font-size:1.1rem;color:#0b2a5b}
+@media(max-width:520px){.ms-sum{grid-template-columns:1fr 1fr}.ms-sum>div:last-child{grid-column:span 2}}
+
+/* ===== admin: marks manager ===== */
+.adm-h{font-size:1.15rem;margin:0 0 12px}
+.adm-sub{font-size:.95rem;margin:18px 0 8px;color:var(--gold)}
+.adm-note{font-size:.8rem;color:var(--mut);margin:6px 0}
+.adm-msg{color:var(--grn);font-weight:600}
+.adm-row2{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.subj-list{display:grid;gap:6px}
+.subj-row{display:grid;grid-template-columns:1fr 70px auto;gap:6px;align-items:center}
+.subj-row input{padding:8px 10px;border-radius:9px;border:2px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;min-width:0}
+.adm-paste{width:100%;padding:10px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:.85rem;resize:vertical}
+.marks-list{display:grid;gap:6px;margin-top:8px;max-height:420px;overflow:auto}
+.marks-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;align-items:center;
+  background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:7px 9px;min-width:0}
+.marks-roll{font-weight:700;font-size:.82rem;color:var(--gold)}
+.marks-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.88rem}
+.marks-total{font-size:.82rem;color:var(--mut)}
+@media(max-width:600px){
+  .marks-row{grid-template-columns:auto 1fr auto;gap:6px}
+  .marks-name{white-space:normal;font-size:.85rem}
+  .marks-row .btn{padding:5px 8px;font-size:.72rem}
+}
+
+/* mark sheet: table header must be readable (navy + white) */
+#mark-sheet .ac-box th{background:#0b2a5b;color:#fff;font-weight:700;text-align:left;
+  padding:6px 10px;border-bottom:0;font-size:.86rem}
+#mark-sheet .ac-box th:nth-child(2),#mark-sheet .ac-box th:nth-child(3){width:26%}
+@media print{
+  #mark-sheet .ac-box th{background:#0b2a5b!important;color:#fff!important;padding:3px 8px;font-size:9pt}
+}

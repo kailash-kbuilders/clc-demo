@@ -21,6 +21,7 @@ export type PosterBlock = {
 export type MaterialItem = { title: Pair; sub: Pair; file: string }
 
 export type SiteContent = {
+  resultsCfg?: ResultsCfg
   megatest: PosterBlock
   testseries: PosterBlock
   results: ResultItem[]
@@ -280,5 +281,63 @@ export async function fetchRegistrations(pass: string): Promise<Registration[]> 
 
 export async function deleteRegistration(pass: string, id: number): Promise<void> {
   const { error } = await supabase.rpc('admin_delete_registration', { pass, id_in: id })
+  if (error) throw new Error(error.message)
+}
+
+
+/* ================= result (marks) ================= */
+
+export type ResultSubject = { name: string; max: number }
+
+export type ResultRow = {
+  roll_no: string
+  name: string
+  father?: string | null
+  class?: string | null
+  marks: Record<string, number>
+  total: number
+  max_total: number
+  rank?: number
+  subjects?: ResultSubject[]
+}
+
+export type ResultsCfg = { open: boolean; subjects: ResultSubject[] }
+
+export const RESULT_CFG_DEFAULT: ResultsCfg = {
+  open: false,
+  subjects: [
+    { name: 'मानसिक योग्यता', max: 50 },
+    { name: 'अंकगणित', max: 25 },
+    { name: 'भाषा', max: 25 },
+  ],
+}
+
+export async function fetchResult(roll: string): Promise<ResultRow> {
+  const { data, error } = await supabase.rpc('get_result', { p_roll: roll.trim() })
+  if (error) throw new Error(error.message)
+  return data as ResultRow
+}
+
+export async function adminFetchResults(pass: string): Promise<{ rows: ResultRow[]; cfg: ResultsCfg }> {
+  const { data, error } = await supabase.rpc('admin_results', { pass })
+  if (error) throw new Error(error.message)
+  const d = data as { rows: ResultRow[]; cfg: Partial<ResultsCfg> }
+  return {
+    rows: d.rows || [],
+    cfg: { ...RESULT_CFG_DEFAULT, ...(d.cfg || {}) },
+  }
+}
+
+export async function adminSaveResults(
+  pass: string,
+  rows: Partial<ResultRow>[],
+): Promise<number> {
+  const { data, error } = await supabase.rpc('admin_save_results', { pass, p_rows: rows })
+  if (error) throw new Error(error.message)
+  return (data as { saved: number }).saved
+}
+
+export async function adminDeleteResult(pass: string, roll: string): Promise<void> {
+  const { error } = await supabase.rpc('admin_delete_result', { pass, p_roll: roll })
   if (error) throw new Error(error.message)
 }
