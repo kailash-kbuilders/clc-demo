@@ -430,3 +430,19 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 7. **Result ki tarikh poori tarah gayi** — card par ab sirf: "Result will be published on our
    website and WhatsApp group." (koi tarikh nahi)
 8. PDF **1 page** — check kiya.
+
+---
+
+## Checkpoint 31 — 26 October 2026
+**Commit:** `__CHECKPOINT_31__`
+
+1. **User side ka admit card preview ab A4 jaisa** — do column, aur size **358 x 505**
+   (ratio **1:1.41 = A4**). Bilkul waisa hi jaisa PDF banta hai. (Pehle ek column me khul kar
+   bahut lamba ho jata tha.)
+2. **Upar ke 2 buttons barabar** — "एडमिट कार्ड डाउनलोड करें (PDF)" aur "वेबसाइट पर वापस" —
+   dono **174px** (aadhe-aadhe).
+3. **Photo kholne par piche website scroll — asli fix** — pehle sirf `<body>` lock hota tha,
+   par kuch phones me page `<html>` par scroll hota hai. Ab **dono** lock hote hain +
+   `overscroll-behavior:none`. Aur `/mega-test` page par bhi **Lightbox** add kar diya
+   (pehle wahan tha hi nahi).
+4. PDF abhi bhi 1 page.

@@ -598,3 +598,20 @@ main section{overflow-x:clip}
 /* ===== "already registered" -> download admit card (distinct colour) ===== */
 .admit-btn{background:var(--gold);color:#241a52;font-weight:800;box-shadow:0 8px 22px #c9941a55}
 .admit-btn:hover{background:var(--gold2);color:#241a52}
+
+/* ===== student side: show the admit card exactly like the printed A4 page ===== */
+.acfit .ac{zoom:.45;margin:0 auto;padding:20px;border-width:3px}
+.acfit .ac .ac-grid{grid-template-columns:1.55fr 1fr}
+.acfit .ac .ac-exam{grid-template-columns:1.35fr 1fr}
+.acfit .ac .ac-head{flex-direction:row;text-align:left}
+.acfit .ac .ac-head h1{font-size:1.5rem}
+.acfit .ac .ac-banner{font-size:1.3rem}
+.acfit .ac .ac-box td:first-child{width:38%}
+.acfit .ac .ac-box table{font-size:.86rem}
+.acfit .ac .ac-ins{font-size:.72rem;padding-left:26px}
+@media(min-width:620px){.acfit .ac{zoom:.6}}
+@media(min-width:900px){.acfit .ac{zoom:.85}}
+
+/* the two buttons above the admit card: exactly equal */
+.mt-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mt-btns .btn{width:100%;justify-content:center;text-align:center;min-height:52px}

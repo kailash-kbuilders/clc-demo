@@ -6,6 +6,7 @@ import { getAdmitCard, makeSmallPhoto, registrationState, registerForMegaTest } 
 import type { Registration } from '../data/content'
 import { CATEGORY_OPTIONS, CLASS_OPTIONS, GENDER_OPTIONS } from '../data/site'
 import AdmitCard from '../components/AdmitCard'
+import Lightbox from '../components/Lightbox'
 import { printAdmitCard } from '../lib/download'
 import Seo from '../components/Seo'
 
@@ -225,7 +226,10 @@ export default function MegaTestPage() {
                 {L(['Back to website', 'वेबसाइट पर वापस'])}
               </Link>
             </div>
-            <AdmitCard reg={reg} block={block} />
+            <div className="acfit">
+              <AdmitCard reg={reg} block={block} />
+            </div>
+            <Lightbox />
           </>
         ) : state !== 'open' ? (
           <div className="mt-closed">
