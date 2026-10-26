@@ -602,7 +602,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 42 — 26 October 2026
-**Commit:** `__CHECKPOINT_42__`
+**Commit:** `a97e1b22`
 
 1. **Result switch poora ho gaya** — admin me "Result dikhayein" dabate hi:
    - Mega Test section ka button **"मेगा टेस्ट के लिए रजिस्टर करें" → "अपना परिणाम देखें"** (`/result`)
