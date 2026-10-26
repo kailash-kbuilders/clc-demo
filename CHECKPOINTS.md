@@ -397,7 +397,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 29 — 26 October 2026
-**Commit:** `__CHECKPOINT_29__`
+**Commit:** `dbb1a02b`
 
 1. **Naye form fields** — **आधार नंबर** (12 अंक), **पता**, **ब्लॉक**.
    **Sabhi fields ab zaroori** hain — aadha, bhara hua form submit nahi hoga.
