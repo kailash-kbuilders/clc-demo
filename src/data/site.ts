@@ -259,7 +259,7 @@ export const MEGATEST_DEFAULT = {
   regOpen: true,
   regFrom: '',
   regTo: '',
-  examDate: '',
+  examDate: '15 नवंबर, 2026 रविवार',
   reportingTime: '',
   centre: 'महाराजा पब्लिक स्कूल, शिव नगर, बाड़मेर',
   examTime: 'सुबह 11:30 से 1:30 तक',

@@ -411,3 +411,22 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 6. **Admin → Mega Test** me naya field: "Exam ka samay" (badal sakte hain).
 7. **Admin → Registrations** ki details me ab Aadhaar, Address, Block bhi dikhte hain.
 8. PDF abhi bhi **1 page** — check kiya.
+
+---
+
+## Checkpoint 30 — 26 October 2026
+**Commit:** `__CHECKPOINT_30__`
+
+1. **Admit card par details na aane ki asli wajah mili** — database me kuch fields **khaali
+   (null)** the, aur khaali value default ko **dhak deti thi**. Ab khaali value ignore hoti hai
+   (`mergeBlock`), isliye default dikhta hai.
+2. **Exam Date** add — admin me field + admit card par row. Default: **15 नवंबर, 2026 रविवार**
+3. **Exam Time** — **सुबह 11:30 से 1:30 तक** (DB me bhi set)
+4. **Centre** — **महाराजा पब्लिक स्कूल, शिव नगर, बाड़मेर**
+5. **Poster ab kabhi nahi katta** — `.sch img` se fixed `aspect-ratio` + `object-fit:cover`
+   hata diya. Ab frame poster ke apne size ke hisaab se hota hai, poora poster dikhta hai.
+6. **Photo kholne par piche website scroll nahi hoti** — lightbox khulte hi page ka scroll
+   lock ho jata hai (`useLockBodyScroll`), aur `overscroll-behavior:contain`.
+7. **Result ki tarikh poori tarah gayi** — card par ab sirf: "Result will be published on our
+   website and WhatsApp group." (koi tarikh nahi)
+8. PDF **1 page** — check kiya.

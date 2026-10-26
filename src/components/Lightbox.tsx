@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react'
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 
 /** Click any image with `data-zoom` to preview it full screen. */
 export default function Lightbox() {
   const [src, setSrc] = useState<string | null>(null)
+
+  // stop the page behind the photo from scrolling
+  useLockBodyScroll(!!src)
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {

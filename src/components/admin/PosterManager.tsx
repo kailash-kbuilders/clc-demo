@@ -35,6 +35,7 @@ export default function PosterManager({ which, pass, block }: Props) {
   const [regTo, setRegTo] = useState(toLocal(block.regTo))
   const [centre, setCentre] = useState(block.centre ?? '')
   const [examTime, setExamTime] = useState(block.examTime ?? '')
+  const [examDate, setExamDate] = useState(block.examDate ?? '')
 
   const save = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -54,6 +55,7 @@ export default function PosterManager({ which, pass, block }: Props) {
               regTo: toIso(regTo),
               centre: centre.trim(),
               examTime: examTime.trim(),
+              examDate: examDate.trim(),
               resultDate: block.resultDate ?? '',
             }
           : {}),
@@ -183,6 +185,15 @@ export default function PosterManager({ which, pass, block }: Props) {
                 Khaali chhodne par upar wala status hi chalega.
               </p>
             </details>
+
+            <label>
+              <span>Exam ki tarikh (admit card par chhapti hai)</span>
+              <input
+                value={examDate}
+                onChange={(e) => setExamDate(e.target.value)}
+                placeholder="15 नवंबर, 2026 रविवार"
+              />
+            </label>
 
             <label>
               <span>Exam ka samay (admit card par chhapta hai)</span>

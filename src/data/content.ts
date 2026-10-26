@@ -38,9 +38,22 @@ export const defaultContent: SiteContent = {
 const TABLE = 'site_content'
 const BUCKET = 'media'
 
+function mergeBlock(d: Partial<PosterBlock> | null | undefined, def: PosterBlock): PosterBlock {
+  const out: PosterBlock = { ...def }
+  if (d) {
+    for (const k of Object.keys(d) as (keyof PosterBlock)[]) {
+      const v = d[k]
+      if (v === null || v === undefined) continue
+      if (typeof v === 'string' && v.trim() === '') continue
+      ;(out as Record<string, unknown>)[k as string] = v
+    }
+  }
+  return out
+}
+
 function merge(d: Partial<SiteContent> | null | undefined): SiteContent {
   return {
-    megatest: { ...defaultContent.megatest, ...(d?.megatest ?? {}) },
+    megatest: mergeBlock(d?.megatest, defaultContent.megatest),
     testseries: d?.testseries ?? defaultContent.testseries,
     results: d?.results ?? defaultContent.results,
     materials: d?.materials ?? defaultContent.materials,

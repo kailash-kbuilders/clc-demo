@@ -86,6 +86,7 @@ export default function AdmitCard({
         <h2>EXAM DETAILS</h2>
         <table>
           <tbody>
+            <Row label="Exam Date" value={block.examDate} />
             <Row label="Exam Time" value={block.examTime} />
             <Row label="Test Centre" value={block.centre} />
           </tbody>
