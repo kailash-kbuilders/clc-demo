@@ -612,3 +612,11 @@ main section{overflow-x:clip}
 .reg-top{flex-wrap:wrap}
 .reg-pdfbtn{background:var(--grn);color:#fff;border:0}
 .reg-pdfbtn:disabled{opacity:.45;cursor:not-allowed}
+
+/* ===== registration form: every button the same size ===== */
+.mt-form .btn,.mt-full>.btn{width:100%;justify-content:center;text-align:center;min-height:52px}
+
+/* ===== "already registered" -> download admit card (distinct gold colour) ===== */
+.admit-btn{background:var(--gold)!important;color:#241a52!important;font-weight:800;
+  box-shadow:0 8px 22px #c9941a55}
+.admit-btn:hover{background:var(--gold2)!important;color:#241a52!important}

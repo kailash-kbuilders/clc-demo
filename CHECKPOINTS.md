@@ -551,3 +551,15 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   1. मेगा टेस्ट  2. प्रवेश परीक्षा  3. परिणाम  4. हमारे बारे में
   5. छात्रावास  6. अध्ययन सामग्री  7. सवाल-जवाब  8. संपर्क
 - Drawer render karke check kiya — kram sahi aa raha hai.
+
+---
+
+## Checkpoint 39 — 26 October 2026
+**Commit:** `__CHECKPOINT_39__`
+
+- **Mega Test section ke buttons** ("मेगा टेस्ट के लिए रजिस्टर करें" aur WhatsApp) —
+  **purane size par hain** (poori chaudai wale override hata diye gaye the).
+  Poster ke neeche wale buttons ab wahi size ke hain jo pehle the.
+- **Gum hui cheez wapas** — "already registered" wale **gold** button ka style aur form ke
+  buttons ki sizing (Checkpoint 32 me CSS ka ek block hatate waqt ye bhi saath chala gaya tha).
+  Ab wapas daal diya.
