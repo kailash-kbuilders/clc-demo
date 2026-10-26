@@ -280,7 +280,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 19 — 26 October 2026
-**Commit:** `__CHECKPOINT_19__`
+**Commit:** `fc21dd39`
 
 - **Document (Navodaya form) upload hata diya** — form me ab sirf **photo** hai (jo zaroori hai),
   uske baad naam, pita ka naam, class, category, DOB, gender, mobile.
