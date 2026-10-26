@@ -349,7 +349,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 25 — 26 October 2026
-**Commit:** `__CHECKPOINT_25__`
+**Commit:** `a71d936c`
 
 - **Admin preview ab fix hai** — pehle andar scroll tha, isliye card hilta rehta tha ("upar niche").
   Ab scroll hata diya: poora card box ke andar **fit** ho jata hai aur **ek jagah tikta hai**.
