@@ -511,7 +511,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 36 — 26 October 2026
-**Commit:** `__CHECKPOINT_36__`
+**Commit:** `56a454b6`
 
 1. **Student details ke baad ki khaali jagah gayi** — `.ac-grid` me dono box ab **barabar height**
    ke hain (`align-items:stretch`), aur table ki rows poore box me **barabar fail** jati hain.
