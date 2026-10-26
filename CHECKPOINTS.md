@@ -304,7 +304,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 21 — 26 October 2026
-**Commit:** `__CHECKPOINT_21__`
+**Commit:** `18ee5c5f`
 
 - **Admin me admit card ab chhota "preview"** dikhta hai (zoom 0.8 desktop, 0.58 mobile) —
   poora card panel me fit ho jata hai, kuch nahi katta, aur padhne layak rehta hai.
