@@ -545,6 +545,7 @@ main section{overflow-x:clip}
     padding:0;box-shadow:none;page-break-inside:avoid;break-inside:avoid;
     zoom:1!important;transform:none!important}
   .acfit{zoom:1!important;transform:none!important;display:block!important}
+  #admit-card,#admit-card *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   #admit-card .ac-grid{grid-template-columns:1.55fr 1fr!important}
   #admit-card .ac-exam{grid-template-columns:1.35fr 1fr!important}
   #admit-card .ac-head{flex-direction:row!important;text-align:left!important}
@@ -591,4 +592,4 @@ main section{overflow-x:clip}
 
 .acwrap-hint{margin:8px 0 0;font-size:.76rem;color:var(--mut);text-align:center}
 
-@page{size:A4 portrait;margin:8mm}
+@page{size:A4 portrait;margin:6mm}

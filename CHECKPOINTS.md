@@ -476,3 +476,17 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   (pehle ~25%). Details poori padhi ja sakti hain.
 - **Note:** "Block" row khaali thi kyunki us test registration me block bhara nahi tha
   (wo field uske baad add hua). Naye registration me aayegi.
+
+---
+
+## Checkpoint 34 — 26 October 2026
+**Commit:** `__CHECKPOINT_34__`
+
+- **PDF me colour nahi aa rahe the** — browser default me **background graphics print nahi karta**.
+  Isliye navy banner/headers/footer safed chhapte the aur unke upar ka safed text gayab lagta tha.
+  - **Fix:** `#admit-card, #admit-card *` par `print-color-adjust: exact !important`
+    (`-webkit-` ke saath bhi) — ab colours bilkul preview jaise chhapte hain.
+- **Page margin 8mm -> 6mm** — card ab A4 page ko aur poora bharta hai.
+- **Test:** PDF render karke dekha — 1 page, A4 (595x842pt), navy banner + headers + footer
+  sab sahi, aur saari details (Roll, naam, pita, class, category, DOB, gender, mobile,
+  Aadhaar, Address, Block, Exam Date/Time/Centre, 8 instructions) saaf padhi ja rahi hain.
