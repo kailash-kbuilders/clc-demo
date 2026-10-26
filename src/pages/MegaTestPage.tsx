@@ -9,6 +9,8 @@ import AdmitCard from '../components/AdmitCard'
 import { printAdmitCard } from '../lib/download'
 import Seo from '../components/Seo'
 
+const DRAFT_KEY = 'clcMegaTestDraft'
+
 const EMPTY = {
   photo: '',
   thumb: '',
@@ -53,6 +55,28 @@ export default function MegaTestPage() {
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
   const [already, setAlready] = useState(false)
+
+  // The phone can reload the page when the camera/gallery opens. Keep a draft so
+  // nothing the student typed (or the photo) is lost.
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(DRAFT_KEY)
+      if (raw) {
+        const d = JSON.parse(raw) as Partial<typeof EMPTY>
+        setForm((p) => ({ ...p, ...d }))
+      }
+    } catch {
+      /* ignore */
+    }
+  }, [])
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(DRAFT_KEY, JSON.stringify(form))
+    } catch {
+      /* ignore */
+    }
+  }, [form])
   const [reg, setReg] = useState<Registration | null>(null)
   const [lkName, setLkName] = useState('')
   const [lkMobile, setLkMobile] = useState('')
@@ -82,6 +106,11 @@ export default function MegaTestPage() {
     try {
       const res = await registerForMegaTest({ ...form, mobile })
       setReg({ ...form, mobile, id: 0, roll_no: res.roll_no, created_at: new Date().toISOString() } as Registration)
+      try {
+        sessionStorage.removeItem(DRAFT_KEY)
+      } catch {
+        /* ignore */
+      }
       window.scrollTo(0, 0)
     } catch (e2) {
       const m = (e2 as Error).message
@@ -343,7 +372,7 @@ export default function MegaTestPage() {
 
               {already && (
                 <div className="mt-full">
-                  <button className="btn" type="button" onClick={() => void getCard()} disabled={busy}>
+                  <button className="btn admit-btn" type="button" onClick={() => void getCard()} disabled={busy}>
                     {busy
                       ? L(['Please wait…', 'रुकें…'])
                       : L(['Click to download admit card', 'एडमिट कार्ड डाउनलोड करने के लिए दबाएं'])}

@@ -367,3 +367,19 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   koi fixed height nahi). Card **326 x 556** — ek jagah tikta hai, hilta nahi.
 - Zoom: mobile 0.52, desktop 0.7. Do column layout wahi (download jaisa).
 - Neeche hint: "Preview — poora card dekhne ke liye Download dabayein".
+
+---
+
+## Checkpoint 27 — 26 October 2026
+**Commit:** `__CHECKPOINT_27__`
+
+1. **Mega Test section ke dono buttons barabar** — "मेगा टेस्ट के लिए रजिस्टर करें" aur
+   "मेगा टेस्ट के बारे में पूछें" (WhatsApp) — dono ab **299px**, poore card ki chaudai.
+2. **Hero ke 4 buttons bhi barabar** — pehle 2 poore chaudai aur 2 aadhe the. Ab chaaron
+   **167x60** — ek jaise (2x2 grid mobile par, 4 ek line me desktop par).
+3. **Form bharte waqt photo chunne par page refresh hone se data nahi jayega** —
+   form ab **sessionStorage** me draft save karta hai. Page reload ho jaye to bhi naam,
+   pita, class, DOB, mobile aur **photo** — sab wapas aa jate hain.
+4. **"Already registered" wale button ka rang alag** — "Click to download admit card" ab
+   **gold** rang ka hai (baaki navy), taaki alag se dikhe.
+5. **Form ke saare buttons ek jaise** — poore chaudai, min-height 52px.
