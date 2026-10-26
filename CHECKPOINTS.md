@@ -371,7 +371,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 27 — 26 October 2026
-**Commit:** `__CHECKPOINT_27__`
+**Commit:** `f1e4642d`
 
 1. **Mega Test section ke dono buttons barabar** — "मेगा टेस्ट के लिए रजिस्टर करें" aur
    "मेगा टेस्ट के बारे में पूछें" (WhatsApp) — dono ab **299px**, poore card ki chaudai.
