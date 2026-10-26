@@ -544,7 +544,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 38 — 26 October 2026
-**Commit:** `__CHECKPOINT_38__`
+**Commit:** `afd290be`
 
 - **Navigation ka kram theek kiya** (EN toggle ke paas wala / mobile drawer).
   Pehle nav purane order me tha, jabki page ka order badal chuka tha. Ab dono ek jaise hain:
