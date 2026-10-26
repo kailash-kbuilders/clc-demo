@@ -34,7 +34,6 @@ export default function PosterManager({ which, pass, block }: Props) {
   const [regFrom, setRegFrom] = useState(toLocal(block.regFrom))
   const [regTo, setRegTo] = useState(toLocal(block.regTo))
   const [centre, setCentre] = useState(block.centre ?? '')
-  const [resultDate, setResultDate] = useState(block.resultDate ?? '')
 
   const save = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -53,7 +52,7 @@ export default function PosterManager({ which, pass, block }: Props) {
               regFrom: toIso(regFrom),
               regTo: toIso(regTo),
               centre: centre.trim(),
-              resultDate: resultDate.trim(),
+              resultDate: block.resultDate ?? '',
             }
           : {}),
       }
@@ -192,14 +191,6 @@ export default function PosterManager({ which, pass, block }: Props) {
               />
             </label>
 
-            <label>
-              <span>Result ki tarikh (admit card par chhapti hai)</span>
-              <input
-                value={resultDate}
-                onChange={(e) => setResultDate(e.target.value)}
-                placeholder="5 November 2026"
-              />
-            </label>
           </div>
         )}
 

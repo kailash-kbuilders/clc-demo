@@ -260,3 +260,19 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - "छात्रावास" section se **neeche wala poster hata diya** (aapne kaha).
   Ab sirf **hostel banner** + suvidhaon ki list + WhatsApp button hai.
 - Image `public/img/clc-info-poster.jpg` repo se delete kar di.
+
+---
+
+## Checkpoint 18 — 26 October 2026
+**Commit:** `__CHECKPOINT_18__`
+
+1. **Mega Test section ab number 01** — hero ke theek baad, sabse upar. (Pehle 02 par tha.)
+   Ab: 01 मेगा टेस्ट → 02 प्रवेश परीक्षाएँ → 03 परिणाम → 04 हमारे बारे में → 05 छात्रावास.
+2. **Stylish font wapas** — asli wajah: Google Fonts load nahi ho raha tha, isliye normal font
+   dikh raha tha. Ab **fonts website me hi save** hain (`public/fonts/`, 20 file, 1.1 MB) —
+   koi bahar ki dependency nahi, hamesha load honge. Headings phir **Yatra One** me.
+3. **Admin list mobile par fix** — panel ka padding kam kiya, tabs 2 column, aur har row me
+   **photo + naam upar, roll/class/mobile neeche** — kuch bhi adha nahi katta. 390px screen
+   par test kiya.
+4. **Result ki tarikh ka field admin se hata diya** — admit card par ab bina tarikh bhi
+   saaf likha aata hai: "Result will be published on our website and WhatsApp group."

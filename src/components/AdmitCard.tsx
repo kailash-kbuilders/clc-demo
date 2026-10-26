@@ -66,8 +66,16 @@ export default function AdmitCard({
             ) : (
               <div className="ac-photo ac-photo-empty">PHOTO</div>
             )}
-            <p className="ac-rp">Result will be published on our website and WhatsApp group on</p>
-            <span className="ac-date">{block.resultDate || '\u2014'}</span>
+            {block.resultDate ? (
+              <>
+                <p className="ac-rp">
+                  Result will be published on our website and WhatsApp group on
+                </p>
+                <span className="ac-date">{block.resultDate}</span>
+              </>
+            ) : (
+              <p className="ac-rp">Result will be published on our website and WhatsApp group.</p>
+            )}
             <p className="ac-hi">परिणाम हमारी वेबसाइट और WhatsApp ग्रुप पर इस तारीख को देखें</p>
             <span className="ac-site">{site}</span>
           </div>

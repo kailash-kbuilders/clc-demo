@@ -322,7 +322,7 @@ main section{overflow-x:clip}
 .icdl::before{content:"";flex:0 0 auto;width:18px;height:18px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%2016.5%206.5%2011H10V3.5h4V11h3.5zM5%2018.5h14V21H5z%27%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%2016.5%206.5%2011H10V3.5h4V11h3.5zM5%2018.5h14V21H5z%27%2F%3E%3C%2Fsvg%3E") center/contain no-repeat}
 
 /* ===== admin page (/admin) ===== */
-.admin{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(120% 120% at 80% 0,#3c2a86 0,#241a52 45%,#130c30 100%)}
+.admin{min-height:100vh;display:grid;place-items:center;padding:24px;overflow-x:hidden;background:radial-gradient(120% 120% at 80% 0,#3c2a86 0,#241a52 45%,#130c30 100%)}
 .admin-card{width:100%;max-width:460px;background:var(--card);border-radius:24px;padding:34px 28px;text-align:center;box-shadow:0 30px 80px #0006;border:1px solid var(--line)}
 .admin-card:not(.admin-panelcard) img{border-radius:50%;background:#fff;padding:4px;margin:0 auto 14px;box-shadow:0 0 0 3px var(--gold)}
 .admin-card h1{font-size:clamp(1.7rem,5vw,2.2rem);margin:0 0 4px}
@@ -332,7 +332,7 @@ main section{overflow-x:clip}
 .admin-note{color:var(--mut);font-size:.85rem;margin:0}
 
 /* ================= admin (/admin) ================= */
-.admin{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(120% 120% at 80% 0,#3c2a86 0,#241a52 45%,#130c30 100%)}
+.admin{min-height:100vh;display:grid;place-items:center;padding:24px;overflow-x:hidden;background:radial-gradient(120% 120% at 80% 0,#3c2a86 0,#241a52 45%,#130c30 100%)}
 .admin-card{width:100%;max-width:460px;background:var(--card);border-radius:24px;padding:32px 26px;text-align:center;box-shadow:0 30px 80px #0006;border:1px solid var(--line)}
 .admin-card:not(.admin-panelcard) img{border-radius:50%;background:#fff;padding:4px;margin:0 auto 14px;box-shadow:0 0 0 3px var(--gold)}
 .admin-card h1{font-size:clamp(1.7rem,5vw,2.2rem);margin:0 0 4px}
@@ -349,7 +349,8 @@ main section{overflow-x:clip}
 .admin-msg{color:var(--grn);font-weight:600;margin:12px 0 0}
 .admin-back{display:inline-block;margin-top:18px;color:var(--mut);font-size:.9rem}
 .admin-wide{align-items:start;padding:34px 18px 60px}
-.admin-panelcard{max-width:780px;text-align:left}
+.admin-panelcard{max-width:780px;text-align:left;min-width:0}
+.adm-panel{min-width:0}
 .adm-top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
 .adm-top img{width:46px;height:46px;border-radius:50%;margin:0;box-shadow:0 0 0 2px var(--gold)}
 .adm-top .btn{margin-left:auto}
@@ -467,8 +468,28 @@ main section{overflow-x:clip}
 .reg-body td:first-child{width:38%;color:var(--mut)}
 .reg-cardbtns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 @media(max-width:600px){
-  .reg-line{grid-template-columns:1fr auto}
-  .reg-meta{display:none}
+  /* admin panel: give the content the full width on a phone */
+  .admin-wide{padding:12px 6px 40px}
+  .admin-panelcard{padding:16px 12px;border-radius:16px}
+  .adm-top{gap:8px}
+  .adm-top img{width:38px;height:38px}
+  .adm-tabs{grid-template-columns:1fr 1fr;gap:6px}
+  .adm-tabs button{padding:9px 8px;font-size:.84rem}
+
+  .reg-top{gap:8px}
+  .reg-count{padding:8px 14px}
+  .reg-count b{font-size:1.35rem}
+
+  .reg-line{grid-template-columns:1fr auto;padding:8px 8px;gap:6px}
+  .reg-open{display:grid;grid-template-columns:38px minmax(0,1fr);gap:4px 8px;align-items:center}
+  .reg-thumb{grid-row:1 / 3;width:38px;height:46px}
+  .reg-name{grid-column:2;white-space:normal;overflow:visible;text-overflow:clip;line-height:1.25;font-size:.95rem}
+  .reg-meta{grid-column:2;display:block;margin:0;white-space:normal;font-size:.76rem;line-height:1.3}
+  .reg-line .btn{padding:6px 10px;font-size:.78rem}
+
+  .reg-body{padding:10px}
+  .reg-body table{font-size:.8rem}
+  .reg-body td:first-child{width:44%}
 }
 .mt-photo{display:flex;flex-direction:column;gap:8px}
 .mt-photorow{display:flex;gap:14px;align-items:flex-start}
