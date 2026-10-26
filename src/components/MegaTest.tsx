@@ -3,7 +3,15 @@ import { waFor } from '../lib/links'
 import type { PosterBlock, SiteContent } from '../data/content'
 import { registrationState } from '../data/content'
 
-function PosterCard({ block, kind }: { block: PosterBlock; kind: 'mega' | 'series' }) {
+function PosterCard({
+  block,
+  kind,
+  resultOpen,
+}: {
+  block: PosterBlock
+  kind: 'mega' | 'series'
+  resultOpen: boolean
+}) {
   const { L } = useLang()
   const closed = kind === 'mega' && registrationState(block) === 'closed'
   return (
@@ -21,7 +29,12 @@ function PosterCard({ block, kind }: { block: PosterBlock; kind: 'mega' | 'serie
       <div>
         <h3>{L(block.title)}</h3>
         <p>{L(block.description)}</p>
-        {kind === 'mega' && registrationState(block) === 'open' && (
+        {kind === 'mega' && resultOpen && (
+          <a className="btn reg-btn" href="/result">
+            {L(['Check your result', 'अपना परिणाम देखें'])}
+          </a>
+        )}
+        {kind === 'mega' && !resultOpen && registrationState(block) === 'open' && (
           <a className="btn reg-btn" href="/mega-test">
             {L(['Register for the Mega Test', 'मेगा टेस्ट के लिए रजिस्टर करें'])}
           </a>
@@ -64,7 +77,12 @@ export default function MegaTest({ content }: { content: SiteContent }) {
             : L(['Mega Test & Test Series', 'मेगा टेस्ट व टेस्ट सीरीज़'])}
         </h2>
         {blocks.map((b) => (
-          <PosterCard key={b.kind} block={b.block} kind={b.kind} />
+          <PosterCard
+            key={b.kind}
+            block={b.block}
+            kind={b.kind}
+            resultOpen={Boolean(content.resultsCfg?.open)}
+          />
         ))}
       </div>
     </section>

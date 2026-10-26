@@ -662,3 +662,11 @@ main section{overflow-x:clip}
 @media print{
   #mark-sheet .ac-box th{background:#0b2a5b!important;color:#fff!important;padding:3px 8px;font-size:9pt}
 }
+
+/* ===== result is live: strip + nav highlight ===== */
+.result-strip{display:block;text-align:center;background:linear-gradient(90deg,var(--gold),var(--gold2));
+  color:#241a06;font-weight:800;font-size:.92rem;padding:11px 14px;text-decoration:none;
+  letter-spacing:.01em;box-shadow:0 6px 18px #c9941a44}
+.result-strip:hover{filter:brightness(1.05)}
+.nav-result{background:var(--gold);color:#241a06!important;border-radius:999px;padding:6px 14px;font-weight:800}
+@media(max-width:680px){.result-strip{font-size:.82rem;padding:9px 10px}}

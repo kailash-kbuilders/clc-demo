@@ -598,3 +598,19 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
    - **Marks paste** — ek line me ek student: `roll, naam, pita, class, m1, m2, m3`
    - **List** — roll/naam se search, delete
 5. **Test kiya:** mark sheet ki PDF banayi — 1 page, A4, colours sahi, Hindi subjects sahi.
+
+---
+
+## Checkpoint 42 — 26 October 2026
+**Commit:** `__CHECKPOINT_42__`
+
+1. **Result switch poora ho gaya** — admin me "Result dikhayein" dabate hi:
+   - Mega Test section ka button **"मेगा टेस्ट के लिए रजिस्टर करें" → "अपना परिणाम देखें"** (`/result`)
+   - **Nav** me **"परिणाम देखें"** link aa jata hai
+   - Home page par **gold patti**: "मेगा टेस्ट का परिणाम जारी — अपना रोल नंबर डालकर देखें"
+   - "Result band karein" par sab **wapas registration** par
+   - (`resultsCfg` ab site ke content me aata hai — pehle merge use drop kar raha tha)
+2. **Security headers** `vercel.json` me add — `X-Content-Type-Options`, `X-Frame-Options`,
+   `Referrer-Policy`, `Permissions-Policy`, `HSTS`.
+3. **Security advisors check kiye** — sab tables par **RLS on hai aur koi policy nahi**, matlab
+   koi seedha table read/write nahi kar sakta; sab kuch RPC se hi hota hai (password check ke saath) ✓

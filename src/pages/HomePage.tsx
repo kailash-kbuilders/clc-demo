@@ -22,7 +22,7 @@ import Lightbox from '../components/Lightbox'
 import ToastHost from '../components/Toast'
 
 export default function HomePage() {
-  const { lang } = useLang()
+  const { lang, L } = useLang()
   const active = useActiveSection(NAV.map((n) => n.id))
   const content = useSiteContent()
   // re-scan the DOM whenever the database content changes
@@ -37,9 +37,18 @@ export default function HomePage() {
         image={`${CONFIG.siteUrl}/img/logo.jpg`}
       />
       <ScrollProgress />
-      <Header active={active} />
+      <Header active={active} resultOpen={Boolean(content.resultsCfg?.open)} />
       <Marquee />
       <main>
+        {content.resultsCfg?.open && (
+          <a className="result-strip" href="/result">
+            {L([
+              'Mega Test result is out — check it with your roll number',
+              'मेगा टेस्ट का परिणाम जारी — अपना रोल नंबर डालकर देखें',
+            ])}{' '}
+            &rarr;
+          </a>
+        )}
         <Hero />
         <MegaTest content={content} />
         <Exams />

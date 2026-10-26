@@ -3,9 +3,9 @@ import { useLang } from '../i18n/LangContext'
 import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import { NAV } from '../data/site'
 
-type Props = { active: string | null }
+type Props = { active: string | null; resultOpen?: boolean }
 
-export default function Header({ active }: Props) {
+export default function Header({ active, resultOpen }: Props) {
   const { lang, toggle, L } = useLang()
   const [open, setOpen] = useState(false)
   useLockBodyScroll(open)
@@ -36,6 +36,11 @@ export default function Header({ active }: Props) {
                 {L(n.label)}
               </a>
             ))}
+            {resultOpen && (
+              <a href="/result" className="nav-result">
+                {L(['Result', 'परिणाम देखें'])}
+              </a>
+            )}
           </nav>
 
           <button id="lg" className="btn sm ghost" aria-label="Change language" onClick={toggle}>

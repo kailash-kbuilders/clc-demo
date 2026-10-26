@@ -58,6 +58,7 @@ function merge(d: Partial<SiteContent> | null | undefined): SiteContent {
     testseries: d?.testseries ?? defaultContent.testseries,
     results: d?.results ?? defaultContent.results,
     materials: d?.materials ?? defaultContent.materials,
+    resultsCfg: d?.resultsCfg ?? RESULT_CFG_DEFAULT,
   }
 }
 
