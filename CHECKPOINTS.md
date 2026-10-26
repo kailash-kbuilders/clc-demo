@@ -289,7 +289,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 20 — 26 October 2026
-**Commit:** `__CHECKPOINT_20__`
+**Commit:** `6af47868`
 
 - **Admit card ka mobile par kat jana theek ho gaya.**
   - Asli wajah: CSS me ek purana global rule tha — `table{min-width:520px}` — jo **har table
