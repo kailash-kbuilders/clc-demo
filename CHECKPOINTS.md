@@ -463,7 +463,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 33 — 26 October 2026
-**Commit:** `__CHECKPOINT_33__`
+**Commit:** `6908286f`
 
 - **PDF bahut chhota kyun ban raha tha** — jo **zoom** screen par card ko chhota dikhane ke liye
   lagaya tha (0.45), wo **print me bhi lag jata tha**. Isliye PDF me card 25% size me chhapta tha
