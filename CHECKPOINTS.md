@@ -415,7 +415,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 30 — 26 October 2026
-**Commit:** `__CHECKPOINT_30__`
+**Commit:** `504d52bb`
 
 1. **Admit card par details na aane ki asli wajah mili** — database me kuch fields **khaali
    (null)** the, aur khaali value default ko **dhak deti thi**. Ab khaali value ignore hoti hai
