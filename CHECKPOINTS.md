@@ -450,7 +450,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 32 — 26 October 2026
-**Commit:** `__CHECKPOINT_32__`
+**Commit:** `e6a00694`
 
 1. **Admin ka admit card preview ab bilkul user wale jaisa** — dono jagah ek hi style
    (`.acfit`): do column, A4 jaisa, poora card ek nazar me. Admin ki purani alag settings hata di.
