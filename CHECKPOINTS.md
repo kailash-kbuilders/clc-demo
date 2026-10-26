@@ -327,7 +327,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 23 — 26 October 2026
-**Commit:** `__CHECKPOINT_23__`
+**Commit:** `9d95a779`
 
 - Admin ke admit card preview ka **zoom aur chhota** kiya — mobile **0.52**, desktop **0.74**.
 - Card ki height **556px** (pehle 773, uske pehle 1400+) — ab ek nazar me poora dikh jata hai.
