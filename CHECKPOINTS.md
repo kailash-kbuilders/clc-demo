@@ -494,7 +494,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 35 — 26 October 2026
-**Commit:** `__CHECKPOINT_35__`
+**Commit:** `7c204431`
 
 - **Blank page 2 ka asli karan mil gaya** — page wrapper (`.mt-wrap`) ki **max-width 760px aur
   padding** print me bhi lag rahi thi, isliye content page se thoda bahar nikal kar **khaali
