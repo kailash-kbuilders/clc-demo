@@ -345,3 +345,15 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - Matlab panel lamba nahi hota, aur card bhi bada/readable rehta hai.
 - Desktop par box 560px tak.
 - Print/PDF par koi asar nahi.
+
+---
+
+## Checkpoint 25 — 26 October 2026
+**Commit:** `__CHECKPOINT_25__`
+
+- **Admin preview ab fix hai** — pehle andar scroll tha, isliye card hilta rehta tha ("upar niche").
+  Ab scroll hata diya: poora card box ke andar **fit** ho jata hai aur **ek jagah tikta hai**.
+  - Box: mobile **326 x 430**, card: **312 x 409** — poora andar, kuch nahi katta
+  - Zoom: mobile **0.38**, desktop **0.5** (desktop box 560px)
+  - Neeche hint: "Preview — poora card dekhne ke liye Download dabayein"
+- Print/PDF par koi asar nahi — download poore size me.

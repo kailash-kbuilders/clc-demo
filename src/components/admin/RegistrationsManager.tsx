@@ -155,7 +155,7 @@ export default function RegistrationsManager({
                 <div className="acwrap">
                   <AdmitCard reg={{ ...r, photo: cardPhoto }} block={block} />
                 </div>
-                <p className="acwrap-hint no-print">Poora card dekhne ke liye andar scroll karein</p>
+                <p className="acwrap-hint no-print">Preview — poora card dekhne ke liye Download dabayein</p>
               </div>
             )}
           </div>
