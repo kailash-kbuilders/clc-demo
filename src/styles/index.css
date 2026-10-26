@@ -620,3 +620,8 @@ main section{overflow-x:clip}
 .admit-btn{background:var(--gold)!important;color:#241a52!important;font-weight:800;
   box-shadow:0 8px 22px #c9941a55}
 .admit-btn:hover{background:var(--gold2)!important;color:#241a52!important}
+
+/* ===== Mega Test section: both buttons the same size (not full width) ===== */
+.reg-btn{display:flex;width:100%;max-width:300px;justify-content:center;text-align:center;margin-top:14px}
+.sch-actions{display:block;margin-top:12px}
+.sch-actions .btn{display:flex;width:100%;max-width:300px;justify-content:center;text-align:center}

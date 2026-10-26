@@ -563,3 +563,13 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - **Gum hui cheez wapas** — "already registered" wale **gold** button ka style aur form ke
   buttons ki sizing (Checkpoint 32 me CSS ka ek block hatate waqt ye bhi saath chala gaya tha).
   Ab wapas daal diya.
+
+---
+
+## Checkpoint 40 — 26 October 2026
+**Commit:** `__CHECKPOINT_40__`
+
+- **Mega Test section ke dono buttons ab bilkul barabar** — "मेगा टेस्ट के लिए रजिस्टर करें"
+  aur "मेगा टेस्ट के बारे में पूछें" — dono **299 x 44** (max-width 300px, poori chaudai nahi).
+  Pehle dono apne text ke hisaab se alag-alag chaudai ke the.
+- Poster **poora** dikhta hai (kata nahi) — check kiya.
