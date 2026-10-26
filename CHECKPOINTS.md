@@ -387,7 +387,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 28 — 26 October 2026
-**Commit:** `__CHECKPOINT_28__`
+**Commit:** `ff1339cb`
 
 - **Hero ke 4 buttons wapas pehle jaise** (aapne kaha) — mobile par "ऑनलाइन रजिस्ट्रेशन" aur
   "WhatsApp पर पूछें" poore chaudai (upar), aur "अभी कॉल करें" + "YouTube पर देखें" aadhe-aadhe
