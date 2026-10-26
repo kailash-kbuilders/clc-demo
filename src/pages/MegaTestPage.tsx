@@ -56,8 +56,6 @@ export default function MegaTestPage() {
   const [reg, setReg] = useState<Registration | null>(null)
   const [lkName, setLkName] = useState('')
   const [lkMobile, setLkMobile] = useState('')
-  const [docFile, setDocFile] = useState<File | null>(null)
-  const [docName, setDocName] = useState('')
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -75,13 +73,6 @@ export default function MegaTestPage() {
     const mobile = form.mobile.replace(/\D/g, '')
     if (!form.photo)
       return setErr(L(['Please add the student photo.', 'कृपया विद्यार्थी की फोटो लगाएँ।']))
-    if (!docFile)
-      return setErr(
-        L([
-          'Please upload the filled Navodaya form.',
-          'कृपया भरा हुआ नवोदय फॉर्म अपलोड करें।',
-        ]),
-      )
     if (form.name.trim().length < 2)
       return setErr(L(['Please enter the student name.', 'कृपया विद्यार्थी का नाम लिखें।']))
     if (mobile.length !== 10)
@@ -284,34 +275,7 @@ export default function MegaTestPage() {
                 </div>
               </div>
 
-              <div className="mt-full mt-photo">
-                <span className="adm-lbl">
-                  {L(['Filled Navodaya form (photo or PDF)', 'भरा हुआ नवोदय फॉर्म (फोटो या PDF)'])} *
-                </span>
-                <div className="mt-photorow">
-                  <div className="mt-photoprev mt-photoprev-empty">
-                    {L(['Form', 'फॉर्म'])}
-                  </div>
-                  <div>
-                    <input
-                      type="file"
-                      accept="image/*,application/pdf"
-                      onChange={(e) => {
-                        const f = e.target.files?.[0] ?? null
-                        setDocFile(f)
-                        setDocName(f ? f.name : '')
-                      }}
-                    />
-                    <p className="mt-note">
-                      {L([
-                        'Take a clear photo of the filled form, or choose the PDF.',
-                        'भरे हुए फॉर्म की साफ फोटो खींचें, या PDF चुनें।',
-                      ])}
-                    </p>
-                    {docName && <p className="mt-docname">{docName}</p>}
-                  </div>
-                </div>
-              </div>
+
 
               <label>
                 <span>{L(['Student name', 'विद्यार्थी का नाम'])} *</span>

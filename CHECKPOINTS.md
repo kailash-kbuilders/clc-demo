@@ -276,3 +276,12 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
    par test kiya.
 4. **Result ki tarikh ka field admin se hata diya** — admit card par ab bina tarikh bhi
    saaf likha aata hai: "Result will be published on our website and WhatsApp group."
+
+---
+
+## Checkpoint 19 — 26 October 2026
+**Commit:** `__CHECKPOINT_19__`
+
+- **Document (Navodaya form) upload hata diya** — form me ab sirf **photo** hai (jo zaroori hai),
+  uske baad naam, pita ka naam, class, category, DOB, gender, mobile.
+- Form ab chhota aur saaf hai. Registration sirf photo par chalta hai.
