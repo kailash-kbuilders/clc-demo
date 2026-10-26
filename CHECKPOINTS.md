@@ -323,3 +323,12 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   - Phir poora card **zoom** hokar panel me fit hota hai (mobile 0.66, desktop 0.82)
 - Card ki height **~773px** (pehle 1400+ thi) — aadha ho gaya, aur type bhi bada/readable hai.
 - Print/PDF par koi asar nahi.
+
+---
+
+## Checkpoint 23 — 26 October 2026
+**Commit:** `__CHECKPOINT_23__`
+
+- Admin ke admit card preview ka **zoom aur chhota** kiya — mobile **0.52**, desktop **0.74**.
+- Card ki height **556px** (pehle 773, uske pehle 1400+) — ab ek nazar me poora dikh jata hai.
+- Do column layout wahi — bilkul download jaisa. Print/PDF par koi asar nahi.
