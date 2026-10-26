@@ -541,11 +541,16 @@ main section{overflow-x:clip}
   html,body{background:#fff!important;margin:0!important;padding:0!important}
   body *{visibility:hidden!important}
   #admit-card,#admit-card *{visibility:visible!important}
-  #admit-card{position:absolute;left:0;top:0;width:100%;max-width:none;margin:0;border:0;border-radius:0;padding:0;box-shadow:none;page-break-inside:avoid;break-inside:avoid}
+  #admit-card{position:absolute;left:0;top:0;width:100%;max-width:none;margin:0;border:0;border-radius:0;
+    padding:0;box-shadow:none;page-break-inside:avoid;break-inside:avoid;
+    zoom:1!important;transform:none!important}
+  .acfit{zoom:1!important;transform:none!important;display:block!important}
+  #admit-card .ac-grid{grid-template-columns:1.55fr 1fr!important}
+  #admit-card .ac-exam{grid-template-columns:1.35fr 1fr!important}
+  #admit-card .ac-head{flex-direction:row!important;text-align:left!important}
   #admit-card .ac-ins{font-size:9.4pt;line-height:1.45}
   #admit-card .ac-box td{padding:4px 8px;font-size:9.6pt}
   .no-print{display:none!important}
-  @page{size:A4 portrait;margin:8mm}
 }
 
 /* ================= admin panel: photos keep their real shape ================= */
@@ -585,3 +590,5 @@ main section{overflow-x:clip}
 .mt-btns .btn{width:100%;justify-content:center;text-align:center;min-height:52px}
 
 .acwrap-hint{margin:8px 0 0;font-size:.76rem;color:var(--mut);text-align:center}
+
+@page{size:A4 portrait;margin:8mm}

@@ -459,3 +459,20 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 3. PDF **1 page** — check kiya.
 4. **Note:** purane 2 test registrations me Aadhaar/Address/Block khaali hain (wo naye fields
    hain), isliye unke card par ye rows nahi dikhengi. Naye registration par dikhengi.
+
+---
+
+## Checkpoint 33 — 26 October 2026
+**Commit:** `__CHECKPOINT_33__`
+
+- **PDF bahut chhota kyun ban raha tha** — jo **zoom** screen par card ko chhota dikhane ke liye
+  lagaya tha (0.45), wo **print me bhi lag jata tha**. Isliye PDF me card 25% size me chhapta tha
+  aur details padhi hi nahi jati thin.
+  - **Fix:** print me `#admit-card` aur `.acfit` ka zoom **1** kar diya (`!important`).
+  - Print me do column bhi force kiya.
+- **Paper size ab A4** — `@page{size:A4 portrait;margin:8mm}` ko `@media print` ke bahar
+  (top level) rakha. Pehle dialog me "Letter" aa raha tha.
+- **Test:** PDF 1 page, page size **595x842pt = A4**, card **89% width** bharta hai
+  (pehle ~25%). Details poori padhi ja sakti hain.
+- **Note:** "Block" row khaali thi kyunki us test registration me block bhara nahi tha
+  (wo field uske baad add hua). Naye registration me aayegi.
