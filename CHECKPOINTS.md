@@ -336,7 +336,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 24 — 26 October 2026
-**Commit:** `__CHECKPOINT_24__`
+**Commit:** `4ac94c26`
 
 - Admin ka admit card preview ab ek **scroll box** me hai:
   - Box ka size mobile par **326 x 430** — "square se thoda lamba" (1:1.32)
