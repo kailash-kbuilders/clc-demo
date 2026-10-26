@@ -618,7 +618,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 43 — 26 October 2026
-**Commit:** `__CHECKPOINT_43__`
+**Commit:** `e6a09769`
 
 - **Result wali patti ab laal (red)** hai — safed text ke saath, upar home page par.
   Nav ka "परिणाम देखें" pill bhi red kar diya (ek jaisa dikhe).
