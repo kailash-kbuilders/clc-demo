@@ -393,3 +393,21 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   "WhatsApp पर पूछें" poore chaudai (upar), aur "अभी कॉल करें" + "YouTube पर देखें" aadhe-aadhe
   neeche. Baaki sab (Mega Test section ke buttons barabar, form draft, gold admit-card button)
   waise hi hain.
+
+---
+
+## Checkpoint 29 — 26 October 2026
+**Commit:** `__CHECKPOINT_29__`
+
+1. **Naye form fields** — **आधार नंबर** (12 अंक), **पता**, **ब्लॉक**.
+   **Sabhi fields ab zaroori** hain — aadha, bhara hua form submit nahi hoga.
+   Server bhi check karta hai (bina Aadhaar/address/block ke registration nahi hoti).
+2. **Roll number ab `2021123` se shuru** — 2021123, 2021124, ... (delete hone par number
+   wapas free ho jata hai). Purane do test registration (CLCMT...) waise hi hain — admin se
+   delete kar sakte hain.
+3. **Aadhaar duplicate rok** — ek Aadhaar se sirf ek registration.
+4. **Admit card par naya row — "Exam Time: सुबह 11:30 से 1:30 तक"**.
+5. **Naya centre — "महाराजा पब्लिक स्कूल, शिव नगर, बाड़मेर"** (DB me bhi set kar diya).
+6. **Admin → Mega Test** me naya field: "Exam ka samay" (badal sakte hain).
+7. **Admin → Registrations** ki details me ab Aadhaar, Address, Block bhi dikhte hain.
+8. PDF abhi bhi **1 page** — check kiya.

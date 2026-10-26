@@ -166,6 +166,8 @@ export type Registration = {
   gender: string | null
   mobile: string
   address: string | null
+  aadhaar?: string | null
+  block_name?: string | null
   photo?: string | null
   thumb?: string | null
   document?: string | null
@@ -180,6 +182,9 @@ export type RegisterPayload = {
   dob: string
   gender: string
   mobile: string
+  aadhaar: string
+  address: string
+  block: string
   photo: string
   thumb: string
 }

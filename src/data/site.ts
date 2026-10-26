@@ -261,8 +261,8 @@ export const MEGATEST_DEFAULT = {
   regTo: '',
   examDate: '',
   reportingTime: '',
-  examTime: '',
-  centre: 'Career Launcher Classes, Shastri Nagar, Barmer (Raj.)',
+  centre: 'महाराजा पब्लिक स्कूल, शिव नगर, बाड़मेर',
+  examTime: 'सुबह 11:30 से 1:30 तक',
   resultDate: '',
 }
 

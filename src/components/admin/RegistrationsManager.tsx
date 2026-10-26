@@ -127,6 +127,9 @@ export default function RegistrationsManager({
                       ['Date of birth', r.dob],
                       ['Gender', r.gender],
                       ['Mobile', r.mobile],
+                      ['Aadhaar', r.aadhaar],
+                      ['Address', r.address],
+                      ['Block', r.block_name],
                       ['Registered at', new Date(r.created_at).toLocaleString('en-IN')],
                     ]
                       .filter(([, v]) => v)

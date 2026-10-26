@@ -13,6 +13,9 @@ const DRAFT_KEY = 'clcMegaTestDraft'
 
 const EMPTY = {
   photo: '',
+  aadhaar: '',
+  address: '',
+  block: '',
   thumb: '',
   name: '',
   father: '',
@@ -97,6 +100,17 @@ export default function MegaTestPage() {
     const mobile = form.mobile.replace(/\D/g, '')
     if (!form.photo)
       return setErr(L(['Please add the student photo.', 'कृपया विद्यार्थी की फोटो लगाएँ।']))
+    const aadhaar = form.aadhaar.replace(/\D/g, '')
+    if (aadhaar.length !== 12)
+      return setErr(L(['Aadhaar number must be 12 digits.', 'आधार नंबर 12 अंकों का होना चाहिए।']))
+    if (!form.address.trim())
+      return setErr(L(['Please fill the address.', 'कृपया पता भरें।']))
+    if (!form.block.trim())
+      return setErr(L(['Please fill the block.', 'कृपया ब्लॉक भरें।']))
+    if (!form.father.trim() || !form.class || !form.category || !form.dob || !form.gender)
+      return setErr(
+        L(['Please fill every field.', 'कृपया सभी जानकारी भरें।']),
+      )
     if (form.name.trim().length < 2)
       return setErr(L(['Please enter the student name.', 'कृपया विद्यार्थी का नाम लिखें।']))
     if (mobile.length !== 10)
@@ -104,8 +118,8 @@ export default function MegaTestPage() {
 
     setBusy(true)
     try {
-      const res = await registerForMegaTest({ ...form, mobile })
-      setReg({ ...form, mobile, id: 0, roll_no: res.roll_no, created_at: new Date().toISOString() } as Registration)
+      const res = await registerForMegaTest({ ...form, mobile, aadhaar })
+      setReg({ ...form, mobile, school: null, id: 0, roll_no: res.roll_no, created_at: new Date().toISOString() } as unknown as Registration)
       try {
         sessionStorage.removeItem(DRAFT_KEY)
       } catch {
@@ -124,7 +138,18 @@ export default function MegaTestPage() {
             'यह विद्यार्थी पहले से रजिस्टर्ड है।',
           ]),
         )
-      } else if (m.includes('duplicate_student'))
+      } else if (m.includes('aadhaar_used'))
+        setErr(
+          L([
+            'This Aadhaar number is already registered.',
+            'यह आधार नंबर पहले से रजिस्टर्ड है।',
+          ]),
+        )
+      else if (m.includes('aadhaar_invalid'))
+        setErr(L(['Aadhaar number must be 12 digits.', 'आधार नंबर 12 अंकों का होना चाहिए।']))
+      else if (m.includes('_required'))
+        setErr(L(['Please fill every field.', 'कृपया सभी जानकारी भरें।']))
+      else if (m.includes('duplicate_student'))
         setErr(
           L([
             'A student with the same name, date of birth and father\'s name is already registered.',
@@ -311,12 +336,12 @@ export default function MegaTestPage() {
                 <input value={form.name} onChange={set('name')} required />
               </label>
               <label>
-                <span>{L(["Father's name", 'पिता का नाम'])}</span>
-                <input value={form.father} onChange={set('father')} />
+                <span>{L(["Father's name", 'पिता का नाम'])} *</span>
+                <input value={form.father} onChange={set('father')} required />
               </label>
               <label>
-                <span>{L(['Class', 'कक्षा'])}</span>
-                <select value={form.class} onChange={set('class')}>
+                <span>{L(['Class', 'कक्षा'])} *</span>
+                <select value={form.class} onChange={set('class')} required>
                   <option value="">{L(['Select', 'चुनें'])}</option>
                   {CLASS_OPTIONS.map((c) => (
                     <option key={c} value={c}>
@@ -327,8 +352,8 @@ export default function MegaTestPage() {
                 </select>
               </label>
               <label>
-                <span>{L(['Category', 'वर्ग'])}</span>
-                <select value={form.category} onChange={set('category')}>
+                <span>{L(['Category', 'वर्ग'])} *</span>
+                <select value={form.category} onChange={set('category')} required>
                   <option value="">{L(['Select', 'चुनें'])}</option>
                   {CATEGORY_OPTIONS.map((c) => (
                     <option key={c} value={c}>
@@ -338,17 +363,18 @@ export default function MegaTestPage() {
                 </select>
               </label>
               <label>
-                <span>{L(['Date of birth', 'जन्म तिथि'])}</span>
+                <span>{L(['Date of birth', 'जन्म तिथि'])} *</span>
                 <input
                   value={form.dob}
                   onChange={set('dob')}
                   inputMode="numeric"
                   placeholder="DD/MM/YYYY"
+                  required
                 />
               </label>
               <label>
-                <span>{L(['Gender', 'लिंग'])}</span>
-                <select value={form.gender} onChange={set('gender')}>
+                <span>{L(['Gender', 'लिंग'])} *</span>
+                <select value={form.gender} onChange={set('gender')} required>
                   <option value="">{L(['Select', 'चुनें'])}</option>
                   {GENDER_OPTIONS.map((g) => (
                     <option key={g} value={g}>
@@ -357,7 +383,7 @@ export default function MegaTestPage() {
                   ))}
                 </select>
               </label>
-              <label className="mt-full">
+              <label>
                 <span>{L(['Mobile number', 'मोबाइल नंबर'])} *</span>
                 <input
                   value={form.mobile}
@@ -366,6 +392,25 @@ export default function MegaTestPage() {
                   maxLength={10}
                   required
                 />
+              </label>
+              <label>
+                <span>{L(['Aadhaar number', 'आधार नंबर'])} *</span>
+                <input
+                  value={form.aadhaar}
+                  onChange={set('aadhaar')}
+                  inputMode="numeric"
+                  maxLength={12}
+                  placeholder="12 अंक"
+                  required
+                />
+              </label>
+              <label className="mt-full">
+                <span>{L(['Address', 'पता'])} *</span>
+                <input value={form.address} onChange={set('address')} required />
+              </label>
+              <label>
+                <span>{L(['Block', 'ब्लॉक'])} *</span>
+                <input value={form.block} onChange={set('block')} required />
               </label>
 
               {err && <p className="mt-err mt-full">{err}</p>}
