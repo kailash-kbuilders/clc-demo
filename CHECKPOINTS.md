@@ -490,3 +490,20 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - **Test:** PDF render karke dekha — 1 page, A4 (595x842pt), navy banner + headers + footer
   sab sahi, aur saari details (Roll, naam, pita, class, category, DOB, gender, mobile,
   Aadhaar, Address, Block, Exam Date/Time/Centre, 8 instructions) saaf padhi ja rahi hain.
+
+---
+
+## Checkpoint 35 — 26 October 2026
+**Commit:** `__CHECKPOINT_35__`
+
+- **Blank page 2 ka asli karan mil gaya** — page wrapper (`.mt-wrap`) ki **max-width 760px aur
+  padding** print me bhi lag rahi thi, isliye content page se thoda bahar nikal kar **khaali
+  doosra page** ban jata tha.
+  - **Fix:** print me `.mt-wrap`, `.reg-body`, `.adm-panel`, `.admin-panelcard`, `.admin-wide`,
+    `.admin` — sabki width/padding/margin/min-height/border reset.
+  - Saath me `body *:not(:has(#admit-card))` se baaki poora page print se hata diya
+    (display:none), taaki wo jagah na le.
+- **Long details ke liye bhi 1 page** — instructions 8.6pt, table 9pt, padding 3px — thodi jagah
+  bachi rehti hai, isliye lambi address/naam hone par bhi 1 hi page aata hai.
+- **Test:** lambi address + lambe naam ke saath PDF banaya — **1 page**, A4 (595x842pt),
+  content y 17-779 (page 842) — sab andar, colours sahi, kuch nahi katta.
