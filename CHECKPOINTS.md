@@ -524,7 +524,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 37 — 26 October 2026
-**Commit:** `__CHECKPOINT_37__`
+**Commit:** `465fa3b2`
 
 - **Naya: "List PDF" button** (admin → Registrations, Refresh ke bagal me).
   - Sabhi registrations ki **table wali PDF** banti hai — **direct download** (koi print
