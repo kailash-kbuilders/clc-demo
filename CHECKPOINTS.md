@@ -264,7 +264,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 18 — 26 October 2026
-**Commit:** `__CHECKPOINT_18__`
+**Commit:** `aae2f065`
 
 1. **Mega Test section ab number 01** — hero ke theek baad, sabse upar. (Pehle 02 par tha.)
    Ab: 01 मेगा टेस्ट → 02 प्रवेश परीक्षाएँ → 03 परिणाम → 04 हमारे बारे में → 05 छात्रावास.
