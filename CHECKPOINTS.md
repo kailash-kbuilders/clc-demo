@@ -300,3 +300,13 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - **Test kiya:** 390px screen par (aur 20px bade font ke saath bhi) — card 351px,
   table 315px, page par koi horizontal scroll nahi, **koi value nahi katti**.
 - Print/PDF pehle jaisa hi sahi hai (wahan alag settings hain).
+
+---
+
+## Checkpoint 21 — 26 October 2026
+**Commit:** `__CHECKPOINT_21__`
+
+- **Admin me admit card ab chhota "preview"** dikhta hai (zoom 0.8 desktop, 0.58 mobile) —
+  poora card panel me fit ho jata hai, kuch nahi katta, aur padhne layak rehta hai.
+- Download / print par koi asar nahi — PDF poore size me hi banta hai.
+- Test kiya 390px par: card 326px, page par koi side-scroll nahi.

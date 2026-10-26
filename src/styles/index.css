@@ -566,3 +566,11 @@ main section{overflow-x:clip}
 .poster-fig{margin:26px 0 0}
 .poster-img{width:100%;border-radius:16px;border:1px solid var(--line);background:var(--card);cursor:zoom-in}
 .poster-fig figcaption{margin-top:10px;font-size:.86rem;color:var(--mut);text-align:center}
+
+/* ============ admin: admit card as a compact preview ============ */
+/* zoom scales the whole card (layout + text) so it fits the narrow admin panel.
+   The downloaded / printed PDF is unaffected - it uses the print rules. */
+.reg-body .ac{zoom:.8;margin:6px auto 0}
+@media(max-width:600px){
+  .reg-body .ac{zoom:.58}
+}
