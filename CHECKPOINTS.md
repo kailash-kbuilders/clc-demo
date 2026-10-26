@@ -507,3 +507,16 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   bachi rehti hai, isliye lambi address/naam hone par bhi 1 hi page aata hai.
 - **Test:** lambi address + lambe naam ke saath PDF banaya — **1 page**, A4 (595x842pt),
   content y 17-779 (page 842) — sab andar, colours sahi, kuch nahi katta.
+
+---
+
+## Checkpoint 36 — 26 October 2026
+**Commit:** `__CHECKPOINT_36__`
+
+1. **Student details ke baad ki khaali jagah gayi** — `.ac-grid` me dono box ab **barabar height**
+   ke hain (`align-items:stretch`), aur table ki rows poore box me **barabar fail** jati hain.
+   Ab STUDENT DETAILS box, PHOTO & RESULT box ke saath hi khatam hota hai — beech me safed jagah
+   nahi.
+2. **"इस तारीख को" wala purana text hata diya** — Hindi line me tarikh ka zikr reh gaya tha
+   (jabki date hata di thi). Ab: "परिणाम हमारी वेबसाइट और WhatsApp ग्रुप पर देखें।"
+3. PDF **1 page**, colours sahi — check kiya.

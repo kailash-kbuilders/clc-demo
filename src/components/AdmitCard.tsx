@@ -79,7 +79,7 @@ export default function AdmitCard({
             ) : (
               <p className="ac-rp">Result will be published on our website and WhatsApp group.</p>
             )}
-            <p className="ac-hi">परिणाम हमारी वेबसाइट और WhatsApp ग्रुप पर इस तारीख को देखें</p>
+            <p className="ac-hi">परिणाम हमारी वेबसाइट और WhatsApp ग्रुप पर देखें।</p>
             <span className="ac-site">{site}</span>
           </div>
         </div>

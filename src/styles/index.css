@@ -601,3 +601,9 @@ main section{overflow-x:clip}
 .acwrap-hint{margin:8px 0 0;font-size:.76rem;color:var(--mut);text-align:center}
 
 @page{size:A4 portrait;margin:6mm}
+
+/* ===== admit card: the two columns always the same height (no gap under student details) ===== */
+.ac-grid{align-items:stretch}
+.ac-grid>.ac-box{height:100%;display:flex;flex-direction:column}
+.ac-grid>.ac-box table{flex:1 1 auto;height:100%}
+.ac-grid>.ac-box .ac-resultbody{flex:1 1 auto}
