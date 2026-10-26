@@ -480,7 +480,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 34 — 26 October 2026
-**Commit:** `__CHECKPOINT_34__`
+**Commit:** `873f4e7a`
 
 - **PDF me colour nahi aa rahe the** — browser default me **background graphics print nahi karta**.
   Isliye navy banner/headers/footer safed chhapte the aur unke upar ka safed text gayab lagta tha.
