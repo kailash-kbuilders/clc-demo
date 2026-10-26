@@ -361,7 +361,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 26 — 26 October 2026
-**Commit:** `__CHECKPOINT_26__`
+**Commit:** `3e3090b0`
 
 - **Frame hata diya** — admin me admit card ab seedha dikhta hai (koi box nahi, koi scroll nahi,
   koi fixed height nahi). Card **326 x 556** — ek jagah tikta hai, hilta nahi.
