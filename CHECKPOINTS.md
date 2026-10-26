@@ -314,7 +314,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 22 — 26 October 2026
-**Commit:** `__CHECKPOINT_22__`
+**Commit:** `942bda11`
 
 - **Admin ka admit card preview ab bilkul download jaisa** dikhta hai:
   - **Do column** layout (STUDENT DETAILS | PHOTO & RESULT) — pehle mobile par ek column
