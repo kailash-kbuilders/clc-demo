@@ -570,9 +570,10 @@ main section{overflow-x:clip}
 /* ============ admin: admit card as a compact preview ============ */
 /* The card is laid out exactly like the downloaded PDF (two columns, same paddings)
    and then zoomed down so it fits the admin panel. Print/PDF is unaffected. */
-.acwrap{height:560px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#fff;padding:6px}
-.acwrap-hint{margin:6px 0 0;font-size:.76rem;color:var(--mut);text-align:center}
-.reg-body .ac{zoom:.5;margin:0 auto;padding:20px;border-width:3px;flex:none}
+/* simple: no frame, no fixed height, no scrolling - the card just sits there */
+.acwrap{display:block;overflow:visible}
+.acwrap-hint{margin:8px 0 0;font-size:.76rem;color:var(--mut);text-align:center}
+.reg-body .ac{zoom:.7;margin:6px auto 0;padding:20px;border-width:3px}
 .reg-body .ac .ac-grid{grid-template-columns:1.55fr 1fr}
 .reg-body .ac .ac-exam{grid-template-columns:1.35fr 1fr}
 .reg-body .ac .ac-head{flex-direction:row;text-align:left}
@@ -582,6 +583,5 @@ main section{overflow-x:clip}
 .reg-body .ac .ac-box table{font-size:.86rem}
 .reg-body .ac .ac-ins{font-size:.72rem;padding-left:26px}
 @media(max-width:600px){
-  .acwrap{height:430px}
-  .reg-body .ac{zoom:.38}
+  .reg-body .ac{zoom:.52}
 }

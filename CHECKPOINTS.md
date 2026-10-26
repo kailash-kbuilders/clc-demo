@@ -357,3 +357,13 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   - Zoom: mobile **0.38**, desktop **0.5** (desktop box 560px)
   - Neeche hint: "Preview — poora card dekhne ke liye Download dabayein"
 - Print/PDF par koi asar nahi — download poore size me.
+
+---
+
+## Checkpoint 26 — 26 October 2026
+**Commit:** `__CHECKPOINT_26__`
+
+- **Frame hata diya** — admin me admit card ab seedha dikhta hai (koi box nahi, koi scroll nahi,
+  koi fixed height nahi). Card **326 x 556** — ek jagah tikta hai, hilta nahi.
+- Zoom: mobile 0.52, desktop 0.7. Do column layout wahi (download jaisa).
+- Neeche hint: "Preview — poora card dekhne ke liye Download dabayein".
