@@ -434,7 +434,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 31 — 26 October 2026
-**Commit:** `__CHECKPOINT_31__`
+**Commit:** `0e305ee9`
 
 1. **User side ka admit card preview ab A4 jaisa** — do column, aur size **358 x 505**
    (ratio **1:1.41 = A4**). Bilkul waisa hi jaisa PDF banta hai. (Pehle ek column me khul kar
