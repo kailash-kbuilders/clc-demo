@@ -332,3 +332,16 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - Admin ke admit card preview ka **zoom aur chhota** kiya — mobile **0.52**, desktop **0.74**.
 - Card ki height **556px** (pehle 773, uske pehle 1400+) — ab ek nazar me poora dikh jata hai.
 - Do column layout wahi — bilkul download jaisa. Print/PDF par koi asar nahi.
+
+---
+
+## Checkpoint 24 — 26 October 2026
+**Commit:** `__CHECKPOINT_24__`
+
+- Admin ka admit card preview ab ek **scroll box** me hai:
+  - Box ka size mobile par **326 x 430** — "square se thoda lamba" (1:1.32)
+  - Andar card **bada** hai (zoom 0.62) — padhne layak
+  - Neeche hint: "Poora card dekhne ke liye andar scroll karein"
+- Matlab panel lamba nahi hota, aur card bhi bada/readable rehta hai.
+- Desktop par box 560px tak.
+- Print/PDF par koi asar nahi.
