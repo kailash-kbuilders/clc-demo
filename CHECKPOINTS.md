@@ -555,7 +555,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 39 — 26 October 2026
-**Commit:** `__CHECKPOINT_39__`
+**Commit:** `bb708913`
 
 - **Mega Test section ke buttons** ("मेगा टेस्ट के लिए रजिस्टर करें" aur WhatsApp) —
   **purane size par hain** (poori chaudai wale override hata diye gaye the).
