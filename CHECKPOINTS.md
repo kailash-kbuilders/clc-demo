@@ -540,3 +540,14 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
   isliye website slow nahi hoti.
 - **Test:** 25 rows ki test PDF banayi — 2 pages, A4, header navy + safed text,
   Hindi naam/address sahi, 560 KB.
+
+---
+
+## Checkpoint 38 — 26 October 2026
+**Commit:** `__CHECKPOINT_38__`
+
+- **Navigation ka kram theek kiya** (EN toggle ke paas wala / mobile drawer).
+  Pehle nav purane order me tha, jabki page ka order badal chuka tha. Ab dono ek jaise hain:
+  1. मेगा टेस्ट  2. प्रवेश परीक्षा  3. परिणाम  4. हमारे बारे में
+  5. छात्रावास  6. अध्ययन सामग्री  7. सवाल-जवाब  8. संपर्क
+- Drawer render karke check kiya — kram sahi aa raha hai.

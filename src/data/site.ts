@@ -18,13 +18,14 @@ export const CONFIG = {
   siteUrl: 'https://clcbarmer.in',
 }
 
+/* Order matches the order of the sections on the page. */
 export const NAV: { href: string; id: string; label: Pair }[] = [
+  { href: '#tests', id: 'tests', label: ['Mega Test', 'मेगा टेस्ट'] },
   { href: '#exams', id: 'exams', label: ['Exams', 'प्रवेश परीक्षा'] },
   { href: '#results', id: 'results', label: ['Results', 'परिणाम'] },
-  { href: '#tests', id: 'tests', label: ['Mega Test', 'मेगा टेस्ट'] },
-  { href: '#material', id: 'material', label: ['Study Material', 'अध्ययन सामग्री'] },
   { href: '#about', id: 'about', label: ['About us', 'हमारे बारे में'] },
   { href: '#hostel', id: 'hostel', label: ['Hostel', 'छात्रावास'] },
+  { href: '#material', id: 'material', label: ['Study Material', 'अध्ययन सामग्री'] },
   { href: '#faq', id: 'faq', label: ['FAQ', 'सवाल-जवाब'] },
   { href: '#contact', id: 'contact', label: ['Contact', 'संपर्क'] },
 ]
