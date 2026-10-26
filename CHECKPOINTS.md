@@ -383,3 +383,13 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 4. **"Already registered" wale button ka rang alag** — "Click to download admit card" ab
    **gold** rang ka hai (baaki navy), taaki alag se dikhe.
 5. **Form ke saare buttons ek jaise** — poore chaudai, min-height 52px.
+
+---
+
+## Checkpoint 28 — 26 October 2026
+**Commit:** `__CHECKPOINT_28__`
+
+- **Hero ke 4 buttons wapas pehle jaise** (aapne kaha) — mobile par "ऑनलाइन रजिस्ट्रेशन" aur
+  "WhatsApp पर पूछें" poore chaudai (upar), aur "अभी कॉल करें" + "YouTube पर देखें" aadhe-aadhe
+  neeche. Baaki sab (Mega Test section ke buttons barabar, form draft, gold admit-card button)
+  waise hi hain.

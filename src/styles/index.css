@@ -249,7 +249,7 @@ nav a{font-size:.9rem;padding:8px 9px}nav a:hover{background:none;color:var(--go
 .hero h1{font-size:clamp(1.9rem,6.4vw,3.4rem);line-height:1.12;min-height:2.5em}
 .sealw{width:min(180px,46%)}@media(min-width:800px){.hero .g{grid-template-columns:1.5fr 1fr}.sealw{width:230px}}
 .hero .row{margin-top:26px}.hero .row .btn{border-radius:16px;font-weight:700}.hero .btn.reg{box-shadow:0 8px 22px #c9941a66}
-/* all four hero buttons stay exactly the same size */
+@media(max-width:680px){.hero .btn.reg,.hero .btn.wa{grid-column:span 2;order:-1}}
 .btn{transition:transform .2s,box-shadow .2s}.btn:hover{transform:translateY(-2px)}
 .tag{border-radius:999px;padding:3px 12px}
 #courses{background:var(--bg)}#exams,#about,#faq{background:var(--card)}#material{background:var(--bg)}
