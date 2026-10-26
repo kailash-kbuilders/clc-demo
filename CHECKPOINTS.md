@@ -567,7 +567,7 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 ---
 
 ## Checkpoint 40 — 26 October 2026
-**Commit:** `__CHECKPOINT_40__`
+**Commit:** `09220aa3`
 
 - **Mega Test section ke dono buttons ab bilkul barabar** — "मेगा टेस्ट के लिए रजिस्टर करें"
   aur "मेगा टेस्ट के बारे में पूछें" — dono **299 x 44** (max-width 300px, poori chaudai nahi).
