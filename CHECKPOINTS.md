@@ -520,3 +520,23 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 2. **"इस तारीख को" wala purana text hata diya** — Hindi line me tarikh ka zikr reh gaya tha
    (jabki date hata di thi). Ab: "परिणाम हमारी वेबसाइट और WhatsApp ग्रुप पर देखें।"
 3. PDF **1 page**, colours sahi — check kiya.
+
+---
+
+## Checkpoint 37 — 26 October 2026
+**Commit:** `__CHECKPOINT_37__`
+
+- **Naya: "List PDF" button** (admin → Registrations, Refresh ke bagal me).
+  - Sabhi registrations ki **table wali PDF** banti hai — **direct download** (koi print
+    preview dialog nahi khulta).
+  - Columns: **क्र.स. | Roll No. | Name | Father's Name | Class | Mobile | Aadhaar | Address**
+  - Upar header: CLC Barmer, address, "Mega Test Registrations", tarikh, total
+  - Har page par table header dobara + neeche "Page 1 / 2"
+  - Har page par 24 rows, A4
+  - Data **registered records se hi** banti hai (kuch save nahi hota).
+- **Hindi sahi chhapta hai** — PDF HTML ko render karke banti hai (`html2canvas` + `jspdf`),
+  isliye Devanagari theek banta hai (jsPDF ka font shaping nahi use hota).
+- Naye packages: `jspdf`, `html2canvas` — **lazy load** hote hain (sirf button dabane par),
+  isliye website slow nahi hoti.
+- **Test:** 25 rows ki test PDF banayi — 2 pages, A4, header navy + safed text,
+  Hindi naam/address sahi, 560 KB.

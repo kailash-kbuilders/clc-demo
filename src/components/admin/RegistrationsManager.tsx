@@ -3,6 +3,7 @@ import { deleteRegistration, fetchPhoto, fetchRegistrations } from '../../data/c
 import type { PosterBlock, Registration } from '../../data/content'
 import AdmitCard from '../AdmitCard'
 import { printAdmitCard } from '../../lib/download'
+import { downloadRegistrationsPdf } from '../../lib/listPdf'
 
 export default function RegistrationsManager({
   pass,
@@ -14,6 +15,7 @@ export default function RegistrationsManager({
   const [rows, setRows] = useState<Registration[] | null>(null)
   const [err, setErr] = useState('')
   const [q, setQ] = useState('')
+  const [pdfBusy, setPdfBusy] = useState(false)
   const [openId, setOpenId] = useState<number | null>(null)
   const [cardPhoto, setCardPhoto] = useState('')
 
@@ -75,6 +77,20 @@ export default function RegistrationsManager({
         </div>
         <button className="btn sm" type="button" onClick={() => void load()}>
           Refresh
+        </button>
+        <button
+          className="btn sm reg-pdfbtn"
+          type="button"
+          disabled={pdfBusy || !rows || rows.length === 0}
+          onClick={() => {
+            if (!rows || rows.length === 0) return
+            setPdfBusy(true)
+            void downloadRegistrationsPdf(rows)
+              .catch(() => alert('PDF banane me dikkat aayi. Dobara koshish karein.'))
+              .finally(() => setPdfBusy(false))
+          }}
+        >
+          {pdfBusy ? 'PDF ban rahi hai…' : 'List PDF'}
         </button>
       </div>
 
