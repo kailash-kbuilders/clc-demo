@@ -285,3 +285,18 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 - **Document (Navodaya form) upload hata diya** — form me ab sirf **photo** hai (jo zaroori hai),
   uske baad naam, pita ka naam, class, category, DOB, gender, mobile.
 - Form ab chhota aur saaf hai. Registration sirf photo par chalta hai.
+
+---
+
+## Checkpoint 20 — 26 October 2026
+**Commit:** `__CHECKPOINT_20__`
+
+- **Admit card ka mobile par kat jana theek ho gaya.**
+  - Asli wajah: CSS me ek purana global rule tha — `table{min-width:520px}` — jo **har table
+    ko kam se kam 520px** chauda banata tha. Isliye phone par values kat jati thi.
+  - Fix: admit card aur admin ki tables par `min-width:0` + `table-layout:fixed` +
+    `overflow-wrap:anywhere`.
+  - Chhoti screen par padding/font bhi thoda kam kiya.
+- **Test kiya:** 390px screen par (aur 20px bade font ke saath bhi) — card 351px,
+  table 315px, page par koi horizontal scroll nahi, **koi value nahi katti**.
+- Print/PDF pehle jaisa hi sahi hai (wahan alag settings hain).
