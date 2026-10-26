@@ -568,9 +568,17 @@ main section{overflow-x:clip}
 .poster-fig figcaption{margin-top:10px;font-size:.86rem;color:var(--mut);text-align:center}
 
 /* ============ admin: admit card as a compact preview ============ */
-/* zoom scales the whole card (layout + text) so it fits the narrow admin panel.
-   The downloaded / printed PDF is unaffected - it uses the print rules. */
-.reg-body .ac{zoom:.8;margin:6px auto 0}
+/* The card is laid out exactly like the downloaded PDF (two columns, same paddings)
+   and then zoomed down so it fits the admin panel. Print/PDF is unaffected. */
+.reg-body .ac{zoom:.82;margin:8px auto 0;padding:20px;border-width:3px}
+.reg-body .ac .ac-grid{grid-template-columns:1.55fr 1fr}
+.reg-body .ac .ac-exam{grid-template-columns:1.35fr 1fr}
+.reg-body .ac .ac-head{flex-direction:row;text-align:left}
+.reg-body .ac .ac-head h1{font-size:1.5rem}
+.reg-body .ac .ac-banner{font-size:1.3rem}
+.reg-body .ac .ac-box td:first-child{width:38%}
+.reg-body .ac .ac-box table{font-size:.86rem}
+.reg-body .ac .ac-ins{font-size:.72rem;padding-left:26px}
 @media(max-width:600px){
-  .reg-body .ac{zoom:.58}
+  .reg-body .ac{zoom:.66}
 }
