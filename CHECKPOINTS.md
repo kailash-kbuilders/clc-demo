@@ -446,3 +446,16 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
    `overscroll-behavior:none`. Aur `/mega-test` page par bhi **Lightbox** add kar diya
    (pehle wahan tha hi nahi).
 4. PDF abhi bhi 1 page.
+
+---
+
+## Checkpoint 32 — 26 October 2026
+**Commit:** `__CHECKPOINT_32__`
+
+1. **Admin ka admit card preview ab bilkul user wale jaisa** — dono jagah ek hi style
+   (`.acfit`): do column, A4 jaisa, poora card ek nazar me. Admin ki purani alag settings hata di.
+2. **Admit card par ab Aadhaar, Address aur Block bhi** — student details me Mobile ke baad.
+   (Yahi "details" nahi aa rahi thin.)
+3. PDF **1 page** — check kiya.
+4. **Note:** purane 2 test registrations me Aadhaar/Address/Block khaali hain (wo naye fields
+   hain), isliye unke card par ye rows nahi dikhengi. Naye registration par dikhengi.

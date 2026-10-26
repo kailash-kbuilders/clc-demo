@@ -567,38 +567,6 @@ main section{overflow-x:clip}
 .poster-img{width:100%;border-radius:16px;border:1px solid var(--line);background:var(--card);cursor:zoom-in}
 .poster-fig figcaption{margin-top:10px;font-size:.86rem;color:var(--mut);text-align:center}
 
-/* ============ admin: admit card as a compact preview ============ */
-/* The card is laid out exactly like the downloaded PDF (two columns, same paddings)
-   and then zoomed down so it fits the admin panel. Print/PDF is unaffected. */
-/* simple: no frame, no fixed height, no scrolling - the card just sits there */
-.acwrap{display:block;overflow:visible}
-.acwrap-hint{margin:8px 0 0;font-size:.76rem;color:var(--mut);text-align:center}
-.reg-body .ac{zoom:.7;margin:6px auto 0;padding:20px;border-width:3px}
-.reg-body .ac .ac-grid{grid-template-columns:1.55fr 1fr}
-.reg-body .ac .ac-exam{grid-template-columns:1.35fr 1fr}
-.reg-body .ac .ac-head{flex-direction:row;text-align:left}
-.reg-body .ac .ac-head h1{font-size:1.5rem}
-.reg-body .ac .ac-banner{font-size:1.3rem}
-.reg-body .ac .ac-box td:first-child{width:38%}
-.reg-body .ac .ac-box table{font-size:.86rem}
-.reg-body .ac .ac-ins{font-size:.72rem;padding-left:26px}
-@media(max-width:600px){
-  .reg-body .ac{zoom:.52}
-}
-
-/* ===== mega test section: both buttons exactly the same width ===== */
-.reg-btn{display:flex;width:100%;justify-content:center;text-align:center;margin-top:14px}
-.sch-actions{display:block;margin-top:12px}
-.sch-actions .btn{display:flex;width:100%;justify-content:center;text-align:center}
-
-/* ===== registration form: every button the same size, nothing odd ===== */
-.mt-form .btn,.mt-full>.btn{width:100%;justify-content:center;text-align:center;min-height:52px}
-.mt-btns{display:block}
-
-/* ===== "already registered" -> download admit card (distinct colour) ===== */
-.admit-btn{background:var(--gold);color:#241a52;font-weight:800;box-shadow:0 8px 22px #c9941a55}
-.admit-btn:hover{background:var(--gold2);color:#241a52}
-
 /* ===== student side: show the admit card exactly like the printed A4 page ===== */
 .acfit .ac{zoom:.45;margin:0 auto;padding:20px;border-width:3px}
 .acfit .ac .ac-grid{grid-template-columns:1.55fr 1fr}
@@ -615,3 +583,5 @@ main section{overflow-x:clip}
 /* the two buttons above the admit card: exactly equal */
 .mt-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mt-btns .btn{width:100%;justify-content:center;text-align:center;min-height:52px}
+
+.acwrap-hint{margin:8px 0 0;font-size:.76rem;color:var(--mut);text-align:center}

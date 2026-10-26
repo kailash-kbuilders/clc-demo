@@ -54,6 +54,9 @@ export default function AdmitCard({
               <Row label="Date of Birth" value={reg.dob} />
               <Row label="Gender" value={reg.gender} />
               <Row label="Mobile No." value={reg.mobile} />
+            <Row label="Aadhaar No." value={reg.aadhaar} />
+            <Row label="Address" value={reg.address} />
+            <Row label="Block" value={reg.block_name} />
             </tbody>
           </table>
         </div>
