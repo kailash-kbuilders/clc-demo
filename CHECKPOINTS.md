@@ -622,3 +622,20 @@ Admit card aur admin ko aapke kehne ke hisaab se theek kiya:
 
 - **Result wali patti ab laal (red)** hai — safed text ke saath, upar home page par.
   Nav ka "परिणाम देखें" pill bhi red kar diya (ek jaisa dikhe).
+
+---
+
+## Checkpoint 44 — 27 October 2026
+**Commit:** `__CHECKPOINT_44__`
+
+**SEO ke liye (website dikhne me BILKUL same — sirf head me cheezein):**
+
+1. **Structured data (JSON-LD)** add — Google isse padhta hai, screen par kuch nahi dikhta:
+   - `EducationalOrganization` + `LocalBusiness` — naam, alternate names, address
+     (Shastri Nagar, near Sadar Thana, Barmer, 344001), phone, **geo coordinates**,
+     logo, image, Instagram/YouTube/Telegram links, areaServed (Barmer, Marwar)
+   - `WebSite` — site ka naam + language
+   - `FAQPage` — page ke **6 sawal-jawab** (Google search me seedha dikh sakte hain)
+2. **Sitemap me 3 pages** — `/`, `/mega-test`, `/result` (pehle sirf home tha).
+3. **Meta description se "Since 2021" hata diya** (jo reh gaya tha).
+4. **Verify kiya:** JSON valid ✓, canonical sahi ✓, screen par koi badlav nahi ✓

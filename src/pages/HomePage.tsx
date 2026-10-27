@@ -2,7 +2,7 @@ import { useLang } from '../i18n/LangContext'
 import { useReveal } from '../hooks/useReveal'
 import { useActiveSection } from '../hooks/useActiveSection'
 import { useSiteContent } from '../hooks/useSiteContent'
-import { CONFIG, NAV } from '../data/site'
+import { CONFIG, FAQ, NAV } from '../data/site'
 import Seo from '../components/Seo'
 import ScrollProgress from '../components/ScrollProgress'
 import Header from '../components/Header'
@@ -32,9 +32,60 @@ export default function HomePage() {
     <>
       <Seo
         title="CLC Barmer | Navodaya, Sainik School & Rashtriya Military School Coaching, Barmer"
-        description="CLC Barmer (Career Launcher Classes), Shastri Nagar, Barmer, Rajasthan. Coaching for Navodaya Vidyalaya (JNVST), Sainik School (AISSEE) and Rashtriya Military School (RMS) entrance - Class 6 & 9, plus foundation batches Class 3 to 8. Since 2021."
+        description="CLC Barmer (Career Launcher Classes), Shastri Nagar, Barmer, Rajasthan. Coaching for Navodaya Vidyalaya (JNVST), Sainik School (AISSEE) and Rashtriya Military School (RMS) entrance - Class 6 & 9, plus foundation batches Class 3 to 8."
         canonical={`${CONFIG.siteUrl}/`}
         image={`${CONFIG.siteUrl}/img/logo.jpg`}
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': ['EducationalOrganization', 'LocalBusiness'],
+              '@id': `${CONFIG.siteUrl}/#org`,
+              name: 'CLC Barmer',
+              alternateName: ['Career Launcher Classes', 'CLC संस्थान, बाड़मेर'],
+              url: CONFIG.siteUrl,
+              logo: `${CONFIG.siteUrl}/img/logo.jpg`,
+              image: `${CONFIG.siteUrl}/img/campus.jpg`,
+              description:
+                'CLC Barmer (Career Launcher Classes) - coaching for Navodaya Vidyalaya (JNVST), Sainik School (AISSEE) and Rashtriya Military School (RMS) entrance exams, Class 6 and 9, plus foundation batches Class 3 to 8, in Barmer, Rajasthan.',
+              telephone: '+91-9571949387',
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Shastri Nagar, near Sadar Thana',
+                addressLocality: 'Barmer',
+                addressRegion: 'Rajasthan',
+                postalCode: '344001',
+                addressCountry: 'IN',
+              },
+              geo: { '@type': 'GeoCoordinates', latitude: 25.737621, longitude: 71.403307 },
+              areaServed: [
+                { '@type': 'City', name: 'Barmer' },
+                { '@type': 'AdministrativeArea', name: 'Marwar' },
+              ],
+              sameAs: [
+                'https://www.instagram.com/clcbarmer',
+                'https://youtube.com/@clcbarmer',
+                'https://t.me/Clcbme',
+              ],
+            },
+            {
+              '@type': 'WebSite',
+              '@id': `${CONFIG.siteUrl}/#site`,
+              url: CONFIG.siteUrl,
+              name: 'CLC Barmer',
+              inLanguage: 'hi-IN',
+              publisher: { '@id': `${CONFIG.siteUrl}/#org` },
+            },
+            {
+              '@type': 'FAQPage',
+              mainEntity: FAQ.map((f) => ({
+                '@type': 'Question',
+                name: f.q[1],
+                acceptedAnswer: { '@type': 'Answer', text: f.a[1] },
+              })),
+            },
+          ],
+        }}
       />
       <ScrollProgress />
       <Header active={active} resultOpen={Boolean(content.resultsCfg?.open)} />
